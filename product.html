@@ -32,48 +32,82 @@
 
     <main class="page">
         <div class="container">
-            <h1 class="page-title heading-hero" id="product-name">PORSCHE 911 GT3</h1>
+            <h1 class="page-title heading-hero" id="product-name">MERCEDES-AMG C63 S COUPÉ</h1>
             
             <div class="viewer-container mb-12">
-                <div class="card" style="height: 500px; display: flex; align-items: center; justify-content: center; background: var(--bg-surface);">
-                    <div class="text-center">
-                        <div class="text-small mb-4">360° INTERACTIVE VIEW</div>
-                        <div class="text-small" style="opacity: 0.7;">CLICK AND DRAG TO ROTATE</div>
-                    </div>
+                <div class="card" style="height: 500px; overflow: hidden; background: var(--bg-surface);">
+                    <img src="https://images.unsplash.com/photo-1563694983011-6f4ac93e8975?w=1200&h=600&fit=crop&crop=center" 
+                         alt="Mercedes-AMG C63 S Coupé" 
+                         style="width: 100%; height: 100%; object-fit: cover;">
                 </div>
             </div>
             
             <div class="flex justify-center mb-12">
-                <button class="btn" id="play-sound" data-translate="play-sound">PLAY SOUND</button>
-                <button class="btn" id="mute-sound" data-translate="mute-sound" style="display: none;">MUTE</button>
+                <button class="btn" id="play-sound">ENGINE SOUND</button>
+                <button class="btn" id="mute-sound" style="display: none;">MUTE</button>
             </div>
             
             <div class="grid grid-cols-4 mb-12">
                 <div class="text-center">
-                    <div class="text-small mb-2" data-translate="price-label">PRICE</div>
-                    <div class="heading-card" id="product-price">€189,500</div>
+                    <div class="text-small mb-2">PRICE</div>
+                    <div class="heading-card" id="product-price">€89,500</div>
                 </div>
                 <div class="text-center">
-                    <div class="text-small mb-2" data-translate="year-label">YEAR</div>
-                    <div class="heading-card" id="product-year">2023</div>
+                    <div class="text-small mb-2">YEAR</div>
+                    <div class="heading-card" id="product-year">2018</div>
                 </div>
                 <div class="text-center">
-                    <div class="text-small mb-2" data-translate="power-label">POWER</div>
+                    <div class="text-small mb-2">POWER</div>
                     <div class="heading-card" id="product-power">510 HP</div>
                 </div>
                 <div class="text-center">
-                    <div class="text-small mb-2" data-translate="mileage-label">MILEAGE</div>
-                    <div class="heading-card" id="product-mileage">2,500 KM</div>
+                    <div class="text-small mb-2">MILEAGE</div>
+                    <div class="heading-card" id="product-mileage">24,500 KM</div>
                 </div>
             </div>
             
-            <div class="text-center mb-12">
-                <p class="text-body" id="product-desc">This exceptional GT3 represents the pinnacle of Porsche's racing heritage. With its naturally aspirated engine and precision-tuned suspension, it delivers an uncompromising driving experience that connects you directly to the road.</p>
+            <div class="grid grid-cols-2 mb-12">
+                <div class="card">
+                    <h3 class="heading-card mb-6">VEHICLE SPECIFICATIONS</h3>
+                    <div class="grid grid-cols-2" style="gap: var(--space-4);">
+                        <div>
+                            <div class="text-small text-muted">ENGINE</div>
+                            <div class="text-body mb-4">4.0L V8 Biturbo</div>
+                        </div>
+                        <div>
+                            <div class="text-small text-muted">TRANSMISSION</div>
+                            <div class="text-body mb-4">7-Speed AMG Speedshift</div>
+                        </div>
+                        <div>
+                            <div class="text-small text-muted">DRIVETRAIN</div>
+                            <div class="text-body mb-4">Rear-Wheel Drive</div>
+                        </div>
+                        <div>
+                            <div class="text-small text-muted">0-100 KM/H</div>
+                            <div class="text-body mb-4">3.9 seconds</div>
+                        </div>
+                        <div>
+                            <div class="text-small text-muted">TOP SPEED</div>
+                            <div class="text-body mb-4">290 km/h</div>
+                        </div>
+                        <div>
+                            <div class="text-small text-muted">FUEL TYPE</div>
+                            <div class="text-body mb-4">Petrol</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <h3 class="heading-card mb-6">VEHICLE DESCRIPTION</h3>
+                    <p class="text-body mb-4">This Mercedes-AMG C63 S Coupé represents the perfect synthesis of luxury and performance. The handcrafted 4.0-liter V8 biturbo engine delivers breathtaking acceleration while maintaining the refined comfort expected from the three-pointed star.</p>
+                    <p class="text-body mb-4">Finished in stunning Selenite Grey Metallic with AMG Performance seats in black Artico leather, this C63 S has been meticulously maintained with full service history from Mercedes-Benz.</p>
+                    <p class="text-body">Notable features include the AMG Track Pace app, Burmester surround sound system, and AMG Dynamic Plus package — making this an exceptionally well-equipped example.</p>
+                </div>
             </div>
             
             <div class="flex justify-center" style="gap: var(--space-6);">
-                <button class="btn btn-primary" data-translate="request-info">REQUEST INFO</button>
-                <button class="btn" data-translate="schedule-viewing">SCHEDULE VIEWING</button>
+                <button class="btn btn-primary">REQUEST INFORMATION</button>
+                <button class="btn">SCHEDULE VIEWING</button>
             </div>
         </div>
     </main>

@@ -31,100 +31,101 @@
 
     <main class="page">
         <div class="container">
-            <h1 class="page-title heading-hero" data-translate="inventory-title">CURRENT INVENTORY</h1>
+            <h1 class="page-title heading-hero">CURRENT COLLECTION</h1>
             
             <div class="inventory-filters">
                 <div class="filter-group">
                     <select id="brand-filter" class="filter-select">
-                        <option value="all" data-translate="all-brands">ALL BRANDS</option>
+                        <option value="all">ALL MARQUES</option>
+                        <option value="mercedes">MERCEDES-AMG</option>
                         <option value="porsche">PORSCHE</option>
-                        <option value="mclaren">McLAREN</option>
-                        <option value="lamborghini">LAMBORGHINI</option>
+                        <option value="audi">AUDI</option>
                         <option value="ferrari">FERRARI</option>
-                        <option value="aston-martin">ASTON MARTIN</option>
+                        <option value="lamborghini">LAMBORGHINI</option>
+                        <option value="mclaren">McLAREN</option>
                     </select>
                 </div>
                 <div class="filter-group">
                     <select id="price-filter" class="filter-select">
-                        <option value="all" data-translate="all-prices">ALL PRICES</option>
-                        <option value="under-200">< €200,000</option>
+                        <option value="all">ALL PRICE RANGES</option>
+                        <option value="under-100">< €100,000</option>
+                        <option value="100-200">€100,000 - €200,000</option>
                         <option value="200-300">€200,000 - €300,000</option>
-                        <option value="300-500">€300,000 - €500,000</option>
-                        <option value="over-500">> €500,000</option>
+                        <option value="over-300">> €300,000</option>
                     </select>
                 </div>
             </div>
 
             <div class="grid inventory-grid">
-                <div class="inventory-item" data-brand="porsche" data-price="189500" onclick="window.location.href='product.html?id=1'">
+                <div class="inventory-item" data-brand="mercedes" data-price="89500" onclick="window.location.href='product.html?id=amg-c63s'">
                     <div class="item-image">
-                        <img src="assets/car-1.svg" alt="Porsche 911 GT3">
+                        <img src="https://images.unsplash.com/photo-1563694983011-6f4ac93e8975?w=800&h=600&fit=crop&crop=center" alt="Mercedes-AMG C63 S Coupé">
+                    </div>
+                    <div class="item-info">
+                        <h3 class="heading-card">MERCEDES-AMG C63 S COUPÉ</h3>
+                        <p class="item-year text-xs">2018 • 24,500 KM • BITURBO V8</p>
+                        <p class="item-price">€89,500</p>
+                        <button class="btn view-details-btn">VIEW DETAILS</button>
+                    </div>
+                </div>
+
+                <div class="inventory-item" data-brand="porsche" data-price="195000" onclick="window.location.href='product.html?id=911-gt3'">
+                    <div class="item-image">
+                        <img src="https://images.unsplash.com/photo-1503376830-4290e0fb895d?w=800&h=600&fit=crop&crop=center" alt="Porsche 911 GT3">
                     </div>
                     <div class="item-info">
                         <h3 class="heading-card">PORSCHE 911 GT3</h3>
-                        <p class="item-year text-xs">2023</p>
-                        <p class="item-price">€189,500</p>
-                        <button class="btn view-details-btn" data-translate="view-details">VIEW DETAILS</button>
+                        <p class="item-year text-xs">2022 • 3,200 KM • 4.0L NA FLAT-6</p>
+                        <p class="item-price">€195,000</p>
+                        <button class="btn view-details-btn">VIEW DETAILS</button>
                     </div>
                 </div>
 
-                <div class="inventory-item" data-brand="mclaren" data-price="295000" onclick="window.location.href='product.html?id=2'">
+                <div class="inventory-item" data-brand="audi" data-price="165000" onclick="window.location.href='product.html?id=r8-v10'">
                     <div class="item-image">
-                        <img src="assets/car-2.svg" alt="McLaren 720S">
+                        <img src="https://images.unsplash.com/photo-1544636331-e26879cd4d9b?w=800&h=600&fit=crop&crop=center" alt="Audi R8 V10 Plus">
+                    </div>
+                    <div class="item-info">
+                        <h3 class="heading-card">AUDI R8 V10 PLUS</h3>
+                        <p class="item-year text-xs">2017 • 18,900 KM • 5.2L V10</p>
+                        <p class="item-price">€165,000</p>
+                        <button class="btn view-details-btn">VIEW DETAILS</button>
+                    </div>
+                </div>
+
+                <div class="inventory-item" data-brand="ferrari" data-price="285000" onclick="window.location.href='product.html?id=458-italia'">
+                    <div class="item-image">
+                        <img src="https://images.unsplash.com/photo-1583121274602-3e2820c69888?w=800&h=600&fit=crop&crop=center" alt="Ferrari 458 Italia">
+                    </div>
+                    <div class="item-info">
+                        <h3 class="heading-card">FERRARI 458 ITALIA</h3>
+                        <p class="item-year text-xs">2015 • 12,400 KM • 4.5L V8</p>
+                        <p class="item-price">€285,000</p>
+                        <button class="btn view-details-btn">VIEW DETAILS</button>
+                    </div>
+                </div>
+
+                <div class="inventory-item" data-brand="lamborghini" data-price="235000" onclick="window.location.href='product.html?id=huracan-evo'">
+                    <div class="item-image">
+                        <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&h=600&fit=crop&crop=center" alt="Lamborghini Huracán EVO">
+                    </div>
+                    <div class="item-info">
+                        <h3 class="heading-card">LAMBORGHINI HURACÁN EVO</h3>
+                        <p class="item-year text-xs">2020 • 8,900 KM • 5.2L V10</p>
+                        <p class="item-price">€235,000</p>
+                        <button class="btn view-details-btn">VIEW DETAILS</button>
+                    </div>
+                </div>
+
+                <div class="inventory-item" data-brand="mclaren" data-price="295000" onclick="window.location.href='product.html?id=720s'">
+                    <div class="item-image">
+                        <img src="https://images.unsplash.com/photo-1552519507-da3b142c6e3d?w=800&h=600&fit=crop&crop=center" alt="McLaren 720S">
                     </div>
                     <div class="item-info">
                         <h3 class="heading-card">McLAREN 720S</h3>
-                        <p class="item-year text-xs">2022</p>
+                        <p class="item-year text-xs">2019 • 7,500 KM • 4.0L TWIN-TURBO V8</p>
                         <p class="item-price">€295,000</p>
-                        <button class="btn view-details-btn" data-translate="view-details">VIEW DETAILS</button>
-                    </div>
-                </div>
-
-                <div class="inventory-item" data-brand="lamborghini" data-price="225000" onclick="window.location.href='product.html?id=3'">
-                    <div class="item-image">
-                        <img src="assets/car-3.svg" alt="Lamborghini Huracán">
-                    </div>
-                    <div class="item-info">
-                        <h3 class="heading-card">LAMBORGHINI HURACÁN</h3>
-                        <p class="item-year text-xs">2023</p>
-                        <p class="item-price">€225,000</p>
-                        <button class="btn view-details-btn" data-translate="view-details">VIEW DETAILS</button>
-                    </div>
-                </div>
-
-                <div class="inventory-item" data-brand="ferrari" data-price="420000" onclick="window.location.href='product.html?id=4'">
-                    <div class="item-image">
-                        <img src="assets/car-1.svg" alt="Ferrari F8 Tributo">
-                    </div>
-                    <div class="item-info">
-                        <h3 class="heading-card">FERRARI F8 TRIBUTO</h3>
-                        <p class="item-year text-xs">2021</p>
-                        <p class="item-price">€420,000</p>
-                        <button class="btn view-details-btn" data-translate="view-details">VIEW DETAILS</button>
-                    </div>
-                </div>
-
-                <div class="inventory-item" data-brand="aston-martin" data-price="380000" onclick="window.location.href='product.html?id=5'">
-                    <div class="item-image">
-                        <img src="assets/car-2.svg" alt="Aston Martin DBS">
-                    </div>
-                    <div class="item-info">
-                        <h3 class="heading-card">ASTON MARTIN DBS</h3>
-                        <p class="item-year text-xs">2022</p>
-                        <p class="item-price">€380,000</p>
-                        <button class="btn view-details-btn" data-translate="view-details">VIEW DETAILS</button>
-                    </div>
-                </div>
-
-                <div class="inventory-item" data-brand="porsche" data-price="165000" onclick="window.location.href='product.html?id=6'">
-                    <div class="item-image">
-                        <img src="assets/car-3.svg" alt="Porsche 911 Turbo S">
-                    </div>
-                    <div class="item-info">
-                        <h3 class="heading-card">PORSCHE 911 TURBO S</h3>
-                        <p class="item-year text-xs">2023</p>
-                        <p class="item-price">€165,000</p>
-                        <button class="btn view-details-btn" data-translate="view-details">VIEW DETAILS</button>
+                        <button class="btn view-details-btn">VIEW DETAILS</button>
                     </div>
                 </div>
             </div>

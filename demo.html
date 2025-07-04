@@ -31,47 +31,49 @@
 
     <main class="page">
         <div class="container">
-            <h1 class="page-title heading-hero">IMMERSIVE 360° VIEWER DEMO</h1>
+            <h1 class="page-title heading-hero">IMMERSIVE VEHICLE EXPERIENCE</h1>
             
             <div class="car-grid mb-16">
-                <div class="car-item" onclick="openImmersiveView(1, this.querySelector('img'))">
+                <div class="car-item" onclick="openImmersiveView('amg-c63s', this.querySelector('img'))">
                     <div class="car-image">
-                        <img src="assets/car-1.svg" alt="Porsche 911 GT3" loading="lazy">
+                        <img src="https://images.unsplash.com/photo-1563694983011-6f4ac93e8975?w=800&h=600&fit=crop&crop=center" alt="Mercedes-AMG C63 S Coupé" loading="lazy">
+                        <div class="car-overlay"></div>
+                    </div>
+                    <div class="car-info">
+                        <h3 class="heading-card">MERCEDES-AMG C63 S COUPÉ</h3>
+                        <p class="text-small">Experience the handcrafted V8 biturbo in immersive detail</p>
+                    </div>
+                </div>
+                
+                <div class="car-item" onclick="openImmersiveView('911-gt3', this.querySelector('img'))">
+                    <div class="car-image">
+                        <img src="https://images.unsplash.com/photo-1503376830-4290e0fb895d?w=800&h=600&fit=crop&crop=center" alt="Porsche 911 GT3" loading="lazy">
                         <div class="car-overlay"></div>
                     </div>
                     <div class="car-info">
                         <h3 class="heading-card">PORSCHE 911 GT3</h3>
-                        <p class="text-small">Click to experience immersive view</p>
+                        <p class="text-small">Explore the naturally aspirated flat-six masterpiece</p>
                     </div>
                 </div>
                 
-                <div class="car-item" onclick="openImmersiveView(2, this.querySelector('img'))">
+                <div class="car-item" onclick="openImmersiveView('r8-v10', this.querySelector('img'))">
                     <div class="car-image">
-                        <img src="assets/car-2.svg" alt="McLaren 720S" loading="lazy">
+                        <img src="https://images.unsplash.com/photo-1544636331-e26879cd4d9b?w=800&h=600&fit=crop&crop=center" alt="Audi R8 V10 Plus" loading="lazy">
                         <div class="car-overlay"></div>
                     </div>
                     <div class="car-info">
-                        <h3 class="heading-card">McLAREN 720S</h3>
-                        <p class="text-small">Click to experience immersive view</p>
-                    </div>
-                </div>
-                
-                <div class="car-item" onclick="openImmersiveView(3, this.querySelector('img'))">
-                    <div class="car-image">
-                        <img src="assets/car-3.svg" alt="Lamborghini Huracán" loading="lazy">
-                        <div class="car-overlay"></div>
-                    </div>
-                    <div class="car-info">
-                        <h3 class="heading-card">LAMBORGHINI HURACÁN</h3>
-                        <p class="text-small">Click to experience immersive view</p>
+                        <h3 class="heading-card">AUDI R8 V10 PLUS</h3>
+                        <p class="text-small">Immerse yourself in the symphony of the 5.2L V10</p>
                     </div>
                 </div>
             </div>
             
             <div class="text-center">
                 <p class="text-body">
-                    Click on any car image above to experience the immersive "entering the image" animation, 
-                    followed by a fullscreen 360° interactive viewer with engine sound and animated specs reveal.
+                    Select any vehicle above to experience our immersive presentation technology — featuring 
+                    360° detailed views, authentic engine sounds, and comprehensive specifications. Each 
+                    demonstration showcases the unique character and engineering excellence of these 
+                    exceptional performance machines.
                 </p>
             </div>
         </div>
