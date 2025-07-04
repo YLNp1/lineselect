@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LINE SELECT</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo">
+                <span data-translate="brand">LINE SELECT</span>
+            </div>
+            <div class="nav-links">
+                <a href="inventory.html" data-translate="inventory">INVENTORY</a>
+                <a href="about.html" data-translate="about">ABOUT</a>
+                <a href="contact.html" data-translate="contact">CONTACT</a>
+                <div class="language-selector">
+                    <select id="language-select">
+                        <option value="en">EN</option>
+                        <option value="nl">NL</option>
+                        <option value="de">DE</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <main class="hero">
+        <video autoplay muted loop class="hero-video">
+            <source src="assets/hero-video.mp4" type="video/mp4">
+        </video>
+        <!-- Fallback for missing video -->
+        <div class="hero-fallback" style="display: none;">
+            <iframe src="assets/hero-video-placeholder.html" frameborder="0" style="width: 100%; height: 100%; position: absolute; top: 0; left: 0;"></iframe>
+        </div>
+        <div class="hero-overlay">
+            <div class="hero-content">
+                <h1 data-translate="tagline">EXCEPTIONAL AUTOMOTIVE EXCELLENCE</h1>
+                <p data-translate="subtitle">Where luxury meets performance</p>
+                <a href="#inventory" class="cta-button" data-translate="view-inventory">VIEW INVENTORY</a>
+            </div>
+        </div>
+    </main>
+
+    <section id="inventory" class="featured-cars">
+        <div class="container">
+            <div class="car-grid">
+                <div class="car-item" onclick="window.location.href='product.html?id=1'">
+                    <img src="assets/car-1.svg" alt="Porsche 911 GT3" loading="lazy">
+                    <div class="car-info">
+                        <h3>PORSCHE 911 GT3</h3>
+                        <p data-translate="price">€189,500</p>
+                    </div>
+                </div>
+                <div class="car-item" onclick="window.location.href='product.html?id=2'">
+                    <img src="assets/car-2.svg" alt="McLaren 720S" loading="lazy">
+                    <div class="car-info">
+                        <h3>McLAREN 720S</h3>
+                        <p data-translate="price">€295,000</p>
+                    </div>
+                </div>
+                <div class="car-item" onclick="window.location.href='product.html?id=3'">
+                    <img src="assets/car-3.svg" alt="Lamborghini Huracán" loading="lazy">
+                    <div class="car-info">
+                        <h3>LAMBORGHINI HURACÁN</h3>
+                        <p data-translate="price">€225,000</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script src="script.js"></script>
+    <script src="simple-engine-sound.js"></script>
+    <script src="immersive-viewer.js"></script>
+</body>
+</html>

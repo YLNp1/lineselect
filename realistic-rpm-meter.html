@@ -1,0 +1,596 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Realistic RPM Meter - LINE SELECT</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background: #000;
+            color: #fff;
+            margin: 0;
+            padding: 40px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+        }
+
+        .dashboard {
+            background: radial-gradient(circle, #1a1a1a, #000);
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+            border: 1px solid #333;
+        }
+
+        .rpm-meter {
+            position: relative;
+            width: 300px;
+            height: 300px;
+            margin: 0 auto 30px;
+        }
+
+        .rpm-gauge {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            background: radial-gradient(circle, #222, #111);
+            border: 3px solid #444;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .rpm-face {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+        }
+
+        .rpm-markings {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+        }
+
+        .rpm-mark {
+            position: absolute;
+            background: #666;
+            transform-origin: bottom center;
+        }
+
+        .rpm-mark.major {
+            width: 2px;
+            height: 20px;
+            background: #fff;
+            top: 10px;
+            left: 50%;
+            margin-left: -1px;
+        }
+
+        .rpm-mark.minor {
+            width: 1px;
+            height: 10px;
+            background: #999;
+            top: 10px;
+            left: 50%;
+            margin-left: -0.5px;
+        }
+
+        .rpm-number {
+            position: absolute;
+            color: #fff;
+            font-size: 12px;
+            font-weight: bold;
+            text-align: center;
+            font-family: 'Arial', monospace;
+            letter-spacing: 1px;
+        }
+
+        .rpm-needle {
+            position: absolute;
+            bottom: 50%;
+            left: 50%;
+            width: 3px;
+            height: 120px;
+            background: linear-gradient(to top, #ff0000, #ffaa00);
+            transform-origin: bottom center;
+            transform: translateX(-50%) rotate(-120deg);
+            transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+            border-radius: 1.5px;
+            box-shadow: 0 0 10px rgba(255, 0, 0, 0.3);
+        }
+
+        .rpm-center {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 16px;
+            height: 16px;
+            background: radial-gradient(circle, #666, #333);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            border: 2px solid #999;
+            z-index: 10;
+        }
+
+        .rpm-label {
+            position: absolute;
+            bottom: 80px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: #ccc;
+            font-size: 14px;
+            font-weight: bold;
+            letter-spacing: 2px;
+        }
+
+        .rpm-value {
+            position: absolute;
+            bottom: 60px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: #ff6b6b;
+            font-size: 24px;
+            font-weight: bold;
+            font-family: 'Arial', monospace;
+            min-width: 80px;
+            text-align: center;
+        }
+
+        .redline-zone {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            background: conic-gradient(
+                transparent 0deg,
+                transparent 300deg,
+                rgba(255, 0, 0, 0.2) 300deg,
+                rgba(255, 0, 0, 0.4) 360deg
+            );
+            pointer-events: none;
+        }
+
+        .controls {
+            text-align: center;
+            margin-top: 30px;
+        }
+
+        .control-btn {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            color: #fff;
+            font-size: 14px;
+            padding: 12px 24px;
+            margin: 0 10px;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+            font-family: inherit;
+        }
+
+        .control-btn:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .control-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .audio-info {
+            margin-top: 20px;
+            text-align: center;
+            font-family: monospace;
+            font-size: 12px;
+            color: #999;
+        }
+
+        .audio-bar {
+            width: 200px;
+            height: 4px;
+            background: #333;
+            margin: 10px auto;
+            border-radius: 2px;
+            overflow: hidden;
+        }
+
+        .audio-level {
+            height: 100%;
+            background: linear-gradient(to right, #00ff00, #ffff00, #ff0000);
+            width: 0%;
+            transition: width 0.1s ease;
+        }
+
+        .title {
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 24px;
+            font-weight: 300;
+            letter-spacing: 3px;
+            color: #fff;
+        }
+
+        .subtitle {
+            text-align: center;
+            margin-bottom: 40px;
+            font-size: 14px;
+            color: #999;
+            letter-spacing: 1px;
+        }
+    </style>
+</head>
+<body>
+    <div class="title">REALISTIC RPM METER</div>
+    <div class="subtitle">Audio-Driven Tachometer with Real-Time Analysis</div>
+
+    <div class="dashboard">
+        <div class="rpm-meter">
+            <div class="rpm-gauge">
+                <div class="redline-zone"></div>
+                <div class="rpm-face">
+                    <div class="rpm-markings" id="rpm-markings"></div>
+                </div>
+                <div class="rpm-needle" id="rpm-needle"></div>
+                <div class="rpm-center"></div>
+                <div class="rpm-label">RPM × 1000</div>
+                <div class="rpm-value" id="rpm-value">0</div>
+            </div>
+        </div>
+
+        <div class="controls">
+            <button class="control-btn" id="start-engine" onclick="startEngine()">
+                START ENGINE
+            </button>
+            <button class="control-btn" id="rev-engine" onclick="revEngine()" disabled>
+                REV ENGINE
+            </button>
+            <button class="control-btn" id="stop-engine" onclick="stopEngine()" disabled>
+                STOP ENGINE
+            </button>
+        </div>
+
+        <div class="audio-info">
+            <div>Audio Level</div>
+            <div class="audio-bar">
+                <div class="audio-level" id="audio-level"></div>
+            </div>
+            <div id="amplitude-value">Amplitude: 0.00</div>
+        </div>
+    </div>
+
+    <script>
+        class RealisticRPMMeter {
+            constructor() {
+                this.audioContext = null;
+                this.analyzer = null;
+                this.gainNode = null;
+                this.oscillators = [];
+                this.isEngineRunning = false;
+                this.currentRPM = 0;
+                this.targetRPM = 0;
+                this.animationId = null;
+                this.audioData = null;
+                this.smoothedAmplitude = 0;
+                
+                // RPM configuration
+                this.idleRPM = 800;
+                this.maxRPM = 7000;
+                this.redlineRPM = 6500;
+                
+                // Needle physics
+                this.needleDamping = 0.92;
+                this.needleResponse = 0.15;
+                
+                this.initAudio();
+                this.createRPMMarkings();
+                this.startAnimation();
+            }
+
+            async initAudio() {
+                try {
+                    this.audioContext = new (window.AudioContext || window.webkitAudioContext)();
+                    
+                    // Create analyzer for real-time audio analysis
+                    this.analyzer = this.audioContext.createAnalyser();
+                    this.analyzer.fftSize = 512;
+                    this.analyzer.smoothingTimeConstant = 0.8;
+                    
+                    // Create gain node for volume control
+                    this.gainNode = this.audioContext.createGain();
+                    this.gainNode.gain.value = 0.3;
+                    
+                    // Connect analyzer to gain to destination
+                    this.gainNode.connect(this.analyzer);
+                    this.analyzer.connect(this.audioContext.destination);
+                    
+                    // Initialize audio data array
+                    this.audioData = new Uint8Array(this.analyzer.frequencyBinCount);
+                    
+                    console.log('Audio system initialized');
+                } catch (error) {
+                    console.error('Failed to initialize audio:', error);
+                }
+            }
+
+            createRPMMarkings() {
+                const markingsContainer = document.getElementById('rpm-markings');
+                
+                // Create markings from 0 to 8 (representing 0-8000 RPM)
+                for (let i = 0; i <= 8; i++) {
+                    const angle = -120 + (i * 30); // From -120° to +120° (240° total)
+                    
+                    // Major marking
+                    const majorMark = document.createElement('div');
+                    majorMark.className = 'rpm-mark major';
+                    majorMark.style.transform = `rotate(${angle}deg)`;
+                    markingsContainer.appendChild(majorMark);
+                    
+                    // RPM number
+                    const number = document.createElement('div');
+                    number.className = 'rpm-number';
+                    number.textContent = i;
+                    
+                    // Position number around the gauge
+                    const radius = 110;
+                    const radians = (angle * Math.PI) / 180;
+                    const x = 150 + radius * Math.sin(radians);
+                    const y = 150 - radius * Math.cos(radians);
+                    
+                    number.style.left = (x - 8) + 'px';
+                    number.style.top = (y - 8) + 'px';
+                    markingsContainer.appendChild(number);
+                    
+                    // Minor markings between major ones
+                    if (i < 8) {
+                        for (let j = 1; j <= 4; j++) {
+                            const minorAngle = angle + (j * 6);
+                            const minorMark = document.createElement('div');
+                            minorMark.className = 'rpm-mark minor';
+                            minorMark.style.transform = `rotate(${minorAngle}deg)`;
+                            markingsContainer.appendChild(minorMark);
+                        }
+                    }
+                }
+            }
+
+            async startEngine() {
+                if (this.isEngineRunning) return;
+                
+                try {
+                    if (this.audioContext.state === 'suspended') {
+                        await this.audioContext.resume();
+                    }
+                    
+                    this.createEngineSound();
+                    this.isEngineRunning = true;
+                    this.targetRPM = this.idleRPM;
+                    
+                    // Update UI
+                    document.getElementById('start-engine').disabled = true;
+                    document.getElementById('rev-engine').disabled = false;
+                    document.getElementById('stop-engine').disabled = false;
+                    
+                    console.log('Engine started');
+                    
+                } catch (error) {
+                    console.error('Failed to start engine:', error);
+                }
+            }
+
+            createEngineSound() {
+                this.stopOscillators();
+                
+                // Create multiple oscillators for rich engine sound
+                const frequencies = [60, 120, 180, 240, 300];
+                
+                frequencies.forEach((baseFreq, index) => {
+                    const osc = this.audioContext.createOscillator();
+                    const gain = this.audioContext.createGain();
+                    const filter = this.audioContext.createBiquadFilter();
+                    
+                    osc.type = 'sawtooth';
+                    osc.frequency.value = baseFreq;
+                    
+                    filter.type = 'lowpass';
+                    filter.frequency.value = 800 + (index * 200);
+                    filter.Q.value = 1;
+                    
+                    gain.gain.value = 0.2 / (index + 1);
+                    
+                    osc.connect(filter);
+                    filter.connect(gain);
+                    gain.connect(this.gainNode);
+                    
+                    osc.start();
+                    
+                    this.oscillators.push({ osc, gain, filter, baseFreq });
+                });
+            }
+
+            revEngine() {
+                if (!this.isEngineRunning) return;
+                
+                const revRPM = 3000 + Math.random() * 2000; // Random rev between 3000-5000
+                const revDuration = 1000 + Math.random() * 1000; // 1-2 second rev
+                
+                // Increase frequencies for rev effect
+                this.oscillators.forEach(({ osc, baseFreq }) => {
+                    const currentFreq = osc.frequency.value;
+                    const revFreq = baseFreq * (revRPM / this.idleRPM);
+                    
+                    osc.frequency.exponentialRampToValueAtTime(revFreq, this.audioContext.currentTime + 0.3);
+                    osc.frequency.exponentialRampToValueAtTime(baseFreq, this.audioContext.currentTime + (revDuration / 1000));
+                });
+                
+                console.log(`Engine revved to ${Math.round(revRPM)} RPM`);
+            }
+
+            stopEngine() {
+                if (!this.isEngineRunning) return;
+                
+                this.isEngineRunning = false;
+                this.targetRPM = 0;
+                
+                // Gradual shutdown
+                const now = this.audioContext.currentTime;
+                this.oscillators.forEach(({ osc, gain }) => {
+                    gain.gain.exponentialRampToValueAtTime(0.001, now + 2);
+                });
+                
+                setTimeout(() => {
+                    this.stopOscillators();
+                }, 2500);
+                
+                // Update UI
+                document.getElementById('start-engine').disabled = false;
+                document.getElementById('rev-engine').disabled = true;
+                document.getElementById('stop-engine').disabled = true;
+                
+                console.log('Engine stopped');
+            }
+
+            stopOscillators() {
+                this.oscillators.forEach(({ osc }) => {
+                    try {
+                        osc.stop();
+                    } catch (error) {
+                        // Oscillator might already be stopped
+                    }
+                });
+                this.oscillators = [];
+            }
+
+            getAudioAmplitude() {
+                if (!this.analyzer || !this.audioData) return 0;
+                
+                this.analyzer.getByteFrequencyData(this.audioData);
+                
+                // Focus on engine frequency range (50-400 Hz)
+                const engineFreqStart = Math.floor((50 / (this.audioContext.sampleRate / 2)) * this.audioData.length);
+                const engineFreqEnd = Math.floor((400 / (this.audioContext.sampleRate / 2)) * this.audioData.length);
+                
+                let sum = 0;
+                let count = 0;
+                
+                for (let i = engineFreqStart; i < engineFreqEnd && i < this.audioData.length; i++) {
+                    sum += this.audioData[i];
+                    count++;
+                }
+                
+                const average = count > 0 ? sum / count : 0;
+                return average / 255; // Normalize to 0-1
+            }
+
+            updateRPMFromAudio() {
+                const amplitude = this.getAudioAmplitude();
+                
+                // Smooth the amplitude to reduce jitter
+                this.smoothedAmplitude += (amplitude - this.smoothedAmplitude) * 0.3;
+                
+                if (this.isEngineRunning) {
+                    // Map amplitude to RPM range
+                    const amplitudeRPM = this.smoothedAmplitude * (this.maxRPM - this.idleRPM);
+                    this.targetRPM = Math.min(this.idleRPM + amplitudeRPM, this.maxRPM);
+                } else {
+                    this.targetRPM = 0;
+                }
+                
+                // Update UI
+                document.getElementById('audio-level').style.width = (this.smoothedAmplitude * 100) + '%';
+                document.getElementById('amplitude-value').textContent = `Amplitude: ${this.smoothedAmplitude.toFixed(3)}`;
+            }
+
+            updateRPMNeedle() {
+                // Smooth needle movement with damping
+                const rpmDiff = this.targetRPM - this.currentRPM;
+                this.currentRPM += rpmDiff * this.needleResponse;
+                
+                // Apply damping to prevent overshooting
+                this.currentRPM *= this.needleDamping + (1 - this.needleDamping);
+                
+                // Clamp to valid range
+                this.currentRPM = Math.max(0, Math.min(this.currentRPM, this.maxRPM));
+                
+                // Convert RPM to needle angle (-120° to +120°)
+                const rpmRatio = this.currentRPM / this.maxRPM;
+                const needleAngle = -120 + (rpmRatio * 240);
+                
+                // Update needle position
+                const needle = document.getElementById('rpm-needle');
+                needle.style.transform = `translateX(-50%) rotate(${needleAngle}deg)`;
+                
+                // Update RPM display
+                const rpmDisplay = Math.round(this.currentRPM);
+                document.getElementById('rpm-value').textContent = rpmDisplay;
+                
+                // Change needle color in redline
+                if (this.currentRPM > this.redlineRPM) {
+                    needle.style.background = 'linear-gradient(to top, #ff0000, #ff6666)';
+                    needle.style.boxShadow = '0 0 15px rgba(255, 0, 0, 0.8)';
+                } else {
+                    needle.style.background = 'linear-gradient(to top, #ff0000, #ffaa00)';
+                    needle.style.boxShadow = '0 0 10px rgba(255, 0, 0, 0.3)';
+                }
+            }
+
+            startAnimation() {
+                const animate = () => {
+                    this.updateRPMFromAudio();
+                    this.updateRPMNeedle();
+                    this.animationId = requestAnimationFrame(animate);
+                };
+                animate();
+            }
+
+            destroy() {
+                if (this.animationId) {
+                    cancelAnimationFrame(this.animationId);
+                }
+                this.stopOscillators();
+                if (this.audioContext) {
+                    this.audioContext.close();
+                }
+            }
+        }
+
+        // Global instance
+        let rpmMeter = null;
+
+        // Initialize when page loads
+        window.addEventListener('load', () => {
+            rpmMeter = new RealisticRPMMeter();
+        });
+
+        // Cleanup when page unloads
+        window.addEventListener('beforeunload', () => {
+            if (rpmMeter) {
+                rpmMeter.destroy();
+            }
+        });
+
+        // Button handlers
+        function startEngine() {
+            if (rpmMeter) {
+                rpmMeter.startEngine();
+            }
+        }
+
+        function revEngine() {
+            if (rpmMeter) {
+                rpmMeter.revEngine();
+            }
+        }
+
+        function stopEngine() {
+            if (rpmMeter) {
+                rpmMeter.stopEngine();
+            }
+        }
+    </script>
+</body>
+</html>

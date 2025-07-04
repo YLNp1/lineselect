@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="600" viewBox="0 0 800 600">
+  <rect width="800" height="600" fill="#111111"/>
+  <defs>
+    <linearGradient id="grad2" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#2a2a2a;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#111;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  <rect width="800" height="600" fill="url(#grad2)"/>
+  <text x="400" y="280" font-family="Arial, sans-serif" font-size="24" font-weight="bold" text-anchor="middle" fill="#ffffff">McLAREN 720S</text>
+  <text x="400" y="320" font-family="Arial, sans-serif" font-size="14" text-anchor="middle" fill="#cccccc">800x600 Professional Placeholder</text>
+  <path d="M 150 350 Q 200 320 400 340 Q 600 320 650 350 L 620 480 Q 400 500 180 480 Z" fill="none" stroke="#333" stroke-width="2" opacity="0.4"/>
+  <ellipse cx="220" cy="470" rx="25" ry="25" fill="#444"/>
+  <ellipse cx="580" cy="470" rx="25" ry="25" fill="#444"/>
+</svg>

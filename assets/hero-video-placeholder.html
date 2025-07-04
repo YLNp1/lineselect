@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hero Video Placeholder</title>
+    <style>
+        body { margin: 0; padding: 0; background: #000; overflow: hidden; }
+        .video-placeholder {
+            width: 100vw;
+            height: 100vh;
+            background: linear-gradient(45deg, #000 0%, #222 50%, #000 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            animation: subtle-shift 20s infinite;
+        }
+        
+        @keyframes subtle-shift {
+            0%, 100% { background: linear-gradient(45deg, #000 0%, #222 50%, #000 100%); }
+            50% { background: linear-gradient(45deg, #111 0%, #333 50%, #111 100%); }
+        }
+        
+        .car-silhouette {
+            width: 300px;
+            height: 120px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50px;
+            position: relative;
+            animation: float 6s ease-in-out infinite;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+        
+        .text-overlay {
+            position: absolute;
+            bottom: 50px;
+            left: 50px;
+            color: white;
+            font-family: Arial, sans-serif;
+        }
+        
+        .text-overlay h1 {
+            font-size: 14px;
+            font-weight: 300;
+            letter-spacing: 3px;
+            margin: 0;
+            opacity: 0.9;
+        }
+        
+        .text-overlay p {
+            font-size: 12px;
+            margin: 10px 0 0 0;
+            opacity: 0.7;
+            letter-spacing: 1px;
+        }
+        
+        .motion-lines {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+        
+        .line {
+            position: absolute;
+            height: 1px;
+            background: rgba(255, 255, 255, 0.1);
+            animation: move-line 3s linear infinite;
+        }
+        
+        @keyframes move-line {
+            0% { left: -100%; width: 0; }
+            50% { width: 100px; }
+            100% { left: 100%; width: 0; }
+        }
+        
+        .line:nth-child(1) { top: 20%; animation-delay: 0s; }
+        .line:nth-child(2) { top: 40%; animation-delay: 0.5s; }
+        .line:nth-child(3) { top: 60%; animation-delay: 1s; }
+        .line:nth-child(4) { top: 80%; animation-delay: 1.5s; }
+    </style>
+</head>
+<body>
+    <div class="video-placeholder">
+        <div class="motion-lines">
+            <div class="line"></div>
+            <div class="line"></div>
+            <div class="line"></div>
+            <div class="line"></div>
+        </div>
+        <div class="car-silhouette"></div>
+        <div class="text-overlay">
+            <h1>LINE SELECT</h1>
+            <p>Exceptional automotive excellence</p>
+        </div>
+    </div>
+</body>
+</html>

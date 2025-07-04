@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Asset Placeholder Generator</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        .asset-preview { margin: 20px 0; padding: 20px; border: 1px solid #ddd; }
+        .placeholder-img { max-width: 100%; height: auto; }
+    </style>
+</head>
+<body>
+    <h1>LINE SELECT - Asset Placeholders</h1>
+    <p>This file generates placeholder assets for the website. Replace with actual high-quality images.</p>
+    
+    <div class="asset-preview">
+        <h2>Hero Video Placeholder</h2>
+        <canvas id="hero-video-thumb" width="1920" height="1080"></canvas>
+        <p>Dimensions: 1920x1080 (Full HD)</p>
+        <p>Suggested: Cinematic footage of supercars in motion, black/white aesthetic</p>
+    </div>
+    
+    <div class="asset-preview">
+        <h2>Car 1 - Porsche 911 GT3</h2>
+        <canvas id="car-1" width="800" height="600"></canvas>
+        <p>Dimensions: 800x600</p>
+        <p>Suggested: Professional side-angle shot with dramatic lighting</p>
+    </div>
+    
+    <div class="asset-preview">
+        <h2>Car 2 - McLaren 720S</h2>
+        <canvas id="car-2" width="800" height="600"></canvas>
+        <p>Dimensions: 800x600</p>
+        <p>Suggested: Dynamic 3/4 angle showcasing aerodynamic design</p>
+    </div>
+    
+    <div class="asset-preview">
+        <h2>Car 3 - Lamborghini Huracán</h2>
+        <canvas id="car-3" width="800" height="600"></canvas>
+        <p>Dimensions: 800x600</p>
+        <p>Suggested: Low-angle shot emphasizing aggressive styling</p>
+    </div>
+    
+    <div class="asset-preview">
+        <h2>360° Viewer Preview</h2>
+        <canvas id="car-360" width="1000" height="500"></canvas>
+        <p>Dimensions: 1000x500</p>
+        <p>Suggested: Interactive 360° car photography setup</p>
+    </div>
+
+    <script>
+        // Generate placeholder images with luxury car aesthetics
+        function generatePlaceholder(canvasId, text, bgColor = '#1a1a1a', textColor = '#ffffff') {
+            const canvas = document.getElementById(canvasId);
+            const ctx = canvas.getContext('2d');
+            
+            // Fill background
+            ctx.fillStyle = bgColor;
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            
+            // Add gradient overlay
+            const gradient = ctx.createLinearGradient(0, 0, canvas.width, canvas.height);
+            gradient.addColorStop(0, 'rgba(0,0,0,0.3)');
+            gradient.addColorStop(1, 'rgba(0,0,0,0.7)');
+            ctx.fillStyle = gradient;
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            
+            // Add text
+            ctx.fillStyle = textColor;
+            ctx.font = 'bold 24px Arial';
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            ctx.fillText(text, canvas.width / 2, canvas.height / 2);
+            
+            // Add dimensions
+            ctx.font = '14px Arial';
+            ctx.fillText(`${canvas.width}x${canvas.height}`, canvas.width / 2, canvas.height / 2 + 40);
+        }
+        
+        // Generate all placeholders
+        generatePlaceholder('hero-video-thumb', 'HERO VIDEO PLACEHOLDER', '#0a0a0a');
+        generatePlaceholder('car-1', 'PORSCHE 911 GT3', '#2c2c2c');
+        generatePlaceholder('car-2', 'McLAREN 720S', '#1f1f1f');
+        generatePlaceholder('car-3', 'LAMBORGHINI HURACÁN', '#252525');
+        generatePlaceholder('car-360', '360° VIEWER PREVIEW', '#333333');
+        
+        // Convert canvases to images and save
+        function downloadAssets() {
+            const canvases = ['hero-video-thumb', 'car-1', 'car-2', 'car-3', 'car-360'];
+            canvases.forEach(id => {
+                const canvas = document.getElementById(id);
+                const link = document.createElement('a');
+                link.download = `${id}.png`;
+                link.href = canvas.toDataURL();
+                link.click();
+            });
+        }
+        
+        // Add download button
+        const downloadBtn = document.createElement('button');
+        downloadBtn.textContent = 'Download All Placeholders';
+        downloadBtn.onclick = downloadAssets;
+        downloadBtn.style.padding = '10px 20px';
+        downloadBtn.style.margin = '20px 0';
+        downloadBtn.style.fontSize = '16px';
+        document.body.appendChild(downloadBtn);
+    </script>
+</body>
+</html>

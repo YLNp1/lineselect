@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LINE SELECT - Contact</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo">
+                <a href="index.html" style="color: #000; text-decoration: none;">
+                    <span data-translate="brand">LINE SELECT</span>
+                </a>
+            </div>
+            <div class="nav-links">
+                <a href="inventory.html" data-translate="inventory">INVENTORY</a>
+                <a href="about.html" data-translate="about">ABOUT</a>
+                <a href="contact.html" data-translate="contact">CONTACT</a>
+                <div class="language-selector">
+                    <select id="language-select">
+                        <option value="en">EN</option>
+                        <option value="nl">NL</option>
+                        <option value="de">DE</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <main class="contact-page">
+        <div class="contact-container">
+            <h1 class="page-title" data-translate="contact-title">CONTACT</h1>
+            
+            <div class="contact-content">
+                <div class="contact-form-section">
+                    <form class="contact-form" id="contact-form">
+                        <div class="form-group">
+                            <input type="text" id="name" name="name" required class="form-input" placeholder=" ">
+                            <label for="name" class="form-label" data-translate="name-label">NAME</label>
+                        </div>
+
+                        <div class="form-group">
+                            <input type="email" id="email" name="email" required class="form-input" placeholder=" ">
+                            <label for="email" class="form-label" data-translate="email-label">EMAIL</label>
+                        </div>
+
+                        <div class="form-group">
+                            <input type="tel" id="phone" name="phone" class="form-input" placeholder=" ">
+                            <label for="phone" class="form-label" data-translate="phone-label">PHONE (OPTIONAL)</label>
+                        </div>
+
+                        <div class="form-group">
+                            <textarea id="message" name="message" required class="form-textarea" placeholder=" " rows="5"></textarea>
+                            <label for="message" class="form-label" data-translate="message-label">MESSAGE</label>
+                        </div>
+
+                        <button type="submit" class="submit-btn" data-translate="submit-btn">SEND MESSAGE</button>
+                    </form>
+                </div>
+
+                <div class="contact-info-section">
+                    <div class="contact-info">
+                        <h3 class="info-title" data-translate="location-title">LOCATION</h3>
+                        <p class="info-text" data-translate="location-text">
+                            Parkstad<br>
+                            Netherlands
+                        </p>
+                    </div>
+
+                    <div class="contact-info">
+                        <h3 class="info-title" data-translate="phone-title">PHONE</h3>
+                        <p class="info-text">
+                            <a href="tel:+31612345678" class="contact-link">+31 6 1234 5678</a>
+                        </p>
+                    </div>
+
+                    <div class="contact-info">
+                        <h3 class="info-title" data-translate="whatsapp-title">WHATSAPP</h3>
+                        <p class="info-text">
+                            <a href="https://wa.me/31612345678" class="contact-link" target="_blank">+31 6 1234 5678</a>
+                        </p>
+                    </div>
+
+                    <div class="contact-info">
+                        <h3 class="info-title" data-translate="email-title">EMAIL</h3>
+                        <p class="info-text">
+                            <a href="mailto:info@lineselect.nl" class="contact-link">info@lineselect.nl</a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script src="script.js"></script>
+    <script src="engine-sound.js"></script>
+    <script src="immersive-viewer.js"></script>
+    <script>
+        // Contact form functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const contactForm = document.getElementById('contact-form');
+            
+            contactForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                // Get form data
+                const formData = new FormData(contactForm);
+                const name = formData.get('name');
+                const email = formData.get('email');
+                const phone = formData.get('phone');
+                const message = formData.get('message');
+                
+                // Basic validation
+                if (!name || !email || !message) {
+                    alert('Please fill in all required fields.');
+                    return;
+                }
+                
+                // Simulate form submission
+                const submitBtn = contactForm.querySelector('.submit-btn');
+                const originalText = submitBtn.textContent;
+                
+                submitBtn.textContent = 'SENDING...';
+                submitBtn.disabled = true;
+                
+                setTimeout(() => {
+                    submitBtn.textContent = 'MESSAGE SENT';
+                    
+                    setTimeout(() => {
+                        submitBtn.textContent = originalText;
+                        submitBtn.disabled = false;
+                        contactForm.reset();
+                    }, 2000);
+                }, 1000);
+            });
+        });
+    </script>
+</body>
+</html>

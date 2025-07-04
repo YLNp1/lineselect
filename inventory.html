@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LINE SELECT - Inventory</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo">
+                <a href="index.html" style="color: #000; text-decoration: none;">
+                    <span data-translate="brand">LINE SELECT</span>
+                </a>
+            </div>
+            <div class="nav-links">
+                <a href="inventory.html" data-translate="inventory">INVENTORY</a>
+                <a href="about.html" data-translate="about">ABOUT</a>
+                <a href="contact.html" data-translate="contact">CONTACT</a>
+                <div class="language-selector">
+                    <select id="language-select">
+                        <option value="en">EN</option>
+                        <option value="nl">NL</option>
+                        <option value="de">DE</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <main class="inventory-page">
+        <div class="inventory-container">
+            <h1 class="page-title" data-translate="inventory-title">CURRENT INVENTORY</h1>
+            
+            <div class="inventory-filters">
+                <div class="filter-group">
+                    <select id="brand-filter" class="filter-select">
+                        <option value="all" data-translate="all-brands">ALL BRANDS</option>
+                        <option value="porsche">PORSCHE</option>
+                        <option value="mclaren">McLAREN</option>
+                        <option value="lamborghini">LAMBORGHINI</option>
+                        <option value="ferrari">FERRARI</option>
+                        <option value="aston-martin">ASTON MARTIN</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <select id="price-filter" class="filter-select">
+                        <option value="all" data-translate="all-prices">ALL PRICES</option>
+                        <option value="under-200">< €200,000</option>
+                        <option value="200-300">€200,000 - €300,000</option>
+                        <option value="300-500">€300,000 - €500,000</option>
+                        <option value="over-500">> €500,000</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="inventory-grid">
+                <div class="inventory-item" data-brand="porsche" data-price="189500" onclick="window.location.href='product.html?id=1'">
+                    <div class="item-image">
+                        <img src="assets/car-1.svg" alt="Porsche 911 GT3">
+                    </div>
+                    <div class="item-info">
+                        <h3>PORSCHE 911 GT3</h3>
+                        <p class="item-year">2023</p>
+                        <p class="item-price">€189,500</p>
+                        <button class="view-details-btn" data-translate="view-details">VIEW DETAILS</button>
+                    </div>
+                </div>
+
+                <div class="inventory-item" data-brand="mclaren" data-price="295000" onclick="window.location.href='product.html?id=2'">
+                    <div class="item-image">
+                        <img src="assets/car-2.svg" alt="McLaren 720S">
+                    </div>
+                    <div class="item-info">
+                        <h3>McLAREN 720S</h3>
+                        <p class="item-year">2022</p>
+                        <p class="item-price">€295,000</p>
+                        <button class="view-details-btn" data-translate="view-details">VIEW DETAILS</button>
+                    </div>
+                </div>
+
+                <div class="inventory-item" data-brand="lamborghini" data-price="225000" onclick="window.location.href='product.html?id=3'">
+                    <div class="item-image">
+                        <img src="assets/car-3.svg" alt="Lamborghini Huracán">
+                    </div>
+                    <div class="item-info">
+                        <h3>LAMBORGHINI HURACÁN</h3>
+                        <p class="item-year">2023</p>
+                        <p class="item-price">€225,000</p>
+                        <button class="view-details-btn" data-translate="view-details">VIEW DETAILS</button>
+                    </div>
+                </div>
+
+                <div class="inventory-item" data-brand="ferrari" data-price="420000" onclick="window.location.href='product.html?id=4'">
+                    <div class="item-image">
+                        <img src="assets/car-1.svg" alt="Ferrari F8 Tributo">
+                    </div>
+                    <div class="item-info">
+                        <h3>FERRARI F8 TRIBUTO</h3>
+                        <p class="item-year">2021</p>
+                        <p class="item-price">€420,000</p>
+                        <button class="view-details-btn" data-translate="view-details">VIEW DETAILS</button>
+                    </div>
+                </div>
+
+                <div class="inventory-item" data-brand="aston-martin" data-price="380000" onclick="window.location.href='product.html?id=5'">
+                    <div class="item-image">
+                        <img src="assets/car-2.svg" alt="Aston Martin DBS">
+                    </div>
+                    <div class="item-info">
+                        <h3>ASTON MARTIN DBS</h3>
+                        <p class="item-year">2022</p>
+                        <p class="item-price">€380,000</p>
+                        <button class="view-details-btn" data-translate="view-details">VIEW DETAILS</button>
+                    </div>
+                </div>
+
+                <div class="inventory-item" data-brand="porsche" data-price="165000" onclick="window.location.href='product.html?id=6'">
+                    <div class="item-image">
+                        <img src="assets/car-3.svg" alt="Porsche 911 Turbo S">
+                    </div>
+                    <div class="item-info">
+                        <h3>PORSCHE 911 TURBO S</h3>
+                        <p class="item-year">2023</p>
+                        <p class="item-price">€165,000</p>
+                        <button class="view-details-btn" data-translate="view-details">VIEW DETAILS</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script src="script.js"></script>
+    <script src="simple-engine-sound.js"></script>
+    <script src="immersive-viewer.js"></script>
+    <script>
+        // Inventory filtering functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const brandFilter = document.getElementById('brand-filter');
+            const priceFilter = document.getElementById('price-filter');
+            const inventoryItems = document.querySelectorAll('.inventory-item');
+
+            function filterInventory() {
+                const selectedBrand = brandFilter.value;
+                const selectedPrice = priceFilter.value;
+
+                inventoryItems.forEach(item => {
+                    const itemBrand = item.getAttribute('data-brand');
+                    const itemPrice = parseInt(item.getAttribute('data-price'));
+                    
+                    let showItem = true;
+
+                    // Brand filter
+                    if (selectedBrand !== 'all' && itemBrand !== selectedBrand) {
+                        showItem = false;
+                    }
+
+                    // Price filter
+                    if (selectedPrice !== 'all') {
+                        switch (selectedPrice) {
+                            case 'under-200':
+                                if (itemPrice >= 200000) showItem = false;
+                                break;
+                            case '200-300':
+                                if (itemPrice < 200000 || itemPrice >= 300000) showItem = false;
+                                break;
+                            case '300-500':
+                                if (itemPrice < 300000 || itemPrice >= 500000) showItem = false;
+                                break;
+                            case 'over-500':
+                                if (itemPrice < 500000) showItem = false;
+                                break;
+                        }
+                    }
+
+                    // Show/hide item with smooth transition
+                    if (showItem) {
+                        item.style.display = 'block';
+                        setTimeout(() => {
+                            item.style.opacity = '1';
+                        }, 10);
+                    } else {
+                        item.style.opacity = '0';
+                        setTimeout(() => {
+                            item.style.display = 'none';
+                        }, 300);
+                    }
+                });
+            }
+
+            brandFilter.addEventListener('change', filterInventory);
+            priceFilter.addEventListener('change', filterInventory);
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LINE SELECT - Product</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://storage.googleapis.com/spins-embed/embed.js"></script>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo">
+                <a href="index.html" style="color: #000; text-decoration: none;">
+                    <span data-translate="brand">LINE SELECT</span>
+                </a>
+            </div>
+            <div class="nav-links">
+                <a href="inventory.html" data-translate="inventory">INVENTORY</a>
+                <a href="about.html" data-translate="about">ABOUT</a>
+                <a href="contact.html" data-translate="contact">CONTACT</a>
+                <div class="language-selector">
+                    <select id="language-select">
+                        <option value="en">EN</option>
+                        <option value="nl">NL</option>
+                        <option value="de">DE</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <main class="product-hero">
+        <div class="product-container">
+            <h1 class="product-title" id="product-name">PORSCHE 911 GT3</h1>
+            
+            <div class="viewer-container">
+                <img src="assets/car-360-preview.svg" alt="360° Car Viewer" style="width: 100%; height: 100%; object-fit: cover;">
+            </div>
+            
+            <div class="product-controls">
+                <button class="control-button" id="play-sound" data-translate="play-sound">PLAY SOUND</button>
+                <button class="control-button" id="mute-sound" data-translate="mute-sound" style="display: none;">MUTE</button>
+            </div>
+            
+            <div class="specs-grid">
+                <div class="spec-item">
+                    <div class="spec-label" data-translate="price-label">PRICE</div>
+                    <div class="spec-value" id="product-price">€189,500</div>
+                </div>
+                <div class="spec-item">
+                    <div class="spec-label" data-translate="year-label">YEAR</div>
+                    <div class="spec-value" id="product-year">2023</div>
+                </div>
+                <div class="spec-item">
+                    <div class="spec-label" data-translate="power-label">POWER</div>
+                    <div class="spec-value" id="product-power">510 HP</div>
+                </div>
+                <div class="spec-item">
+                    <div class="spec-label" data-translate="mileage-label">MILEAGE</div>
+                    <div class="spec-value" id="product-mileage">2,500 KM</div>
+                </div>
+            </div>
+            
+            <div class="product-description">
+                <p id="product-desc">This exceptional GT3 represents the pinnacle of Porsche's racing heritage. With its naturally aspirated engine and precision-tuned suspension, it delivers an uncompromising driving experience that connects you directly to the road.</p>
+            </div>
+            
+            <div class="product-actions">
+                <button class="action-button" data-translate="request-info">REQUEST INFO</button>
+                <button class="action-button" data-translate="schedule-viewing">SCHEDULE VIEWING</button>
+            </div>
+        </div>
+    </main>
+
+    <audio id="engine-sound" preload="auto">
+        <source src="assets/engine-sound.mp3" type="audio/mpeg">
+    </audio>
+
+    <script src="script.js"></script>
+    <script src="engine-sound.js"></script>
+    <script src="immersive-viewer.js"></script>
+    <script>
+        // Initialize 360° viewer
+        document.addEventListener('DOMContentLoaded', function() {
+            const viewerContainer = document.querySelector('.viewer-container');
+            
+            // Replace placeholder with actual Spins viewer
+            viewerContainer.innerHTML = `
+                <div class="spins-viewer" 
+                     data-spins-url="https://example.com/360-spin-data"
+                     data-spins-width="100%"
+                     data-spins-height="100%"
+                     data-spins-autoplay="false"
+                     data-spins-controls="true">
+                </div>
+            `;
+            
+            // Initialize Spins viewer (this would use actual Spins.com API)
+            // For demo purposes, we'll show a placeholder
+            setTimeout(() => {
+                const placeholder = document.querySelector('.viewer-placeholder');
+                if (placeholder) {
+                    placeholder.innerHTML = `
+                        <div style="width: 100%; height: 100%; background: url('assets/car-360-preview.jpg') center/cover; position: relative;">
+                            <div style="position: absolute; bottom: 20px; left: 50%; transform: translateX(-50%); background: rgba(0,0,0,0.7); color: white; padding: 8px 16px; font-size: 12px; letter-spacing: 1px;">
+                                CLICK AND DRAG TO ROTATE
+                            </div>
+                        </div>
+                    `;
+                }
+            }, 1000);
+        });
+    </script>
+</body>
+</html>
