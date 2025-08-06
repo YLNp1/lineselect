@@ -3,183 +3,787 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LINE SELECT - Product</title>
+    <title>LINE SELECT - Product Experience</title>
     <link rel="stylesheet" href="styles.css">
     <script src="https://storage.googleapis.com/spins-embed/embed.js"></script>
+    <style>
+        /* Reset any conflicting styles */
+        body {
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Enhanced Product View Styles */
+        .product-container {
+            min-height: 100vh;
+            background: #000;
+            position: relative;
+        }
+
+        .product-viewer {
+            width: 100%;
+            height: 70vh;
+            min-height: 500px;
+            position: relative;
+            background: #111;
+            border-radius: 0;
+            overflow: hidden;
+        }
+
+        .spins-embed {
+            width: 100%;
+            height: 100%;
+            border: none;
+            background: #000;
+        }
+
+        .product-controls {
+            position: absolute;
+            top: 30px;
+            right: 30px;
+            display: flex;
+            gap: 15px;
+            z-index: 1000;
+        }
+
+        .control-btn {
+            background: rgba(0, 0, 0, 0.7);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: #fff;
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            backdrop-filter: blur(20px);
+            font-size: 16px;
+        }
+
+        .control-btn:hover {
+            background: rgba(255, 255, 255, 0.15);
+            border-color: rgba(255, 255, 255, 0.4);
+            transform: scale(1.05);
+        }
+
+        .control-btn:active {
+            transform: scale(0.95);
+        }
+
+        /* Enhanced Product Specs Section */
+        .product-specs {
+            background: linear-gradient(180deg, transparent 0%, rgba(0, 0, 0, 0.95) 40%, #000 100%);
+            color: #fff;
+            padding: 80px 0 40px 0;
+            min-height: 400px;
+            display: flex;
+            align-items: flex-end;
+            position: relative;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .product-specs.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .specs-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 30px;
+            display: grid;
+            grid-template-columns: 1fr auto;
+            gap: 80px;
+            align-items: end;
+            width: 100%;
+        }
+
+        .car-details {
+            min-height: 300px;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+        }
+
+        .car-details h1 {
+            font-size: 42px;
+            font-weight: 200;
+            letter-spacing: 6px;
+            margin: 0 0 30px 0;
+            color: #fff;
+            line-height: 1.1;
+            text-transform: uppercase;
+        }
+
+        .car-meta {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 30px;
+            margin-bottom: 40px;
+            padding: 30px 0;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .meta-item {
+            text-align: left;
+        }
+
+        .meta-label {
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: rgba(255, 255, 255, 0.6);
+            margin-bottom: 8px;
+            font-weight: 400;
+        }
+
+        .meta-value {
+            font-size: 16px;
+            font-weight: 500;
+            letter-spacing: 1px;
+            color: #fff;
+            line-height: 1.2;
+        }
+
+        .car-description {
+            font-size: 16px;
+            line-height: 1.7;
+            color: rgba(255, 255, 255, 0.85);
+            max-width: 600px;
+            letter-spacing: 0.3px;
+            font-weight: 300;
+            margin: 0;
+        }
+
+        .action-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            align-self: flex-end;
+            margin-bottom: 20px;
+        }
+
+        .product-btn {
+            background: transparent;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            color: #fff;
+            font-size: 11px;
+            font-weight: 500;
+            letter-spacing: 2px;
+            padding: 16px 32px;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            text-transform: uppercase;
+            min-width: 200px;
+            text-align: center;
+            border-radius: 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .product-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            transition: left 0.5s;
+        }
+
+        .product-btn:hover {
+            background: rgba(255, 255, 255, 0.05);
+            border-color: rgba(255, 255, 255, 0.6);
+            transform: translateX(-2px);
+        }
+
+        .product-btn:hover::before {
+            left: 100%;
+        }
+
+        .product-btn.primary {
+            background: #fff;
+            color: #000;
+            border-color: #fff;
+        }
+
+        .product-btn.primary:hover {
+            background: rgba(255, 255, 255, 0.95);
+            transform: translateX(-2px);
+        }
+
+        /* Enhanced Loading State */
+        .viewer-loading {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 13px;
+            letter-spacing: 3px;
+            z-index: 10000;
+            text-align: center;
+        }
+
+        .loading-spinner {
+            width: 50px;
+            height: 50px;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            border-top: 2px solid rgba(255, 255, 255, 0.8);
+            border-radius: 50%;
+            animation: spin 1.2s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+            margin: 0 auto 25px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        @keyframes engine-startup {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Enhanced Responsive Design */
+        @media (max-width: 1024px) {
+            .specs-content {
+                grid-template-columns: 1fr;
+                gap: 50px;
+                text-align: left;
+            }
+            
+            .car-meta {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 25px;
+            }
+            
+            .action-buttons {
+                align-self: center;
+                width: 100%;
+                max-width: 300px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .product-controls {
+                top: 20px;
+                right: 20px;
+                gap: 12px;
+            }
+
+            .control-btn {
+                width: 44px;
+                height: 44px;
+                font-size: 14px;
+            }
+
+            .product-specs {
+                padding: 60px 0 30px 0;
+                min-height: 350px;
+            }
+
+            .specs-content {
+                padding: 0 20px;
+                gap: 40px;
+            }
+
+            .car-details h1 {
+                font-size: 32px;
+                letter-spacing: 4px;
+                margin-bottom: 25px;
+            }
+
+            .car-meta {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 20px;
+                padding: 25px 0;
+                margin-bottom: 30px;
+            }
+
+            .meta-value {
+                font-size: 15px;
+            }
+
+            .car-description {
+                font-size: 15px;
+                line-height: 1.6;
+            }
+
+            .product-btn {
+                padding: 14px 28px;
+                font-size: 10px;
+                min-width: 180px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .car-details h1 {
+                font-size: 28px;
+                letter-spacing: 3px;
+            }
+            
+            .car-meta {
+                grid-template-columns: 1fr;
+                gap: 15px;
+                text-align: center;
+            }
+            
+            .meta-item {
+                text-align: center;
+            }
+        }
+
+        /* Navbar adjustments for dark theme */
+        .navbar {
+            background: rgba(0, 0, 0, 0.9);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .navbar .nav-link {
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        .navbar .nav-link:hover {
+            color: #fff;
+        }
+
+        .navbar .logo span {
+            color: #fff;
+        }
+    </style>
 </head>
 <body>
-    <nav class="navbar">
-        <div class="container">
-            <div class="nav-container">
-                <a href="index.html" class="logo">
-                    <span data-translate="brand">LINE SELECT</span>
-                </a>
-                <div class="nav-links">
-                    <a href="inventory.html" class="nav-link" data-translate="inventory">INVENTORY</a>
-                    <a href="about.html" class="nav-link" data-translate="about">ABOUT</a>
-                    <a href="contact.html" class="nav-link" data-translate="contact">CONTACT</a>
-                    <div class="language-selector">
-                        <select id="language-select">
-                            <option value="en">EN</option>
-                            <option value="nl">NL</option>
-                            <option value="de">DE</option>
-                        </select>
+
+    <!-- Product Container -->
+    <div class="product-container">
+        <!-- Controls -->
+        <div class="product-controls">
+            <button class="control-btn engine-btn" id="product-engine" title="Start Engine">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <rect x="2" y="8" width="20" height="8" rx="2"/>
+                    <path d="M6 8V6a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v2"/>
+                    <path d="M6 14h.01"/>
+                    <path d="M10 14h.01"/>
+                    <path d="M14 14h.01"/>
+                    <path d="M18 14h.01"/>
+                </svg>
+            </button>
+            <button class="control-btn back-btn" id="back-to-inventory" title="Back to Inventory">
+                ×
+            </button>
+        </div>
+
+        <!-- 360° Viewer -->
+        <div class="product-viewer" id="product-viewer">
+            <div class="viewer-loading" id="viewer-loading">
+                <div class="loading-spinner"></div>
+                LOADING 360° EXPERIENCE
+            </div>
+        </div>
+
+        <!-- Specs Section -->
+        <div class="product-specs" id="product-specs">
+            <div class="specs-content">
+                <div class="car-details">
+                    <h1 id="product-car-name">Loading...</h1>
+                    <div class="car-meta">
+                        <div class="meta-item">
+                            <div class="meta-label">Year</div>
+                            <div class="meta-value" id="product-year">-</div>
+                        </div>
+                        <div class="meta-item">
+                            <div class="meta-label">Power</div>
+                            <div class="meta-value" id="product-power">-</div>
+                        </div>
+                        <div class="meta-item">
+                            <div class="meta-label">Mileage</div>
+                            <div class="meta-value" id="product-mileage">-</div>
+                        </div>
+                        <div class="meta-item">
+                            <div class="meta-label">Price</div>
+                            <div class="meta-value" id="product-price">-</div>
+                        </div>
                     </div>
+                    <div class="car-description" id="product-description">
+                        Loading vehicle information...
+                    </div>
+                </div>
+                <div class="action-buttons">
+                    <button class="product-btn primary" onclick="window.location.href='contact.html'">REQUEST INFO</button>
+                    <button class="product-btn" onclick="window.location.href='contact.html'">SCHEDULE VIEWING</button>
+                    <button class="product-btn" onclick="window.location.href='inventory.html'">VIEW INVENTORY</button>
                 </div>
             </div>
         </div>
-    </nav>
+    </div>
 
-    <main class="page">
-        <div class="container">
-            <h1 class="page-title heading-hero" id="product-name">MERCEDES-AMG C63 S COUPÉ</h1>
-            
-            <div class="viewer-container mb-12">
-                <div class="card" style="height: 500px; overflow: hidden; background: var(--bg-surface);">
-                    <img src="https://images.unsplash.com/photo-1563694983011-6f4ac93e8975?w=1200&h=600&fit=crop&crop=center" 
-                         alt="Mercedes-AMG C63 S Coupé" 
-                         style="width: 100%; height: 100%; object-fit: cover;">
-                </div>
-            </div>
-            
-            <div class="flex justify-center mb-12">
-                <button class="btn" id="play-sound">ENGINE SOUND</button>
-                <button class="btn" id="mute-sound" style="display: none;">MUTE</button>
-            </div>
-            
-            <div class="grid grid-cols-4 mb-12">
-                <div class="text-center">
-                    <div class="text-small mb-2">PRICE</div>
-                    <div class="heading-card" id="product-price">€89,500</div>
-                </div>
-                <div class="text-center">
-                    <div class="text-small mb-2">YEAR</div>
-                    <div class="heading-card" id="product-year">2018</div>
-                </div>
-                <div class="text-center">
-                    <div class="text-small mb-2">POWER</div>
-                    <div class="heading-card" id="product-power">510 HP</div>
-                </div>
-                <div class="text-center">
-                    <div class="text-small mb-2">MILEAGE</div>
-                    <div class="heading-card" id="product-mileage">24,500 KM</div>
-                </div>
-            </div>
-            
-            <div class="grid grid-cols-2 mb-12">
-                <div class="card">
-                    <h3 class="heading-card mb-6">VEHICLE SPECIFICATIONS</h3>
-                    <div class="grid grid-cols-2" style="gap: var(--space-4);">
-                        <div>
-                            <div class="text-small text-muted">ENGINE</div>
-                            <div class="text-body mb-4">4.0L V8 Biturbo</div>
-                        </div>
-                        <div>
-                            <div class="text-small text-muted">TRANSMISSION</div>
-                            <div class="text-body mb-4">7-Speed AMG Speedshift</div>
-                        </div>
-                        <div>
-                            <div class="text-small text-muted">DRIVETRAIN</div>
-                            <div class="text-body mb-4">Rear-Wheel Drive</div>
-                        </div>
-                        <div>
-                            <div class="text-small text-muted">0-100 KM/H</div>
-                            <div class="text-body mb-4">3.9 seconds</div>
-                        </div>
-                        <div>
-                            <div class="text-small text-muted">TOP SPEED</div>
-                            <div class="text-body mb-4">290 km/h</div>
-                        </div>
-                        <div>
-                            <div class="text-small text-muted">FUEL TYPE</div>
-                            <div class="text-body mb-4">Petrol</div>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="card">
-                    <h3 class="heading-card mb-6">VEHICLE DESCRIPTION</h3>
-                    <p class="text-body mb-4">This Mercedes-AMG C63 S Coupé represents the perfect synthesis of luxury and performance. The handcrafted 4.0-liter V8 biturbo engine delivers breathtaking acceleration while maintaining the refined comfort expected from the three-pointed star.</p>
-                    <p class="text-body mb-4">Finished in stunning Selenite Grey Metallic with AMG Performance seats in black Artico leather, this C63 S has been meticulously maintained with full service history from Mercedes-Benz.</p>
-                    <p class="text-body">Notable features include the AMG Track Pace app, Burmester surround sound system, and AMG Dynamic Plus package — making this an exceptionally well-equipped example.</p>
-                </div>
-            </div>
-            
-            <div class="flex justify-center" style="gap: var(--space-6);">
-                <button class="btn btn-primary">REQUEST INFORMATION</button>
-                <button class="btn">SCHEDULE VIEWING</button>
-            </div>
-        </div>
-    </main>
-
-    <audio id="engine-sound" preload="auto">
-        <source src="assets/engine-sound.mp3" type="audio/mpeg">
-    </audio>
+    <!-- Audio elements for engine sounds -->
+    <audio id="product-engine-sound" preload="auto"></audio>
 
     <script src="script.js"></script>
-    <script src="engine-sound.js"></script>
+    <script src="simple-engine-sound.js"></script>
     <script src="immersive-viewer.js"></script>
     <script>
-        // Initialize 360° viewer
-        document.addEventListener('DOMContentLoaded', function() {
-            const viewerContainer = document.querySelector('.viewer-container');
-            
-            // Replace placeholder with actual Spins viewer
-            viewerContainer.innerHTML = `
-                <div class="spins-viewer" 
-                     data-spins-url="https://example.com/360-spin-data"
-                     data-spins-width="100%"
-                     data-spins-height="100%"
-                     data-spins-autoplay="false"
-                     data-spins-controls="true">
-                </div>
-            `;
-            
-            // Initialize Spins viewer (this would use actual Spins.com API)
-            // For demo purposes, we'll show a placeholder
-            setTimeout(() => {
-                const placeholder = document.querySelector('.viewer-placeholder');
-                if (placeholder) {
-                    placeholder.innerHTML = `
-                        <div style="width: 100%; height: 100%; background: url('assets/car-360-preview.jpg') center/cover; position: relative;">
-                            <div style="position: absolute; bottom: 20px; left: 50%; transform: translateX(-50%); background: rgba(0,0,0,0.7); color: white; padding: 8px 16px; font-size: 12px; letter-spacing: 1px;">
-                                CLICK AND DRAG TO ROTATE
-                            </div>
-                        </div>
-                    `;
+        // Product page immersive experience
+        class ProductExperience {
+            constructor() {
+                this.viewer = document.getElementById('product-viewer');
+                this.specs = document.getElementById('product-specs');
+                this.loading = document.getElementById('viewer-loading');
+                this.backBtn = document.getElementById('back-to-inventory');
+                this.engineBtn = document.getElementById('product-engine');
+                this.engineSound = document.getElementById('product-engine-sound');
+                this.currentVehicle = null;
+                this.soundPlaying = false;
+                this.isShuttingDown = false;
+                this.engineSoundSystem = null;
+                
+                this.initEventListeners();
+                this.loadVehicleData();
+            }
+
+            initEventListeners() {
+                this.backBtn.addEventListener('click', () => {
+                    window.location.href = 'inventory.html';
+                });
+                
+                this.engineBtn.addEventListener('click', () => this.toggleEngine());
+                
+                // Escape key to go back
+                document.addEventListener('keydown', (e) => {
+                    if (e.key === 'Escape') {
+                        window.location.href = 'inventory.html';
+                    }
+                });
+            }
+
+            async loadVehicleData() {
+                const urlParams = new URLSearchParams(window.location.search);
+                const vehicleId = urlParams.get('id');
+                
+                if (!vehicleId) {
+                    window.location.href = 'inventory.html';
+                    return;
                 }
-            }, 1000);
+
+                try {
+                    console.log('🚗 Loading vehicle data for ID:', vehicleId);
+                    
+                    // Load vehicle from CMS or fallback data
+                    let vehicle = null;
+                    
+                    if (typeof carData !== 'undefined' && carData[vehicleId]) {
+                        vehicle = carData[vehicleId];
+                    } else {
+                        // Try to load from API directly
+                        try {
+                            const response = await fetch(`http://localhost:5000/api/vehicles/${vehicleId}`);
+                            const data = await response.json();
+                            if (data.success) {
+                                const v = data.data;
+                                vehicle = {
+                                    id: v.id,
+                                    name: `${v.brand} ${v.model}`,
+                                    price: `€${v.price.toLocaleString()}`,
+                                    year: v.year.toString(),
+                                    power: v.power || 'N/A',
+                                    mileage: `${v.mileage.toLocaleString()} KM`,
+                                    description: v.description || '',
+                                    engineType: v.engineType,
+                                    view360Url: v.view360Url,
+                                    engineSoundUrl: v.engineSoundUrl,
+                                    media: v.media || []
+                                };
+                            }
+                        } catch (error) {
+                            console.error('Failed to load vehicle from API:', error);
+                        }
+                    }
+                    
+                    if (!vehicle) {
+                        console.log('❌ Vehicle not found, redirecting to inventory');
+                        window.location.href = 'inventory.html';
+                        return;
+                    }
+
+                    this.currentVehicle = vehicle;
+                    this.updateVehicleInfo(vehicle);
+                    this.load360Viewer(vehicle);
+                    this.setupEngineSound(vehicle);
+                    
+                    // Show specs after delay
+                    setTimeout(() => {
+                        this.specs.classList.add('visible');
+                    }, 1500);
+                    
+                } catch (error) {
+                    console.error('Error loading vehicle:', error);
+                    window.location.href = 'inventory.html';
+                }
+            }
+
+            updateVehicleInfo(vehicle) {
+                document.getElementById('product-car-name').textContent = vehicle.name;
+                document.getElementById('product-year').textContent = vehicle.year;
+                document.getElementById('product-power').textContent = vehicle.power;
+                document.getElementById('product-mileage').textContent = vehicle.mileage;
+                document.getElementById('product-price').textContent = vehicle.price;
+                document.getElementById('product-description').textContent = vehicle.description;
+                
+                // Update page title
+                document.title = `LINE SELECT - ${vehicle.name}`;
+            }
+
+            load360Viewer(vehicle) {
+                this.loading.style.display = 'block';
+                
+                setTimeout(() => {
+                    this.loading.style.display = 'none';
+                    
+                    let viewerHTML = '';
+                    
+                    // Only use Impel URLs from backend, strict validation
+                    if (vehicle.view360Url && 
+                        (vehicle.view360Url.includes('impel.app') || vehicle.view360Url.includes('impel.')) && 
+                        !vehicle.view360Url.includes('godaddy')) {
+                        // Real Impel 360° viewer from backend
+                        console.log('🎯 Using Impel viewer from backend:', vehicle.view360Url);
+                        viewerHTML = `<iframe src="${vehicle.view360Url}" width="100%" height="100%" frameborder="0" allowfullscreen style="background: #000;"></iframe>`;
+                    } else {
+                        // Fallback interactive viewer
+                        viewerHTML = `
+                            <div style="width: 100%; height: 100%; background: linear-gradient(45deg, #222, #444); display: flex; align-items: center; justify-content: center; color: #fff; position: relative; overflow: hidden; cursor: grab;">
+                                <div style="text-align: center; z-index: 10;">
+                                    <div style="font-size: 24px; letter-spacing: 3px; margin-bottom: 10px;">360° INTERACTIVE VIEW</div>
+                                    <div style="font-size: 12px; opacity: 0.7; letter-spacing: 1px;">Click and drag to rotate • Scroll to zoom</div>
+                                    <div style="font-size: 10px; opacity: 0.5; margin-top: 20px;">${vehicle.name}</div>
+                                </div>
+                                <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 200px; height: 100px; border: 2px solid rgba(255,255,255,0.3); border-radius: 50px; opacity: 0.5;"></div>
+                                <div style="position: absolute; bottom: 20px; left: 20px; font-size: 10px; opacity: 0.5; letter-spacing: 1px;">IMMERSIVE EXPERIENCE</div>
+                            </div>
+                        `;
+                    }
+                    
+                    this.viewer.innerHTML = viewerHTML;
+                    
+                    // Add interaction for fallback viewer only if no valid Impel URL
+                    if (!vehicle.view360Url || 
+                        !vehicle.view360Url.includes('impel.') || 
+                        vehicle.view360Url.includes('godaddy')) {
+                        console.log('🎮 Using fallback interactive viewer');
+                        this.addViewerInteraction();
+                    }
+                }, 2000);
+            }
+
+            addViewerInteraction() {
+                const viewerContent = this.viewer.firstElementChild;
+                let isDragging = false;
+                let startX = 0;
+                let rotation = 0;
+                
+                viewerContent.addEventListener('mousedown', (e) => {
+                    isDragging = true;
+                    startX = e.clientX;
+                    viewerContent.style.cursor = 'grabbing';
+                });
+                
+                document.addEventListener('mousemove', (e) => {
+                    if (!isDragging) return;
+                    
+                    const deltaX = e.clientX - startX;
+                    rotation += deltaX * 0.5;
+                    
+                    viewerContent.style.filter = `hue-rotate(${rotation}deg) brightness(${1 + Math.sin(rotation * 0.01) * 0.2})`;
+                    startX = e.clientX;
+                });
+                
+                document.addEventListener('mouseup', () => {
+                    isDragging = false;
+                    viewerContent.style.cursor = 'grab';
+                });
+            }
+
+            setupEngineSound(vehicle) {
+                // Try to find engine sound from media or use direct URL
+                let audioUrl = null;
+                
+                if (vehicle.media && vehicle.media.length > 0) {
+                    // Look for engine rev sound first, then any audio
+                    const revSound = vehicle.media.find(m => m.type === 'audio' && m.audioCategory === 'engine_rev');
+                    const anyAudio = vehicle.media.find(m => m.type === 'audio');
+                    
+                    if (revSound) {
+                        audioUrl = `http://localhost:5000${revSound.url}`;
+                    } else if (anyAudio) {
+                        audioUrl = `http://localhost:5000${anyAudio.url}`;
+                    }
+                } else if (vehicle.engineSoundUrl) {
+                    audioUrl = vehicle.engineSoundUrl;
+                }
+                
+                if (audioUrl) {
+                    this.engineSound.src = audioUrl;
+                    console.log('🔊 Engine sound loaded:', audioUrl);
+                } else {
+                    this.engineBtn.style.opacity = '0.5';
+                    this.engineBtn.title = 'No engine sound available';
+                }
+            }
+
+            async toggleEngine() {
+                // Initialize engine sound if not done yet
+                if (!this.engineSoundSystem) {
+                    this.initEngineSound();
+                }
+                
+                if (this.soundPlaying || this.isShuttingDown) {
+                    // Stop engine with shutdown sequence
+                    if (this.engineSoundSystem && this.engineSoundSystem.stopEngine && !this.isShuttingDown) {
+                        this.isShuttingDown = true;
+                        this.engineSoundSystem.stopEngine();
+                        
+                        // Update button to show shutdown state
+                        this.engineBtn.innerHTML = '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="6" height="6"/></svg>';
+                        this.engineBtn.title = 'Shutting Down Engine...';
+                        this.engineBtn.disabled = true;
+                        
+                        // Remove rev button if it exists
+                        this.removeRevButton();
+                        
+                        console.log('Engine shutdown initiated');
+                        
+                        // Wait for shutdown sequence
+                        setTimeout(() => {
+                            this.isShuttingDown = false;
+                            this.soundPlaying = false;
+                            this.engineBtn.innerHTML = '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="8" width="20" height="8" rx="2"/><path d="M6 8V6a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v2"/><path d="M6 14h.01"/><path d="M10 14h.01"/><path d="M14 14h.01"/><path d="M18 14h.01"/></svg>';
+                            this.engineBtn.title = 'Start Engine';
+                            this.engineBtn.disabled = false;
+                            console.log('Engine shutdown complete');
+                        }, 3000);
+                    }
+                } else {
+                    // Start engine with startup sequence
+                    console.log('Attempting to start engine...');
+                    this.engineBtn.innerHTML = '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="4"/><path d="M12 2v4"/><path d="M12 18v4"/><path d="M4.93 4.93l2.83 2.83"/><path d="M16.24 16.24l2.83 2.83"/><path d="M2 12h4"/><path d="M18 12h4"/><path d="M4.93 19.07l2.83-2.83"/><path d="M16.24 7.76l2.83-2.83"/></svg>';
+                    this.engineBtn.title = 'Starting Engine...';
+                    this.engineBtn.disabled = true;
+                    
+                    // Add spinning animation
+                    this.engineBtn.style.animation = 'engine-startup 1s linear infinite';
+                    
+                    try {
+                        if (this.engineSoundSystem && this.engineSoundSystem.startEngine) {
+                            const success = await this.engineSoundSystem.startEngine();
+                            
+                            if (success) {
+                                // Remove spinning animation
+                                this.engineBtn.style.animation = '';
+                                this.engineBtn.innerHTML = '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="8" width="20" height="8" rx="2"/><path d="M6 8V6a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v2"/><path d="M6 14h.01"/><path d="M10 14h.01"/><path d="M14 14h.01"/><path d="M18 14h.01"/></svg>';
+                                this.engineBtn.title = 'Stop Engine';
+                                this.engineBtn.style.background = 'rgba(255, 255, 255, 0.2)';
+                                this.engineBtn.disabled = false;
+                                this.soundPlaying = true;
+                                
+                                // Add rev button after startup
+                                setTimeout(() => {
+                                    this.addRevButton();
+                                }, 500);
+                                
+                                console.log('Engine startup completed');
+                            } else {
+                                throw new Error('Engine failed to start');
+                            }
+                        } else {
+                            throw new Error('Engine sound system not available');
+                        }
+                    } catch (error) {
+                        console.error('Engine start failed:', error);
+                        this.engineBtn.style.animation = '';
+                        this.engineBtn.innerHTML = '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M15 9l-6 6"/><path d="M9 9l6 6"/></svg>';
+                        this.engineBtn.title = 'Engine Start Failed';
+                        this.engineBtn.disabled = false;
+                        
+                        // Reset after error
+                        setTimeout(() => {
+                            this.engineBtn.innerHTML = '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="8" width="20" height="8" rx="2"/><path d="M6 8V6a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v2"/><path d="M6 14h.01"/><path d="M10 14h.01"/><path d="M14 14h.01"/><path d="M18 14h.01"/></svg>';
+                            this.engineBtn.title = 'Start Engine';
+                            this.engineBtn.style.background = 'rgba(255, 255, 255, 0.1)';
+                        }, 3000);
+                    }
+                }
+            }
+            
+            initEngineSound() {
+                // Initialize advanced engine sound system
+                if (window.initSimpleEngine) {
+                    this.engineSoundSystem = window.initSimpleEngine();
+                    console.log('🔊 Advanced engine sound system initialized');
+                } else {
+                    console.warn('Advanced engine sound system not available');
+                }
+            }
+            
+            addRevButton() {
+                const controls = document.querySelector('.product-controls');
+                let revBtn = controls.querySelector('.rev-btn');
+                
+                if (!revBtn && this.soundPlaying) {
+                    revBtn = document.createElement('button');
+                    revBtn.className = 'control-btn rev-btn';
+                    revBtn.innerHTML = '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 2v4"/><path d="M16 2v4"/><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M8 12h8"/><path d="M12 8v8"/><path d="M8 16l4-4 4 4"/></svg>';
+                    revBtn.title = 'Rev Engine';
+                    
+                    revBtn.addEventListener('click', () => {
+                        if (this.engineSoundSystem && this.soundPlaying && this.engineSoundSystem.revEngine) {
+                            this.engineSoundSystem.revEngine();
+                            console.log('🚗 Engine revved!');
+                            
+                            // Visual feedback
+                            revBtn.style.transform = 'scale(1.2)';
+                            revBtn.style.background = 'rgba(255, 255, 255, 0.3)';
+                            setTimeout(() => {
+                                revBtn.style.transform = '';
+                                revBtn.style.background = 'rgba(255, 255, 255, 0.1)';
+                            }, 300);
+                        }
+                    });
+                    
+                    // Insert before the back button
+                    controls.insertBefore(revBtn, controls.lastElementChild);
+                }
+            }
+            
+            removeRevButton() {
+                const revBtn = document.querySelector('.rev-btn');
+                if (revBtn) {
+                    revBtn.remove();
+                }
+            }
+        }
+
+        // Initialize when page loads
+        document.addEventListener('DOMContentLoaded', () => {
+            console.log('🚀 Starting immersive product experience...');
+            
+            // Wait for vehicle data to load if available
+            if (typeof loadVehicles === 'function') {
+                loadVehicles().then(() => {
+                    new ProductExperience();
+                });
+            } else {
+                new ProductExperience();
+            }
         });
     </script>
-
-    <footer class="footer">
-        <div class="container">
-            <div class="footer-main">
-                <div class="footer-copyright">
-                    © LINE SELECT 2025
-                </div>
-                <div class="footer-social">
-                    <a href="#" aria-label="Instagram">
-                        <svg class="social-icon" viewBox="0 0 24 24">
-                            <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
-                        </svg>
-                    </a>
-                    <a href="#" aria-label="Facebook">
-                        <svg class="social-icon" viewBox="0 0 24 24">
-                            <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
-                        </svg>
-                    </a>
-                    <a href="#" aria-label="TikTok">
-                        <svg class="social-icon" viewBox="0 0 24 24">
-                            <path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z"/>
-                        </svg>
-                    </a>
-                </div>
-            </div>
-            <div class="back-to-top">
-                <a href="#" onclick="window.scrollTo({top: 0, behavior: 'smooth'}); return false;">BACK TO TOP</a>
-            </div>
-        </div>
-    </footer>
 </body>
 </html>

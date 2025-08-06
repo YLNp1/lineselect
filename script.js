@@ -1,163 +1,101 @@
-// Multilingual Support
-const translations = {
-    en: {
-        brand: "LINE SELECT",
-        inventory: "INVENTORY",
-        about: "ABOUT",
-        contact: "CONTACT",
-        tagline: "EXCEPTIONAL AUTOMOTIVE EXCELLENCE",
-        subtitle: "Where luxury meets performance",
-        "view-inventory": "VIEW INVENTORY",
-        price: "€189,500",
-        "play-sound": "PLAY SOUND",
-        "mute-sound": "MUTE",
-        "price-label": "PRICE",
-        "year-label": "YEAR",
-        "power-label": "POWER",
-        "mileage-label": "MILEAGE",
-        "request-info": "REQUEST INFO",
-        "schedule-viewing": "SCHEDULE VIEWING",
-        "inventory-title": "CURRENT INVENTORY",
-        "all-brands": "ALL BRANDS",
-        "all-prices": "ALL PRICES",
-        "view-details": "VIEW DETAILS",
-        "about-title": "ABOUT LINE SELECT",
-        "brand-story": "Line Select represents the intersection of automotive excellence and curatorial precision. We specialize in hand-selected performance vehicles that embody both engineering mastery and aesthetic perfection. Every car in our collection has been chosen for its ability to deliver an uncompromising driving experience while maintaining the highest standards of craftsmanship and design integrity.",
-        "founders-title": "FOUNDERS",
-        "founder-title-1": "CO-FOUNDER & CURATOR",
-        "founder-bio-1": "Former automotive journalist with 15 years of experience in performance car evaluation. Specializes in identifying vehicles that combine technical excellence with emotional resonance. Graduated from TU Delft with a focus on automotive engineering and design philosophy.",
-        "founder-title-2": "CO-FOUNDER & OPERATIONS",
-        "founder-bio-2": "Former luxury retail director with expertise in high-end customer experience design. Brings precision to every aspect of the client journey, from initial consultation to delivery. Passionate about creating seamless interactions that match the quality of our vehicles.",
-        "philosophy-title": "PHILOSOPHY",
-        "philosophy-text": "We believe that exceptional cars deserve exceptional presentation. Our approach combines the meticulous attention to detail of a museum curator with the passion of true automotive enthusiasts. Each vehicle is more than a machine – it's a statement of intent, a work of art that happens to move.",
-        "contact-title": "CONTACT",
-        "name-label": "NAME",
-        "email-label": "EMAIL",
-        "phone-label": "PHONE (OPTIONAL)",
-        "message-label": "MESSAGE",
-        "submit-btn": "SEND MESSAGE",
-        "location-title": "LOCATION",
-        "location-text": "Parkstad\nNetherlands",
-        "phone-title": "PHONE",
-        "whatsapp-title": "WHATSAPP",
-        "email-title": "EMAIL"
-    },
-    nl: {
-        brand: "LINE SELECT",
-        inventory: "INVENTARIS",
-        about: "OVER ONS",
-        contact: "CONTACT",
-        tagline: "UITZONDERLIJKE AUTOMOTIVE EXCELLENTIE",
-        subtitle: "Waar luxe en prestaties samenkomen",
-        "view-inventory": "BEKIJK INVENTARIS",
-        price: "€189.500",
-        "play-sound": "GELUID AFSPELEN",
-        "mute-sound": "DEMPEN",
-        "price-label": "PRIJS",
-        "year-label": "JAAR",
-        "power-label": "VERMOGEN",
-        "mileage-label": "KILOMETERSTAND",
-        "request-info": "INFORMATIE AANVRAGEN",
-        "schedule-viewing": "BEZICHTIGING PLANNEN"
-    },
-    de: {
-        brand: "LINE SELECT",
-        inventory: "INVENTAR",
-        about: "ÜBER UNS",
-        contact: "KONTAKT",
-        tagline: "AUSSERGEWÖHNLICHE AUTOMOTIVE EXZELLENZ",
-        subtitle: "Wo Luxus auf Leistung trifft",
-        "view-inventory": "INVENTAR ANSEHEN",
-        price: "€189.500",
-        "play-sound": "SOUND ABSPIELEN",
-        "mute-sound": "STUMM",
-        "price-label": "PREIS",
-        "year-label": "JAHR",
-        "power-label": "LEISTUNG",
-        "mileage-label": "LAUFLEISTUNG",
-        "request-info": "INFO ANFORDERN",
-        "schedule-viewing": "BESICHTIGUNG PLANEN"
-    }
-};
+// API Configuration
+const API_URL = 'http://localhost:5000/api';
 
-// Car database
-const carData = {
-    1: {
-        name: "PORSCHE 911 GT3",
-        price: "€189,500",
-        year: "2023",
-        power: "510 HP",
-        mileage: "2,500 KM",
-        description: {
-            en: "This exceptional GT3 represents the pinnacle of Porsche's racing heritage. With its naturally aspirated engine and precision-tuned suspension, it delivers an uncompromising driving experience that connects you directly to the road.",
-            nl: "Deze uitzonderlijke GT3 vertegenwoordigt het hoogtepunt van Porsche's raceheritagee. Met zijn atmosferische motor en precisie-afgestelde ophanging levert het een compromisloze rijervaring die je direct met de weg verbindt.",
-            de: "Dieser außergewöhnliche GT3 repräsentiert den Höhepunkt von Porsches Rennheritage. Mit seinem Saugmotor und der präzisionsabgestimmten Aufhängung liefert er ein kompromissloses Fahrerlebnis, das Sie direkt mit der Straße verbindet."
+// Car data cache
+let carData = {};
+let vehiclesLoaded = false;
+
+// Fetch vehicles from CMS
+async function loadVehicles() {
+    try {
+        console.log('🚗 Loading vehicles from CMS...');
+        const response = await fetch(`${API_URL}/vehicles`);
+        console.log('📡 API Response status:', response.status);
+        const data = await response.json();
+        console.log('📊 API Data:', data);
+        
+        if (data.success && data.data) {
+            // Convert API data to our format
+            carData = {};
+            
+            // Media is already included in the vehicle response, no need to fetch separately
+            for (const vehicle of data.data) {
+                console.log(`🚗 Vehicle ${vehicle.brand} ${vehicle.model} has ${vehicle.media ? vehicle.media.length : 0} media items`);
+                
+                carData[vehicle.id] = {
+                    id: vehicle.id,
+                    name: `${vehicle.brand} ${vehicle.model}`,
+                    price: `€${vehicle.price.toLocaleString()}`,
+                    year: vehicle.year.toString(),
+                    power: vehicle.power || 'N/A',
+                    mileage: `${vehicle.mileage.toLocaleString()} KM`,
+                    description: vehicle.description || '',
+                    engineType: vehicle.engineType,
+                    transmission: vehicle.transmission,
+                    exteriorColor: vehicle.exteriorColor,
+                    interiorColor: vehicle.interiorColor,
+                    features: vehicle.features || [],
+                    featuredImage: vehicle.featuredImage,
+                    view360Url: vehicle.view360Url,
+                    engineSoundUrl: vehicle.engineSoundUrl,
+                    media: vehicle.media || []
+                };
+            }
+            
+            vehiclesLoaded = true;
+            return true;
         }
-    },
-    2: {
-        name: "McLAREN 720S",
-        price: "€295,000",
-        year: "2022",
-        power: "720 HP",
-        mileage: "1,800 KM",
-        description: {
-            en: "The McLaren 720S embodies the perfect fusion of cutting-edge technology and raw performance. Its carbon fiber construction and twin-turbo V8 engine deliver breathtaking acceleration and handling precision.",
-            nl: "De McLaren 720S belichaamt de perfecte fusie van geavanceerde technologie en pure prestaties. Zijn carbon fiber constructie en twin-turbo V8 motor leveren adembenemende acceleratie en handling precisie.",
-            de: "Der McLaren 720S verkörpert die perfekte Fusion aus modernster Technologie und roher Leistung. Seine Kohlefaserkonstruktion und der Twin-Turbo-V8-Motor liefern atemberaubende Beschleunigung und Handling-Präzision."
-        }
-    },
-    3: {
-        name: "LAMBORGHINI HURACÁN",
-        price: "€225,000",
-        year: "2023",
-        power: "640 HP",
-        mileage: "900 KM",
-        description: {
-            en: "The Huracán represents Italian automotive artistry at its finest. Every curve and line has been sculpted to perfection, housing a naturally aspirated V10 that sings with unmistakable passion.",
-            nl: "De Huracán vertegenwoordigt Italiaans automotive kunstenaarschap op zijn best. Elke curve en lijn is tot perfectie gebeeldhouwd, met een atmosferische V10 die zingt met onmiskenbare passie.",
-            de: "Der Huracán repräsentiert italienische Automobilkunst vom Feinsten. Jede Kurve und Linie wurde zur Perfektion geformt und beherbergt einen Saugmotor V10, der mit unverkennbarer Leidenschaft singt."
-        }
+    } catch (error) {
+        console.error('❌ Failed to load vehicles from CMS:', error);
+        console.log('🔄 Using fallback static data...');
+        // Fallback to static data
+        carData = {
+            1: {
+                name: "PORSCHE 911 GT3",
+                price: "€189,500",
+                year: "2023",
+                power: "510 HP",
+                mileage: "2,500 KM",
+                description: "This exceptional GT3 represents the pinnacle of Porsche's racing heritage."
+            },
+            2: {
+                name: "McLAREN 720S",
+                price: "€295,000",
+                year: "2022",
+                power: "720 HP",
+                mileage: "1,800 KM",
+                description: "The McLaren 720S embodies the perfect fusion of cutting-edge technology and raw performance."
+            },
+            3: {
+                name: "LAMBORGHINI HURACÁN",
+                price: "€225,000",
+                year: "2023",
+                power: "640 HP",
+                mileage: "900 KM",
+                description: "The Huracán represents Italian automotive artistry at its finest."
+            }
+        };
     }
-};
+    return false;
+}
 
 // Initialize application
-document.addEventListener('DOMContentLoaded', function() {
-    initializeLanguageSelector();
+document.addEventListener('DOMContentLoaded', async function() {
+    console.log('🚀 LINE SELECT - Starting application...');
+    console.log('🌐 Current page:', window.location.pathname);
+    
+    // Load vehicles from CMS first
+    await loadVehicles();
+    
+    // Then initialize page functionality
     initializeProductPage();
     initializeAudioControls();
     initializeSmoothScrolling();
     initializeVideoFallback();
-});
-
-// Language functionality
-function initializeLanguageSelector() {
-    const languageSelect = document.getElementById('language-select');
-    if (languageSelect) {
-        languageSelect.addEventListener('change', function() {
-            changeLanguage(this.value);
-        });
-    }
-}
-
-function changeLanguage(lang) {
-    const elements = document.querySelectorAll('[data-translate]');
-    elements.forEach(element => {
-        const key = element.getAttribute('data-translate');
-        if (translations[lang] && translations[lang][key]) {
-            element.textContent = translations[lang][key];
-        }
-    });
     
-    // Update product description if on product page
-    const productDesc = document.getElementById('product-desc');
-    if (productDesc) {
-        const urlParams = new URLSearchParams(window.location.search);
-        const carId = urlParams.get('id') || '1';
-        if (carData[carId] && carData[carId].description[lang]) {
-            productDesc.textContent = carData[carId].description[lang];
-        }
-    }
-}
+    // If on homepage or inventory, update car cards
+    updateCarCards();
+});
 
 // Product page functionality
 function initializeProductPage() {
@@ -180,7 +118,51 @@ function initializeProductPage() {
         if (productYear) productYear.textContent = car.year;
         if (productPower) productPower.textContent = car.power;
         if (productMileage) productMileage.textContent = car.mileage;
-        if (productDesc) productDesc.textContent = car.description.en;
+        if (productDesc) productDesc.textContent = car.description;
+        
+        // Update additional details if available
+        if (car.engineType) {
+            const engineTypeEl = document.getElementById('engine-type');
+            if (engineTypeEl) engineTypeEl.textContent = car.engineType;
+        }
+        
+        if (car.transmission) {
+            const transmissionEl = document.getElementById('transmission');
+            if (transmissionEl) transmissionEl.textContent = car.transmission;
+        }
+        
+        // Update 360° view if available
+        if (car.view360Url) {
+            const viewerContainer = document.querySelector('.viewer-container');
+            if (viewerContainer) {
+                viewerContainer.innerHTML = `<iframe src="${car.view360Url}" width="100%" height="100%" frameborder="0" allowfullscreen></iframe>`;
+            }
+        }
+        
+        // Update engine sound if available
+        if (car.engineSoundUrl) {
+            const engineSound = document.getElementById('engine-sound');
+            if (engineSound) {
+                engineSound.src = car.engineSoundUrl;
+            }
+        }
+        
+        // Update images from media
+        if (car.media && car.media.length > 0) {
+            const images = car.media.filter(m => m.type === 'image');
+            const audio = car.media.filter(m => m.type === 'audio');
+            
+            // Handle audio files by category
+            if (audio.length > 0) {
+                const engineRevAudio = audio.find(a => a.audioCategory === 'engine_rev');
+                if (engineRevAudio) {
+                    const engineSound = document.getElementById('engine-sound');
+                    if (engineSound) {
+                        engineSound.src = `http://localhost:5000${engineRevAudio.url}`;
+                    }
+                }
+            }
+        }
         
         // Update page title
         document.title = `LINE SELECT - ${car.name}`;
@@ -240,8 +222,8 @@ function initializeSmoothScrolling() {
 
 // Form handlers for product actions
 document.addEventListener('DOMContentLoaded', function() {
-    const requestInfoBtn = document.querySelector('[data-translate="request-info"]');
-    const scheduleViewingBtn = document.querySelector('[data-translate="schedule-viewing"]');
+    const requestInfoBtn = document.querySelector('.btn-primary');
+    const scheduleViewingBtn = document.querySelector('.btn:not(.btn-primary)');
     
     if (requestInfoBtn) {
         requestInfoBtn.addEventListener('click', function() {
@@ -252,8 +234,8 @@ document.addEventListener('DOMContentLoaded', function() {
     
     if (scheduleViewingBtn) {
         scheduleViewingBtn.addEventListener('click', function() {
-            // In a real application, this would open a scheduling interface
-            alert('Schedule viewing functionality would be implemented here');
+            // Redirect to inventory page to view available vehicles
+            window.location.href = 'inventory.html';
         });
     }
 });
@@ -323,6 +305,207 @@ function initialize360Viewer() {
 document.addEventListener('DOMContentLoaded', function() {
     setTimeout(initialize360Viewer, 1500);
 });
+
+// Update car cards on homepage and inventory
+function updateCarCards() {
+    console.log('🔄 Updating car cards...');
+    console.log('🚗 Available car data:', Object.keys(carData));
+    
+    // Update inventory items if on inventory page
+    const inventoryGrid = document.querySelector('.inventory-grid');
+    if (inventoryGrid) {
+        console.log('📋 Found inventory grid, updating...');
+        // Clear existing items
+        inventoryGrid.innerHTML = '';
+        
+        // Collect unique brands for filter
+        const brands = new Set();
+        
+        // Add vehicles from CMS
+        Object.values(carData).forEach(vehicle => {
+            const brand = vehicle.name.split(' ')[0].toLowerCase();
+            brands.add(brand);
+            
+            // Find the main image from media array or use featuredImage
+            let mainImageUrl = vehicle.featuredImage;
+            if (vehicle.media && vehicle.media.length > 0) {
+                console.log(`🖼️ Vehicle ${vehicle.name} has ${vehicle.media.length} media items:`, vehicle.media);
+                const mainImage = vehicle.media.find(m => m.type === 'image' && m.isMain);
+                if (mainImage) {
+                    console.log(`✅ Found main image for ${vehicle.name}:`, mainImage.url);
+                    mainImageUrl = mainImage.url;
+                } else {
+                    // If no main image, use the first image
+                    const firstImage = vehicle.media.find(m => m.type === 'image');
+                    if (firstImage) {
+                        console.log(`📷 Using first image for ${vehicle.name}:`, firstImage.url);
+                        mainImageUrl = firstImage.url;
+                    }
+                }
+            } else {
+                console.log(`⚠️ No media found for ${vehicle.name}, using featuredImage:`, vehicle.featuredImage);
+            }
+            
+            const itemHTML = `
+                <div class="inventory-item" data-brand="${brand}" data-price="${vehicle.price.replace(/[^0-9]/g, '')}" data-vehicle-id="${vehicle.id}">
+                    <div class="item-image">
+                        <img src="${mainImageUrl ? `http://localhost:5000${mainImageUrl}` : `https://via.placeholder.com/800x600/1a1a1a/ffffff?text=${encodeURIComponent(vehicle.name)}`}" alt="${vehicle.name}">
+                    </div>
+                    <div class="item-info">
+                        <h3 class="heading-card">${vehicle.name}</h3>
+                        <p class="item-year text-xs">${vehicle.year} • ${vehicle.mileage} • ${vehicle.engineType || vehicle.power}</p>
+                        <p class="item-price">${vehicle.price}</p>
+                        <button class="btn view-details-btn" onclick="window.location.href='product.html?id=${vehicle.id}'">VIEW DETAILS</button>
+                    </div>
+                </div>
+            `;
+            inventoryGrid.insertAdjacentHTML('beforeend', itemHTML);
+        });
+        
+        // Update brand filter options
+        const brandFilter = document.getElementById('brand-filter');
+        if (brandFilter) {
+            // Keep "All Marques" option and add dynamic brands
+            const currentValue = brandFilter.value;
+            brandFilter.innerHTML = '<option value="all">ALL MARQUES</option>';
+            
+            // Add sorted brands
+            Array.from(brands).sort().forEach(brand => {
+                const option = document.createElement('option');
+                option.value = brand;
+                option.textContent = brand.toUpperCase();
+                brandFilter.appendChild(option);
+            });
+            
+            // Restore previous selection if it still exists
+            if (currentValue && brandFilter.querySelector(`option[value="${currentValue}"]`)) {
+                brandFilter.value = currentValue;
+            }
+        }
+        
+        // Re-initialize filter functionality
+        initializeInventoryFilters();
+        
+        // Re-initialize immersive click handlers after inventory update
+        if (typeof addImmersiveClickHandlers === 'function') {
+            setTimeout(() => {
+                addImmersiveClickHandlers();
+            }, 100);
+        }
+    }
+    
+    // Update featured cars on homepage if they exist
+    const carCards = document.querySelectorAll('.car-card');
+    carCards.forEach((card, index) => {
+        const carId = card.getAttribute('data-car-id') || Object.keys(carData)[index];
+        const vehicle = carData[carId];
+        
+        if (vehicle) {
+            // Update card content
+            const nameElement = card.querySelector('.car-name');
+            const priceElement = card.querySelector('.car-price');
+            const yearElement = card.querySelector('.car-year');
+            const powerElement = card.querySelector('.car-power');
+            const mileageElement = card.querySelector('.car-mileage');
+            
+            if (nameElement) nameElement.textContent = vehicle.name;
+            if (priceElement) priceElement.textContent = vehicle.price;
+            if (yearElement) yearElement.textContent = vehicle.year;
+            if (powerElement) powerElement.textContent = vehicle.power;
+            if (mileageElement) mileageElement.textContent = vehicle.mileage;
+            
+            // Remove any product.html links - use immersive viewer only
+            const links = card.querySelectorAll('a[href*="product.html"]');
+            links.forEach(link => {
+                link.removeAttribute('href');
+                link.setAttribute('data-vehicle-id', vehicle.id);
+                link.style.cursor = 'pointer';
+            });
+            
+            // Update image if available
+            const imgElement = card.querySelector('.car-image');
+            if (imgElement) {
+                // Find the main image from media array or use featuredImage
+                let mainImageUrl = vehicle.featuredImage;
+                if (vehicle.media && vehicle.media.length > 0) {
+                    const mainImage = vehicle.media.find(m => m.type === 'image' && m.isMain);
+                    if (mainImage) {
+                        mainImageUrl = mainImage.url;
+                    } else {
+                        // If no main image, use the first image
+                        const firstImage = vehicle.media.find(m => m.type === 'image');
+                        if (firstImage) {
+                            mainImageUrl = firstImage.url;
+                        }
+                    }
+                }
+                
+                if (mainImageUrl) {
+                    imgElement.src = `http://localhost:5000${mainImageUrl}`;
+                    imgElement.alt = vehicle.name;
+                }
+            }
+        }
+    });
+}
+
+// Initialize inventory filters
+function initializeInventoryFilters() {
+    const brandFilter = document.getElementById('brand-filter');
+    const priceFilter = document.getElementById('price-filter');
+    const inventoryItems = document.querySelectorAll('.inventory-item');
+
+    function filterInventory() {
+        const selectedBrand = brandFilter?.value || 'all';
+        const selectedPrice = priceFilter?.value || 'all';
+
+        inventoryItems.forEach(item => {
+            const itemBrand = item.getAttribute('data-brand');
+            const itemPrice = parseInt(item.getAttribute('data-price'));
+            
+            let showItem = true;
+
+            // Brand filter
+            if (selectedBrand !== 'all' && itemBrand !== selectedBrand) {
+                showItem = false;
+            }
+
+            // Price filter
+            if (selectedPrice !== 'all') {
+                switch (selectedPrice) {
+                    case 'under-200':
+                        if (itemPrice >= 200000) showItem = false;
+                        break;
+                    case '200-300':
+                        if (itemPrice < 200000 || itemPrice >= 300000) showItem = false;
+                        break;
+                    case '300-500':
+                        if (itemPrice < 300000 || itemPrice >= 500000) showItem = false;
+                        break;
+                    case 'over-500':
+                        if (itemPrice < 500000) showItem = false;
+                        break;
+                }
+            }
+
+            // Show/hide item with smooth transition
+            if (showItem) {
+                item.style.display = 'block';
+                setTimeout(() => {
+                    item.style.opacity = '1';
+                }, 10);
+            } else {
+                item.style.opacity = '0';
+                setTimeout(() => {
+                    item.style.display = 'none';
+                }, 300);
+            }
+        });
+    }
+
+    if (brandFilter) brandFilter.addEventListener('change', filterInventory);
+    if (priceFilter) priceFilter.addEventListener('change', filterInventory);
+}
 
 // Video fallback functionality
 function initializeVideoFallback() {

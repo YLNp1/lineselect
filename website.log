@@ -1,0 +1,36 @@
+127.0.0.1 - - [02/Aug/2025 19:24:54] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [02/Aug/2025 19:24:54] "GET /styles.css?v=7 HTTP/1.1" 200 -
+127.0.0.1 - - [02/Aug/2025 19:24:55] "GET /script.js HTTP/1.1" 200 -
+127.0.0.1 - - [02/Aug/2025 19:24:55] "GET /simple-engine-sound.js HTTP/1.1" 200 -
+127.0.0.1 - - [02/Aug/2025 19:24:55] "GET /immersive-viewer.js HTTP/1.1" 200 -
+127.0.0.1 - - [02/Aug/2025 19:24:55] "GET /assets/videos/test1.mp4 HTTP/1.1" 200 -
+127.0.0.1 - - [02/Aug/2025 19:24:56] code 404, message File not found
+127.0.0.1 - - [02/Aug/2025 19:24:56] "GET /assets/engine-sound.mp3 HTTP/1.1" 404 -
+127.0.0.1 - - [02/Aug/2025 19:24:56] "GET /assets/videos/test1.mp4 HTTP/1.1" 200 -
+127.0.0.1 - - [02/Aug/2025 19:24:56] code 404, message File not found
+127.0.0.1 - - [02/Aug/2025 19:24:56] "GET /favicon.ico HTTP/1.1" 404 -
+127.0.0.1 - - [02/Aug/2025 19:24:58] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [02/Aug/2025 19:25:30] "GET /inventory.html HTTP/1.1" 200 -
+127.0.0.1 - - [02/Aug/2025 19:25:30] "GET /styles.css HTTP/1.1" 200 -
+127.0.0.1 - - [02/Aug/2025 19:25:30] code 404, message File not found
+127.0.0.1 - - [02/Aug/2025 19:25:30] "GET /assets/engine-sound.mp3 HTTP/1.1" 404 -
+127.0.0.1 - - [02/Aug/2025 19:25:39] "GET /product.html?id=1 HTTP/1.1" 200 -
+127.0.0.1 - - [02/Aug/2025 19:25:40] code 404, message File not found
+127.0.0.1 - - [02/Aug/2025 19:25:40] "GET /assets/engine-sound.mp3 HTTP/1.1" 404 -
+127.0.0.1 - - [02/Aug/2025 19:26:37] code 404, message File not found
+127.0.0.1 - - [02/Aug/2025 19:26:37] "GET /assets/engine-sound.mp3 HTTP/1.1" 404 -
+127.0.0.1 - - [02/Aug/2025 19:27:08] "GET /inventory.html HTTP/1.1" 200 -
+127.0.0.1 - - [02/Aug/2025 19:27:09] "GET /styles.css HTTP/1.1" 200 -
+127.0.0.1 - - [02/Aug/2025 19:27:09] "GET /script.js HTTP/1.1" 200 -
+127.0.0.1 - - [02/Aug/2025 19:27:09] "GET /simple-engine-sound.js HTTP/1.1" 200 -
+127.0.0.1 - - [02/Aug/2025 19:27:09] "GET /immersive-viewer.js HTTP/1.1" 200 -
+127.0.0.1 - - [02/Aug/2025 19:27:09] code 404, message File not found
+127.0.0.1 - - [02/Aug/2025 19:27:09] "GET /assets/engine-sound.mp3 HTTP/1.1" 404 -
+127.0.0.1 - - [02/Aug/2025 19:27:10] code 404, message File not found
+127.0.0.1 - - [02/Aug/2025 19:27:10] "GET /favicon.ico HTTP/1.1" 404 -
+127.0.0.1 - - [02/Aug/2025 19:27:15] "GET /about.html HTTP/1.1" 200 -
+127.0.0.1 - - [02/Aug/2025 19:27:15] code 404, message File not found
+127.0.0.1 - - [02/Aug/2025 19:27:15] "GET /assets/engine-sound.mp3 HTTP/1.1" 404 -
+127.0.0.1 - - [02/Aug/2025 19:27:18] "GET /contact.html HTTP/1.1" 200 -
+127.0.0.1 - - [02/Aug/2025 19:27:19] code 404, message File not found
+127.0.0.1 - - [02/Aug/2025 19:27:19] "GET /assets/engine-sound.mp3 HTTP/1.1" 404 -

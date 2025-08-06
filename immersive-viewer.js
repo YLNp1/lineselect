@@ -382,6 +382,12 @@ class ImmersiveViewer {
     }
 
     getCarData() {
+        // Use global carData from CMS if available, otherwise fallback
+        if (typeof carData !== 'undefined' && Object.keys(carData).length > 0) {
+            return carData;
+        }
+        
+        // Fallback data
         return {
             1: {
                 name: "PORSCHE 911 GT3",
@@ -411,10 +417,27 @@ class ImmersiveViewer {
     }
 
     open(carId, sourceElement) {
+        // Prevent opening if already active
+        if (isImmersiveViewerActive) {
+            console.log('🚫 Immersive viewer already active, ignoring click');
+            return;
+        }
+        
+        // Set active state immediately to prevent race conditions
+        isImmersiveViewerActive = true;
+        
+        // Refresh car data from CMS
+        this.carData = this.getCarData();
         this.currentCarId = carId;
         const car = this.carData[carId];
         
-        if (!car) return;
+        if (!car) {
+            console.warn('🚫 Car not found:', carId);
+            isImmersiveViewerActive = false; // Reset state
+            return;
+        }
+        
+        console.log('🚗 Opening immersive view for:', car.name);
 
         // Animate source element
         this.animateSourceElement(sourceElement);
@@ -505,21 +528,40 @@ class ImmersiveViewer {
         setTimeout(() => {
             loading.style.display = 'none';
             
-            // Create interactive 360° viewer placeholder
-            const viewerHTML = `
-                <div class="viewer-360" style="width: 100%; height: 100%; background: linear-gradient(135deg, #1a1a1a, #2d2d2d); display: flex; align-items: center; justify-content: center; color: #fff; position: relative; overflow: hidden; cursor: grab;">
-                    <div style="text-align: center; z-index: 10; pointer-events: none;">
-                        <div style="font-size: 28px; letter-spacing: 4px; margin-bottom: 15px; font-weight: 300;">360° INTERACTIVE VIEW</div>
-                        <div style="font-size: 12px; opacity: 0.7; letter-spacing: 1px;">CLICK AND DRAG TO ROTATE • SCROLL TO ZOOM</div>
+            const car = this.carData[this.currentCarId];
+            let viewerHTML = '';
+            
+            // Only use Impel URLs from backend, strict validation
+            if (car && car.view360Url && 
+                (car.view360Url.includes('impel.app') || car.view360Url.includes('impel.')) && 
+                !car.view360Url.includes('godaddy')) {
+                // Real Impel 360° viewer from backend
+                console.log('🎯 Using Impel viewer from backend:', car.view360Url);
+                viewerHTML = `<iframe src="${car.view360Url}" width="100%" height="100%" frameborder="0" allowfullscreen style="background: #000;"></iframe>`;
+            } else {
+                // Fallback interactive viewer
+                viewerHTML = `
+                    <div class="viewer-360" style="width: 100%; height: 100%; background: linear-gradient(135deg, #1a1a1a, #2d2d2d); display: flex; align-items: center; justify-content: center; color: #fff; position: relative; overflow: hidden; cursor: grab;">
+                        <div style="text-align: center; z-index: 10; pointer-events: none;">
+                            <div style="font-size: 28px; letter-spacing: 4px; margin-bottom: 15px; font-weight: 300;">360° INTERACTIVE VIEW</div>
+                            <div style="font-size: 12px; opacity: 0.7; letter-spacing: 1px;">CLICK AND DRAG TO ROTATE • SCROLL TO ZOOM</div>
+                        </div>
+                        <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 250px; height: 120px; border: 2px solid rgba(255,255,255,0.2); border-radius: 60px; opacity: 0.6;"></div>
+                        <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 200px; height: 80px; border: 1px solid rgba(255,255,255,0.3); border-radius: 40px; opacity: 0.4;"></div>
+                        <div style="position: absolute; bottom: 20px; right: 20px; font-size: 10px; opacity: 0.5; letter-spacing: 1px; font-family: monospace;">IMMERSIVE EXPERIENCE</div>
                     </div>
-                    <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 250px; height: 120px; border: 2px solid rgba(255,255,255,0.2); border-radius: 60px; opacity: 0.6;"></div>
-                    <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 200px; height: 80px; border: 1px solid rgba(255,255,255,0.3); border-radius: 40px; opacity: 0.4;"></div>
-                    <div style="position: absolute; bottom: 20px; right: 20px; font-size: 10px; opacity: 0.5; letter-spacing: 1px; font-family: monospace;">SPINS.IMPEL READY</div>
-                </div>
-            `;
+                `;
+            }
             
             viewer.innerHTML = viewerHTML;
-            this.addViewerInteraction();
+            
+            // Add interaction for fallback viewer only if no valid Impel URL
+            if (!car || !car.view360Url || 
+                !car.view360Url.includes('impel.') || 
+                car.view360Url.includes('godaddy')) {
+                console.log('🎮 Using fallback interactive viewer');
+                this.addViewerInteraction();
+            }
         }, 1500);
     }
 
@@ -747,12 +789,25 @@ class ImmersiveViewer {
                     LOADING 360° VIEWER
                 </div>
             `;
+            
+            // Clear current vehicle to prevent state issues
+            this.currentCarId = null;
+            
+            // Refresh car data in case it was updated
+            this.carData = this.getCarData();
+            
+            // Reset active state after a delay to allow for complete cleanup
+            setTimeout(() => {
+                isImmersiveViewerActive = false;
+                console.log('✅ Immersive viewer fully closed and ready for next interaction');
+            }, 100);
         }, 500);
     }
 }
 
 // Initialize immersive viewer
 let immersiveViewerInstance;
+let isImmersiveViewerActive = false;
 
 // Initialize when DOM is ready
 document.addEventListener('DOMContentLoaded', function() {
@@ -765,41 +820,93 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 function addImmersiveClickHandlers() {
-    // Homepage car items
-    const homeCarItems = document.querySelectorAll('.car-item img');
-    homeCarItems.forEach((img, index) => {
-        img.style.cursor = 'pointer';
-        img.addEventListener('click', function(e) {
+    console.log('🎯 Adding immersive click handlers...');
+    
+    // Remove existing handlers to prevent duplicates
+    const existingHandlers = document.querySelectorAll('[data-immersive-handler]');
+    existingHandlers.forEach(el => {
+        el.removeAttribute('data-immersive-handler');
+        // Clone and replace to remove all event listeners
+        const newEl = el.cloneNode(true);
+        el.parentNode.replaceChild(newEl, el);
+    });
+    
+    let clickTimeout = null;
+    
+    // Homepage car items (both images and links)
+    const homeCarItems = document.querySelectorAll('.car-item img, .car-card a[data-vehicle-id]');
+    homeCarItems.forEach((element) => {
+        element.style.cursor = 'pointer';
+        element.setAttribute('data-immersive-handler', 'true');
+        element.addEventListener('click', function(e) {
             e.preventDefault();
             e.stopPropagation();
             
-            const carId = index + 1;
-            immersiveViewerInstance.open(carId, this);
+            // Debounce rapid clicks
+            if (clickTimeout) return;
+            clickTimeout = setTimeout(() => { clickTimeout = null; }, 1000);
+            
+            // Get vehicle ID from data attribute or use index
+            const vehicleId = this.getAttribute('data-vehicle-id');
+            const carId = vehicleId || (Array.from(document.querySelectorAll('.car-item img, .car-card')).indexOf(this.closest('.car-item, .car-card')) + 1);
+            
+            const sourceImg = this.tagName === 'IMG' ? this : this.closest('.car-card, .car-item').querySelector('img');
+            immersiveViewerInstance.open(carId, sourceImg);
         });
     });
     
-    // Inventory page car items
-    const inventoryItems = document.querySelectorAll('.inventory-item img');
-    inventoryItems.forEach((img) => {
-        img.style.cursor = 'pointer';
-        img.addEventListener('click', function(e) {
-            e.preventDefault();
-            e.stopPropagation();
-            
-            const item = this.closest('.inventory-item');
-            const carId = extractCarIdFromItem(item);
-            immersiveViewerInstance.open(carId, this);
-        });
-    });
+    // Inventory page car items - use event delegation to handle dynamically added items
+    const inventoryGrid = document.querySelector('.inventory-grid');
+    if (inventoryGrid) {
+        // Remove existing delegated listeners
+        inventoryGrid.removeEventListener('click', handleInventoryClick);
+        inventoryGrid.addEventListener('click', handleInventoryClick);
+    }
+}
+
+function handleInventoryClick(e) {
+    const img = e.target.closest('.inventory-item img');
+    const viewBtn = e.target.closest('.view-details-btn');
+    const inventoryItem = e.target.closest('.inventory-item');
+    
+    // If it's a view details button, let it redirect to product.html (don't handle here)
+    if (viewBtn) {
+        console.log('🔗 View Details button clicked - redirecting to product page');
+        return; // Let the onclick handler do its job
+    }
+    
+    // Only handle image clicks for immersive viewer
+    if (!img) return;
+    
+    // Block all clicks if immersive viewer is active
+    if (isImmersiveViewerActive) {
+        e.preventDefault();
+        e.stopPropagation();
+        console.log('🚫 Immersive viewer active, blocking inventory click');
+        return;
+    }
+    
+    e.preventDefault();
+    e.stopPropagation();
+    
+    // Debounce rapid clicks
+    if (img._clickTimeout) return;
+    img._clickTimeout = setTimeout(() => { img._clickTimeout = null; }, 1000);
+    
+    const item = inventoryItem;
+    const carId = extractCarIdFromItem(item);
+    console.log('🚗 Opening immersive view for vehicle:', carId);
+    immersiveViewerInstance.open(carId, img);
 }
 
 function extractCarIdFromItem(item) {
-    const onclick = item.getAttribute('onclick');
-    if (onclick) {
-        const match = onclick.match(/id=(\d+)/);
-        if (match) return parseInt(match[1]);
+    // First try to get vehicle ID from data attribute
+    const vehicleId = item.getAttribute('data-vehicle-id');
+    if (vehicleId) {
+        return vehicleId;
     }
     
+    // Fallback: use position-based indexing
     const items = Array.from(document.querySelectorAll('.inventory-item'));
     return items.indexOf(item) + 1;
 }
