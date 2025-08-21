@@ -147,14 +147,13 @@ body {
 /* Unified Grid System */
 .container {
   width: 100%;
-  max-width: var(--container-max-width);
+  max-width: 80%;
   margin: 0 auto;
   padding: 0 var(--container-padding);
 }
 
 /* Wider header container */
 .navbar .container {
-  max-width: 1400px;
 }
 
 .grid {
@@ -228,7 +227,7 @@ body {
   line-height: var(--line-height-tight);
   color: #ffffff;
   text-transform: uppercase;
-  text-align: center;
+  text-align: left;
   margin-bottom: 16px;
 }
 
@@ -242,9 +241,9 @@ body {
   line-height: var(--line-height-normal);
   color: rgba(255, 255, 255, 0.7);
   text-transform: uppercase;
-  text-align: center;
+  text-align: left;
   max-width: 720px;
-  margin: 0 auto 48px;
+  margin: 0 0 48px 0;
 }
 
 /* Card Headers */
@@ -304,7 +303,7 @@ body {
 
 /* Section Header Container */
 .section-header {
-  text-align: center;
+  text-align: left;
   margin-bottom: var(--space-6);
 }
 
@@ -322,7 +321,6 @@ body {
 
 /* Custom container for brands section to align with header */
 .brands-showcase .container {
-  max-width: 1400px; /* Match navbar container */
   padding: 0 var(--container-padding);
 }
 
@@ -403,8 +401,8 @@ body {
   z-index: 2;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  text-align: center;
+  align-items: flex-start;
+  text-align: left;
   transform: translateY(20px);
   transition: transform 0.3s ease;
 }
@@ -486,9 +484,6 @@ body {
 }
 
 /* Allow hover effects on non-active slides but hide button */
-.item-brand:hover .btn-view-brand {
-  /* Button remains hidden on non-active slides */
-}
 
 /* Sport-like icon styling */
 .btn-view-brand .btn-icon {
@@ -696,7 +691,6 @@ body {
 
 /* Custom container for quote section to align with header */
 .line-quote-section .container {
-  max-width: 1400px; /* Match navbar container */
   padding: 0 var(--container-padding);
 }
 
@@ -709,12 +703,12 @@ body {
   padding: 0;
 }
 
-/* Right-aligned quote */
+/* Left-aligned quote */
 .quote-content-right {
-  text-align: right;
+  text-align: left;
   display: flex;
   flex-direction: column;
-  align-items: flex-end;
+  align-items: flex-start;
 }
 
 
@@ -837,7 +831,6 @@ body {
 }
 
 .consignment-section .container {
-  max-width: 1400px;
   padding: 0 var(--container-padding);
 }
 
@@ -1407,10 +1400,14 @@ body {
   100% { opacity: 0.7; }
 }
 
+.hero-overlay .container {
+  height: 100%;
+  display: flex;
+  align-items: flex-end;
+  padding-bottom: var(--space-16);
+}
+
 .hero-content {
-  position: absolute;
-  bottom: var(--space-16);
-  left: calc(50% - 700px + var(--container-padding));
   text-align: left;
   max-width: 600px;
   padding: 0;
@@ -2357,7 +2354,7 @@ body {
 }
 
 .section-header {
-  text-align: center;
+  text-align: left;
   margin-bottom: var(--space-16);
 }
 
@@ -2625,20 +2622,19 @@ body {
 /* Intro Section */
 .intro {
   background: var(--bg-primary);
-  padding: var(--space-16) 0 var(--space-8) 0;
+  padding: var(--space-16) 0 0 0;
   display: flex;
   align-items: center;
   justify-content: center;
-  min-height: 30vh;
   position: relative;
   z-index: 2;
 }
 
 .intro-content {
   max-width: 800px;
-  margin: 0 auto;
-  text-align: center;
-  padding: 0 var(--space-8);
+  margin: 0;
+  text-align: left;
+  padding: 0;
 }
 
 .intro-text {
@@ -2646,10 +2642,10 @@ body {
   font-size: var(--font-size-base);
   line-height: 1.8;
   color: #ffffff;
-  margin-bottom: var(--space-12);
+  margin-bottom: 0;
   font-weight: 300;
   letter-spacing: 0.015em;
-  text-align: center;
+  text-align: left;
   max-width: 100%;
   word-spacing: 0.02em;
   font-style: normal;
@@ -2687,7 +2683,6 @@ body {
 @media (max-width: 768px) {
   .intro {
     padding: var(--space-20) 0;
-    min-height: 50vh;
   }
   
   .intro-content {
