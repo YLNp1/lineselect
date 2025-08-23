@@ -501,30 +501,6 @@
                     
                     if (typeof carData !== 'undefined' && carData[vehicleId]) {
                         vehicle = carData[vehicleId];
-                    } else {
-                        // Try to load from API directly
-                        try {
-                            const response = await fetch(`http://localhost:5000/api/vehicles/${vehicleId}`);
-                            const data = await response.json();
-                            if (data.success) {
-                                const v = data.data;
-                                vehicle = {
-                                    id: v.id,
-                                    name: `${v.brand} ${v.model}`,
-                                    price: `€${v.price.toLocaleString()}`,
-                                    year: v.year.toString(),
-                                    power: v.power || 'N/A',
-                                    mileage: `${v.mileage.toLocaleString()} KM`,
-                                    description: v.description || '',
-                                    engineType: v.engineType,
-                                    view360Url: v.view360Url,
-                                    engineSoundUrl: v.engineSoundUrl,
-                                    media: v.media || []
-                                };
-                            }
-                        } catch (error) {
-                            console.error('Failed to load vehicle from API:', error);
-                        }
                     }
                     
                     if (!vehicle) {
@@ -569,12 +545,12 @@
                     
                     let viewerHTML = '';
                     
-                    // Only use Impel URLs from backend, strict validation
+                    // Only use Impel URLs, strict validation
                     if (vehicle.view360Url && 
                         (vehicle.view360Url.includes('impel.app') || vehicle.view360Url.includes('impel.')) && 
                         !vehicle.view360Url.includes('godaddy')) {
-                        // Real Impel 360° viewer from backend
-                        console.log('🎯 Using Impel viewer from backend:', vehicle.view360Url);
+                        // Real Impel 360° viewer
+                        console.log('🎯 Using Impel viewer:', vehicle.view360Url);
                         viewerHTML = `<iframe src="${vehicle.view360Url}" width="100%" height="100%" frameborder="0" allowfullscreen style="background: #000;"></iframe>`;
                     } else {
                         // Fallback interactive viewer
@@ -641,9 +617,9 @@
                     const anyAudio = vehicle.media.find(m => m.type === 'audio');
                     
                     if (revSound) {
-                        audioUrl = `http://localhost:5000${revSound.url}`;
+                        audioUrl = revSound.url;
                     } else if (anyAudio) {
-                        audioUrl = `http://localhost:5000${anyAudio.url}`;
+                        audioUrl = anyAudio.url;
                     }
                 } else if (vehicle.engineSoundUrl) {
                     audioUrl = vehicle.engineSoundUrl;

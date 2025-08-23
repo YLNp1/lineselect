@@ -1,3 +1,72 @@
+
+/* ===================================
+   LOGO LOADER
+   =================================== */
+
+.logo-loader {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: #0a0a0a;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10000;
+  transition: opacity 0.5s ease-out, visibility 0.5s ease-out;
+}
+
+.logo-loader.hidden {
+  opacity: 0;
+  visibility: hidden;
+}
+
+.loading-logo {
+  width: 300px;
+  height: auto;
+}
+
+/* Initially hide all blocks */
+.block-1,
+.block-2,
+.block-3 {
+  opacity: 0;
+  transform: scale(0.8);
+}
+
+/* Block 1 (White) - appears first */
+.block-1 {
+  animation: blockAppear 0.6s ease-out 0.5s forwards;
+}
+
+/* Block 2 (Gray) - appears second */
+.block-2 {
+  animation: blockAppear 0.6s ease-out 1.2s forwards;
+}
+
+/* Block 3 (Red) - appears third */
+.block-3 {
+  animation: blockAppear 0.6s ease-out 1.9s forwards;
+}
+
+@keyframes blockAppear {
+  from {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@media (max-width: 768px) {
+  .loading-logo {
+    width: 220px;
+  }
+}
+
 /* ===================================
    LINE SELECT - FOUNDATION RESET
    =================================== */
@@ -147,6 +216,7 @@ body {
 /* Unified Grid System */
 .container {
   width: 80%;
+  max-width: 2000px;
   margin: 0 auto;
   padding: 0 var(--container-padding);
 }
@@ -310,6 +380,48 @@ body {
   margin-bottom: var(--space-6);
 }
 
+/* About USPs - Minimal styling */
+.about-usps {
+  display: flex;
+  gap: var(--space-6);
+  margin: var(--space-6) 0;
+  align-items: center;
+}
+
+.about-usp-item {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.about-usp-icon {
+  width: 24px;
+  height: 24px;
+  transition: filter 0.3s ease, transform 0.3s ease;
+}
+
+.about-usp-item:hover .about-usp-icon {
+  filter: brightness(1.15);
+  transform: translateX(2px);
+}
+
+.about-usp-item span {
+  font-family: -apple-system, BlinkMacSystemFont, 'Inter', 'Neue Haas Grotesk', 'Montserrat', sans-serif;
+  font-size: var(--font-size-xs);
+  font-weight: 800;
+  font-style: italic;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.8);
+  transform: skewX(-12deg);
+  display: inline-block;
+  transition: color 0.3s ease;
+}
+
+.about-usp-item:hover span {
+  color: rgba(255, 255, 255, 1);
+}
+
 /* ===================================
    BRANDS SHOWCASE - SWIPER SLIDER
    =================================== */
@@ -325,6 +437,7 @@ body {
 /* Custom container for brands section to align with header */
 .brands-showcase .container {
   width: 80%;
+  max-width: 2000px;
   margin: 0 auto;
   padding: 0 var(--container-padding);
 }
@@ -694,6 +807,7 @@ body {
 /* Custom container for quote section to align with header */
 .line-quote-section .container {
   width: 80%;
+  max-width: 2000px;
   margin: 0 auto;
   padding: 0 var(--container-padding);
 }
@@ -747,9 +861,9 @@ body {
   content: '';
   position: absolute;
   top: 60%;
-  left: -8px;
-  right: -8px;
-  bottom: -8px;
+  left: 0px;
+  right: 0px;
+  bottom: 0px;
   background: #960018;
   z-index: -1;
   animation: fadeInScale 1.2s ease-out forwards;
@@ -3289,7 +3403,7 @@ body {
   font-size: var(--font-size-base);
   line-height: var(--line-height-relaxed);
   color: rgba(255, 255, 255, 0.8);
-  max-width: 600px;
+  width: 550px;
   margin: 0;
 }
 
@@ -3311,13 +3425,14 @@ body {
 .about-content {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: var(--space-24);
+  gap: 15%;
   align-items: flex-start;
+  position: relative;
 }
 
 .about-visual {
   position: relative;
-  height: 60vh;
+  height: min(60vh, 800px);
   overflow: hidden;
   border-radius: 0;
 }
@@ -3360,9 +3475,6 @@ body {
   width: 100%;
 }
 
-.about-text {
-  padding-top: 0;
-}
 
 .about-intro {
   margin-bottom: var(--space-12);
@@ -3447,12 +3559,12 @@ body {
     order: 2;
   }
   
-  .about-quote p {
-    font-size: clamp(20px, 5vw, 32px);
-  }
-  
   .about-quote-overlay {
     padding: var(--space-8);
+  }
+  
+  .about-quote p {
+    font-size: clamp(20px, 5vw, 32px);
   }
   
   .btn-discover {
@@ -3463,5 +3575,27 @@ body {
   .btn-discover .btn-icon {
     font-size: 10px;
     margin-right: 4px;
+  }
+}
+
+/* USP Icons */
+.usp-icon {
+  width: 80px;
+  height: 80px;
+  margin: 0 auto;
+  opacity: 0.9;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.usp-icon:hover {
+  opacity: 1;
+  transform: translateY(-2px);
+}
+
+/* Responsive USP grid */
+@media (max-width: 768px) {
+  .grid-cols-3 {
+    grid-template-columns: 1fr;
+    gap: var(--space-12);
   }
 }

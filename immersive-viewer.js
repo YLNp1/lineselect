@@ -531,12 +531,12 @@ class ImmersiveViewer {
             const car = this.carData[this.currentCarId];
             let viewerHTML = '';
             
-            // Only use Impel URLs from backend, strict validation
+            // Only use Impel URLs, strict validation
             if (car && car.view360Url && 
                 (car.view360Url.includes('impel.app') || car.view360Url.includes('impel.')) && 
                 !car.view360Url.includes('godaddy')) {
-                // Real Impel 360° viewer from backend
-                console.log('🎯 Using Impel viewer from backend:', car.view360Url);
+                // Real Impel 360° viewer
+                console.log('🎯 Using Impel viewer:', car.view360Url);
                 viewerHTML = `<iframe src="${car.view360Url}" width="100%" height="100%" frameborder="0" allowfullscreen style="background: #000;"></iframe>`;
             } else {
                 // Fallback interactive viewer
