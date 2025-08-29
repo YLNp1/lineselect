@@ -133,6 +133,11 @@ document.addEventListener('DOMContentLoaded', async function() {
 
 // Product page functionality
 function initializeProductPage() {
+    // Only run on product page
+    if (!window.location.pathname.includes('product.html')) {
+        return;
+    }
+    
     const urlParams = new URLSearchParams(window.location.search);
     const carId = urlParams.get('id') || '1';
     
