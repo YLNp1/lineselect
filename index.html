@@ -318,24 +318,90 @@
     </section>
 
     <footer class="footer">
+        <!-- Full width title container -->
         <div class="container">
-            <div class="footer-content">
-                <div class="footer-left">
-                    <h3 class="footer-heading">NEEM CONTACT MET ONS OP</h3>
+            <h2 class="footer-cta">GET IN TOUCH</h2>
+        </div>
+        
+        <!-- Two column content containers -->
+        <div class="footer-content-wrapper">
+            <div class="footer-left-container">
+                <div class="footer-form-wrapper">
                     <form class="footer-form">
-                        <div class="form-row">
-                            <input type="text" name="naam" placeholder="Naam" required>
-                            <input type="tel" name="telefoon" placeholder="Telefoonnummer" required>
+                        <div class="form-field">
+                            <h4 class="form-title">NAAM</h4>
+                            <input type="text" name="naam" required>
                         </div>
-                        <input type="email" name="email" placeholder="E-mailadres" required>
-                        <textarea name="bericht" rows="4" placeholder="Bericht" required></textarea>
+                        <div class="form-field">
+                            <h4 class="form-title">E-MAILADRES</h4>
+                            <input type="email" name="email" required>
+                        </div>
+                        <div class="form-field">
+                            <h4 class="form-title">BERICHT</h4>
+                            <textarea name="bericht" rows="2" required></textarea>
+                        </div>
                         <button type="submit" class="btn btn-contact">
                             <span class="btn-icon">+</span>
                             VERSTUUR
                         </button>
                     </form>
                 </div>
+            </div>
+            
+            <div class="footer-right-container">
+                <div class="footer-boxes">
+                    <div class="footer-box">
+                        <h3 class="footer-box-title">ADRES</h3>
+                        <p class="footer-box-text">
+                            Straatweg 123<br>
+                            1234 AB Amsterdam<br>
+                            Nederland
+                        </p>
+                    </div>
+                    <div class="footer-box">
+                        <h3 class="footer-box-title">OPENINGSTIJDEN</h3>
+                        <p class="footer-box-text">
+                            Ma-Vr: 09:00 - 18:00<br>
+                            Za: 10:00 - 16:00<br>
+                            Zo: Op afspraak
+                        </p>
+                    </div>
+                </div>
                 
+                <div class="footer-phone">
+                    <a href="tel:+31612345678" class="footer-phone-link">+31 6 1234 5678</a>
+                </div>
+                
+                <div class="footer-social">
+                    <a href="#" class="social-link" aria-label="Instagram">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+                            <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+                            <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+                        </svg>
+                    </a>
+                    <a href="#" class="social-link" aria-label="Facebook">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path>
+                        </svg>
+                    </a>
+                    <a href="#" class="social-link" aria-label="TikTok">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M9 12a4 4 0 1 0 4 4V4a5 5 0 0 0 5 5"></path>
+                        </svg>
+                    </a>
+                    <a href="#" class="social-link" aria-label="YouTube">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33A2.78 2.78 0 0 0 3.4 19c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.25 29 29 0 0 0-.46-5.33z"></path>
+                            <polygon points="9.75,15.02 15.5,11.75 9.75,8.48"></polygon>
+                        </svg>
+                    </a>
+                </div>
+                
+                <a href="#" class="btn btn-contact">
+                    <span class="btn-icon">+</span>
+                    TERUG NAAR BOVEN
+                </a>
             </div>
         </div>
     </footer>

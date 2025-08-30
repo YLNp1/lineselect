@@ -74,8 +74,8 @@
 /* Design Foundation */
 :root {
   /* Core Colors - Refined Dark Showroom Aesthetic */
-  --bg-primary: #0a0a0a;           /* Softer black for main background */
-  --bg-secondary: #121212;         /* Deep charcoal for sections */
+  --bg-primary: #080808;           /* Much darker black for main background */
+  --bg-secondary: #101010;         /* Much darker charcoal for sections */
   --bg-tertiary: #1a1a1a;          /* Dark gray for cards */
   --bg-surface: #222222;           /* Elevated surface color */
   --bg-elevated: #2a2a2a;          /* Highest elevation (modals, dropdowns) */
@@ -215,7 +215,7 @@ body {
 
 /* Unified Grid System */
 .container {
-  width: 80%;
+  width: 85%;
   max-width: 2000px;
   margin: 0 auto;
   padding: 0 var(--container-padding);
@@ -223,7 +223,7 @@ body {
 
 /* Wider header container */
 .navbar .container {
-  width: 80%;
+  width: 85%;
   margin: 0 auto;
 }
 
@@ -436,7 +436,7 @@ body {
 
 /* Custom container for brands section to align with header */
 .brands-showcase .container {
-  width: 80%;
+  width: 85%;
   max-width: 2000px;
   margin: 0 auto;
   padding: 0 var(--container-padding);
@@ -806,7 +806,7 @@ body {
 
 /* Custom container for quote section to align with header */
 .line-quote-section .container {
-  width: 80%;
+  width: 85%;
   max-width: 2000px;
   margin: 0 auto;
   padding: 0 var(--container-padding);
@@ -1555,14 +1555,14 @@ body {
   justify-content: center;
   overflow: hidden;
   background: var(--bg-primary);  /* Matches rest of site */
-  padding: 0;
+  padding: 0 1rem;
 }
 
 .hero-video-container {
   position: absolute;
   top: 0;
-  left: 0;
-  right: 0;
+  left: 1rem;
+  right: 1rem;
   bottom: 0;
   background: var(--bg-primary);  /* Matches rest of site */
   border-radius: 0;
@@ -2049,22 +2049,269 @@ body {
 .footer {
   background: #0f0f0f;
   padding: 4rem 0 2rem;
-  border-top: 1px solid rgba(255, 255, 255, 0.03);
 }
 
-/* Footer Content Layout */
-.footer-content {
+/* Footer Content Wrapper */
+.footer-content-wrapper {
   display: flex;
+  gap: 4rem;
+  align-items: flex-end;
+  width: 85%;
+  max-width: 2000px;
+  margin: 0 auto;
+  padding: 0 var(--container-padding);
 }
 
-/* Footer Title */
-.footer-title {
+.footer-left-container {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.footer-right-container {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: flex-end;
+}
+
+.footer-form-wrapper {
+  width: 100%;
+}
+
+.footer-form {
+  width: 100%;
+  max-width: none;
+}
+
+
+/* Footer CTA */
+.footer-cta {
+  font-family: -apple-system, BlinkMacSystemFont, 'Inter', 'Neue Haas Grotesk', 'Montserrat', sans-serif;
+  font-size: 2rem;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #ffffff;
+  margin: 0 0 1.5rem 0;
+}
+
+/* Footer Boxes Container */
+.footer-boxes {
+  display: flex;
+  gap: 2rem;
+  max-width: none;
+  width: 100%;
+}
+
+/* Footer Box - Same styling as Services */
+.footer-box {
+  flex: 1;
+  position: relative;
+  background: #0f0f0f;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  padding: 24px 20px;
+  min-height: 220px;
+  display: flex;
+  flex-direction: column;
+  transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  overflow: hidden;
+  text-align: left;
+}
+
+.footer-box:hover {
+  transform: translateY(-2px);
+  border-color: rgba(255, 255, 255, 0.1);
+  background: #0a0a0a;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+}
+
+/* Footer Box Title */
+.footer-box-title {
+  font-family: -apple-system, BlinkMacSystemFont, 'Inter', 'Neue Haas Grotesk', 'Montserrat', sans-serif;
   font-size: 0.875rem;
-  font-weight: 600;
+  font-weight: 700;
   letter-spacing: 0.1em;
   text-transform: uppercase;
   color: #ffffff;
-  margin: 0 0 2rem 0;
+  margin-bottom: 16px;
+  line-height: 1.2;
+  text-align: left;
+}
+
+/* Footer Box Text */
+.footer-box-text {
+  font-size: 0.875rem;
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.7);
+  margin: 0;
+}
+
+.footer-box-text a {
+  color: rgba(255, 255, 255, 0.7);
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.footer-box-text a:hover {
+  color: #ffffff;
+}
+
+/* Footer Phone */
+.footer-phone {
+  margin-top: 3rem;
+  text-align: left;
+}
+
+.footer-phone-link {
+  font-family: -apple-system, BlinkMacSystemFont, 'Inter', 'Neue Haas Grotesk', 'Montserrat', sans-serif;
+  font-size: 1.5rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #ffffff;
+  text-decoration: none;
+  transition: opacity 0.3s ease;
+}
+
+.footer-phone-link:hover {
+  opacity: 0.8;
+}
+
+/* Footer Right Wrapper */
+.footer-right-wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  width: 100%;
+  min-height: 300px;
+  position: relative;
+}
+
+.footer-right-content {
+  flex: 1;
+}
+
+/* Footer Back to Top - Direct styling for footer right container */
+.footer-right-container > a.btn.btn-contact {
+  align-self: flex-end;
+  text-align: left;
+  margin-top: 1.5rem;
+  margin-bottom: 0;
+  font-size: 0.75rem !important;
+  line-height: 1 !important;
+}
+
+/* Back to top button now uses btn-contact styling */
+
+/* Footer Social Links */
+.footer-social {
+  display: flex;
+  gap: 1rem;
+  margin-top: 2rem;
+}
+
+.social-link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  color: rgba(255, 255, 255, 0.6);
+  transition: all 0.3s ease;
+}
+
+.social-link:hover {
+  color: #ffffff;
+  transform: translateY(-2px);
+}
+
+.social-link svg {
+  width: 20px;
+  height: 20px;
+}
+
+/* Footer Form */
+.footer-form-wrapper {
+  width: 100%;
+}
+
+.footer-form-title {
+  font-family: -apple-system, BlinkMacSystemFont, 'Inter', 'Neue Haas Grotesk', 'Montserrat', sans-serif;
+  font-size: 0.875rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #ffffff;
+  margin-bottom: 2rem;
+  text-align: left;
+}
+
+.footer-form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  width: 100%;
+}
+
+.footer-form .form-row {
+  display: flex;
+  flex-direction: row;
+  gap: 1rem;
+}
+
+.footer-form .form-field {
+  position: relative;
+  margin-bottom: 0.75rem;
+}
+
+.footer-form .form-row .form-field {
+  flex: 1;
+  margin-bottom: 0.75rem;
+}
+
+.footer-form .form-title {
+  display: block;
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin: 0 0 0.25rem 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Inter', 'Neue Haas Grotesk', 'Montserrat', sans-serif;
+}
+
+.footer-form input,
+.footer-form textarea {
+  width: 100%;
+  padding: 6px 0;
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+  color: #ffffff;
+  font-size: 16px;
+  font-family: inherit;
+  transition: border-bottom-color 0.3s ease;
+  outline: none;
+}
+
+.footer-form input:focus,
+.footer-form textarea:focus {
+  border-bottom-color: rgba(255, 255, 255, 0.4);
+}
+
+.footer-form textarea {
+  resize: vertical;
+  min-height: 100px;
+}
+
+.footer-form .btn-contact {
+  align-self: flex-start;
+  margin-top: 1.5rem;
+  margin-bottom: 0;
+  font-size: 0.75rem !important;
+  line-height: 1 !important;
 }
 
 /* Footer H3 Heading */
@@ -2082,12 +2329,12 @@ body {
   display: flex;
   flex-direction: column;
   gap: 1rem;
-  max-width: 400px;
+  width: 100%;
 }
 
 .form-row {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
+  display: flex;
+  flex-direction: column;
   gap: 1rem;
 }
 
@@ -2122,10 +2369,11 @@ body {
 /* Footer button - text size only */
 .footer .btn-contact {
   padding: 0;
-  margin-top: 1rem;
+  margin-top: 1.5rem;
   width: auto;
   align-self: flex-start;
 }
+
 
 /* Footer Info */
 .footer-info {
@@ -2185,23 +2433,58 @@ body {
   margin: 0;
 }
 
-/* Footer Responsive */
+/* Footer Form Responsive */
 @media (max-width: 768px) {
-  .footer-content {
+  .footer-form .form-row {
+    flex-direction: column;
+    gap: 0;
+  }
+  
+  .footer-form .form-row .form-field {
+    margin-bottom: 0.75rem;
+  }
+  
+  .footer-right-wrapper {
+    flex-direction: column;
+    min-height: auto;
+  }
+  
+  .footer-back-to-top {
+    position: relative;
+    margin-top: 2rem;
+  }
+}
+
+
+/* Footer Responsive */
+@media (max-width: 1024px) {
+  .footer-contact-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2rem 3rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .footer {
+    padding: 4rem 0 3rem;
+  }
+  
+  .footer-title {
+    font-size: 2rem;
+  }
+  
+  .footer-subtitle {
+    font-size: 1rem;
+    margin-bottom: 3rem;
+  }
+  
+  .footer-contact-grid {
     grid-template-columns: 1fr;
-    gap: 3rem;
+    gap: 2rem;
   }
   
-  .form-row {
-    grid-template-columns: 1fr;
-  }
-  
-  .footer-form {
-    max-width: 100%;
-  }
-  
-  .footer .btn {
-    align-self: flex-start;
+  .contact-column {
+    text-align: center;
   }
 }
 
@@ -2254,7 +2537,7 @@ body {
   .nav-link {
     font-size: var(--font-size-xl);
     padding: 16px 24px;
-    width: 80%;
+    width: 85%;
     text-align: center;
   }
   
@@ -3205,7 +3488,7 @@ body {
 }
 
 .news-highlights .container {
-  width: 80%;
+  width: 85%;
   margin: 0 auto;
   position: relative;
   z-index: 1;
@@ -3707,7 +3990,7 @@ body {
 }
 
 .our-services .container {
-  width: 80%;
+  width: 85%;
   max-width: 2000px;
   margin: 0 auto;
   padding: 0 var(--container-padding);
@@ -3964,7 +4247,7 @@ body {
 }
 
 .contact .container {
-  width: 80%;
+  width: 85%;
   max-width: 2000px;
   margin: 0 auto;
   padding: 0 var(--container-padding);
@@ -4150,26 +4433,7 @@ body {
 }
 
 /* Back to Top - Footer Style */
-.back-to-top {
-  color: rgba(255, 255, 255, 0.5);
-  text-decoration: none;
-  font-size: 0.75rem;
-  font-weight: 600;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  transition: color 0.3s ease;
-  display: inline-block;
-}
-
-.back-to-top:hover {
-  color: #ffffff;
-}
-
-.back-to-top span {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-}
+/* Removed duplicate back-to-top styles - now using btn-contact */
 
 /* Contact Info Section */
 .contact-info {
