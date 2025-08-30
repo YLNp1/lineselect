@@ -2433,8 +2433,24 @@ body {
   margin: 0;
 }
 
-/* Footer Form Responsive */
+/* Footer Responsive */
 @media (max-width: 768px) {
+  .footer-content-wrapper {
+    flex-direction: column;
+    gap: 3rem;
+    align-items: stretch;
+  }
+  
+  .footer-left-container,
+  .footer-right-container {
+    width: 100%;
+    align-items: flex-start;
+  }
+  
+  .footer-right-container {
+    justify-content: flex-start;
+  }
+  
   .footer-form .form-row {
     flex-direction: column;
     gap: 0;
@@ -2444,13 +2460,13 @@ body {
     margin-bottom: 0.75rem;
   }
   
-  .footer-right-wrapper {
+  .footer-boxes {
     flex-direction: column;
-    min-height: auto;
+    gap: 1.5rem;
   }
   
-  .footer-back-to-top {
-    position: relative;
+  .footer-right-container > a.btn.btn-contact {
+    align-self: flex-start;
     margin-top: 2rem;
   }
 }
