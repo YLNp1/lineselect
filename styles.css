@@ -1726,7 +1726,7 @@ body {
 /* Mobile optimizations */
 @media (max-width: 768px) {
   .hero {
-    height: 60vh;
+    height: 70vh;
     padding: 30px 5px 15px;
     min-height: unset;
   }
@@ -2732,7 +2732,7 @@ body {
   
   /* Hero adjustments for small screens */
   .hero {
-    height: 60vh;
+    height: 70vh;
     min-height: unset;
     padding: 20px 5px 10px;
   }
