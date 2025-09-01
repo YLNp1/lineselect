@@ -2144,7 +2144,7 @@ body {
 /* Footer Box Title */
 .footer-box-title {
   font-family: -apple-system, BlinkMacSystemFont, 'Inter', 'Neue Haas Grotesk', 'Montserrat', sans-serif;
-  font-size: 0.875rem;
+  font-size: 1rem;
   font-weight: 700;
   letter-spacing: 0.1em;
   text-transform: uppercase;
@@ -2182,7 +2182,7 @@ body {
 
 .footer-phone-link {
   font-family: -apple-system, BlinkMacSystemFont, 'Inter', 'Neue Haas Grotesk', 'Montserrat', sans-serif;
-  font-size: 1.5rem;
+  font-size: 1.75rem;
   font-weight: 700;
   letter-spacing: 0.08em;
   text-transform: uppercase;
@@ -2507,6 +2507,10 @@ body {
   .footer-right-container > a.btn.btn-contact {
     align-self: flex-start;
     margin-top: 2rem;
+  }
+  
+  .footer-form .btn-contact {
+    margin-top: 0;
   }
 }
 
