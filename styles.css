@@ -712,8 +712,12 @@ body {
     padding: 48px 0;
   }
 
+  .item-brand {
+    aspect-ratio: 603 / 1000;  /* Taller on mobile, same width */
+  }
+
   .item-brand .content {
-    padding: var(--gap-medium) var(--gap-small);
+    padding: var(--gap-medium) var(--gap-small) calc(var(--gap-medium) + 20px) var(--gap-small);
   }
 
   .item-brand h3 {
@@ -736,8 +740,12 @@ body {
 }
 
 @media (max-width: 480px) {
+  .item-brand {
+    aspect-ratio: 603 / 1500;  /* Much taller on small mobile, same width */
+  }
+
   .item-brand .content {
-    padding: var(--gap-small) var(--gap-small);
+    padding: var(--gap-small) var(--gap-small) calc(var(--gap-small) + 20px) var(--gap-small);
   }
 
   .item-brand h3 {
@@ -1178,7 +1186,7 @@ body {
   left: 0;
   right: 0;
   z-index: 1000;
-  background: rgba(15, 15, 15, 0.98);
+  background: #000000;
   backdrop-filter: var(--backdrop-blur);
   padding: 10px 0;
   box-shadow: 0 1px 8px rgba(0, 0, 0, 0.3);
@@ -1551,7 +1559,7 @@ body {
   align-items: center;
   justify-content: center;
   overflow: hidden;
-  background: var(--bg-primary);  /* Matches rest of site */
+  background: #0f0f0f;  /* Matches rest of site */
   padding: 0 1rem;
   margin-bottom: 0;
 }
@@ -1562,7 +1570,7 @@ body {
   left: 1rem;
   right: 1rem;
   bottom: 0;
-  background: var(--bg-primary);  /* Matches rest of site */
+  background: #0f0f0f;  /* Matches rest of site */
   border-radius: 0;
   overflow: hidden;
   /* Remove box-shadow to eliminate visual separation */
@@ -1747,7 +1755,8 @@ body {
   
   .hero-overlay {
     background: 
-      linear-gradient(135deg, rgba(0, 0, 0, 0.8) 0%, rgba(0, 0, 0, 0.6) 50%, rgba(0, 0, 0, 0.9) 100%);
+      linear-gradient(135deg, rgba(40, 40, 40, 0.25) 0%, rgba(30, 30, 30, 0.15) 30%, rgba(35, 35, 35, 0.35) 100%),
+      radial-gradient(ellipse at center, rgba(45, 45, 45, 0.1) 0%, rgba(25, 25, 25, 0.25) 100%);
   }
 }
 
@@ -2040,7 +2049,7 @@ body {
 
 /* Footer */
 .footer {
-  background: #0f0f0f;
+  background: #000000;
   padding: var(--section-padding) 0;
 }
 
@@ -2102,7 +2111,7 @@ body {
 .footer-box {
   flex: 1;
   position: relative;
-  background: #0f0f0f;
+  background: #000000;
   border: 1px solid rgba(255, 255, 255, 0.06);
   padding: 24px 20px;
   min-height: 220px;
@@ -2676,7 +2685,7 @@ body {
   }
   
   .item-brand {
-    aspect-ratio: 4/3;
+    aspect-ratio: 603 / 1000;  /* Taller on mobile */
   }
   
   /* Philosophy and car grid */
@@ -2787,7 +2796,7 @@ body {
   }
   
   .item-brand {
-    aspect-ratio: 1/1;
+    aspect-ratio: 603 / 1000;  /* Taller on small mobile */
   }
   
   .item-brand h3 {
