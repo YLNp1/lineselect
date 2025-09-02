@@ -106,13 +106,13 @@
         </div>
     </main>
 
-    <section class="section mini-intro">
+    <section class="section mini-intro animate-fade">
         <div class="container">
-            <p class="intro-text">We go beyond cars. Line Select is about curating experiences, building trust, and creating connections between true enthusiasts and the world's most exceptional vehicles.</p>
+            <p class="intro-text animate-on-scroll">We go beyond cars. Line Select is about curating experiences, building trust, and creating connections between true enthusiasts and the world's most exceptional vehicles.</p>
         </div>
     </section>
 
-    <section class="section about-us">
+    <section class="section about-us animate-fade">
         <div class="container">
             <div class="section-header">
                 <h2 class="heading-section">ABOUT US</h2>
@@ -141,16 +141,16 @@
         </div>
     </section>
 
-    <section class="section our-services">
+    <section class="section our-services animate-fade">
         <div class="container">
             <div class="section-header">
                 <h2 class="heading-section">OUR SERVICES</h2>
                 <p class="section-subtitle">COMPREHENSIVE AUTOMOTIVE SOLUTIONS</p>
             </div>
             <div class="services-content">
-                <div class="services-grid">
+                <div class="services-grid animate-on-scroll">
                     <!-- Inkoop Card -->
-                    <div class="service-card" data-animation-delay="0">
+                    <div class="service-card animate-on-scroll" data-animation-delay="0">
                         <div class="service-icon">
                             <div class="service-line"></div>
                         </div>
@@ -162,7 +162,7 @@
                     </div>
                     
                     <!-- Verkoop Card -->
-                    <div class="service-card" data-animation-delay="0.2">
+                    <div class="service-card animate-on-scroll" data-animation-delay="0.2">
                         <div class="service-icon">
                             <div class="service-line"></div>
                         </div>
@@ -174,7 +174,7 @@
                     </div>
                     
                     <!-- Consignatie Card -->
-                    <div class="service-card" data-animation-delay="0.4">
+                    <div class="service-card animate-on-scroll" data-animation-delay="0.4">
                         <div class="service-icon">
                             <div class="service-line"></div>
                         </div>
@@ -195,7 +195,7 @@
         </div>
     </section>
 
-    <section class="section brands-showcase">
+    <section class="section brands-showcase animate-fade">
         <div class="container">
             <div class="section-header">
                 <h2 class="heading-section">FEATURED CARS</h2>
@@ -305,19 +305,19 @@
     </section>
 
     <!-- Line Quote Section -->
-    <section class="section line-quote-section">
+    <section class="section line-quote-section animate-scale">
         <div class="container">
-            <blockquote class="main-quote">
+            <blockquote class="main-quote animate-on-scroll">
                 <p>"PRECISION IN EVERY DETAIL,<br>PERFECTION IN <span class="highlight-line">EVERY LINE"</span></p>
             </blockquote>
-            <cite class="quote-attribution">— The LINE SELECT Philosophy</cite>
+            <cite class="quote-attribution animate-on-scroll">— The LINE SELECT Philosophy</cite>
         </div>
     </section>
 
-    <footer class="footer">
+    <footer class="footer animate-fade">
         <!-- Full width title container -->
         <div class="container">
-            <h2 class="footer-cta">GET IN TOUCH</h2>
+            <h2 class="footer-cta animate-on-scroll">GET IN TOUCH</h2>
         </div>
         
         <!-- Two column content containers -->
@@ -346,7 +346,7 @@
             </div>
             
             <div class="footer-right-container">
-                <div class="footer-boxes">
+                <div class="footer-boxes animate-slide-right">
                     <div class="footer-box">
                         <h3 class="footer-box-title">ADRES</h3>
                         <p class="footer-box-text">
@@ -365,12 +365,12 @@
                     </div>
                 </div>
                 
-                <div class="footer-phone">
+                <div class="footer-phone animate-on-scroll">
                     <a href="tel:+31612345678" class="footer-phone-link">+31 6 1234 5678</a>
                 </div>
                 
-                <div class="footer-email">
-                    <a href="mailto:info@lineselect.nl" class="footer-email-link">info@lineselect.nl</a>
+                <div class="footer-email animate-on-scroll">
+                    <a href="mailto:info@lineselect.nl" class="footer-email-link">INFO@LINESELECT.NL</a>
                 </div>
                 
                 <div class="footer-social">
@@ -434,8 +434,29 @@
             }, 3000);
         });
 
+        // Scroll animations
+        function initScrollAnimations() {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('animate-in');
+                    }
+                });
+            }, {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            });
+
+            // Observe all elements with animation classes
+            document.querySelectorAll('.animate-on-scroll, .animate-fade, .animate-slide-left, .animate-slide-right, .animate-scale').forEach(el => {
+                observer.observe(el);
+            });
+        }
+
         // Hero video loading and error handling
         document.addEventListener('DOMContentLoaded', function() {
+            // Initialize scroll animations
+            initScrollAnimations();
             const heroVideo = document.querySelector('.hero-video');
             
             if (heroVideo) {
