@@ -1567,8 +1567,8 @@ body {
 .hero-video-container {
   position: absolute;
   top: 0;
-  left: 1rem;
-  right: 1rem;
+  left: 0;
+  right: 0;
   bottom: 0;
   background: #0f0f0f;  /* Matches rest of site */
   border-radius: 0;
