@@ -2715,7 +2715,7 @@ body {
   
   /* Hero adjustments for small screens */
   .hero {
-    height: 100vh;
+    height: 90vh;
     min-height: unset;
     padding: 20px 0 10px;
   }
