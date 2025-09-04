@@ -641,12 +641,13 @@ body {
   left: 0;
   width: 0;
   height: 1px;
-  background: #ffffff;
+  background: #971b1e;
   transition: width 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
 
 .btn-view-brand:hover::after {
   width: 100%;
+  background: #971b1e;
 }
 
 .btn-view-brand {
@@ -856,6 +857,52 @@ body {
   text-transform: uppercase;
 }
 
+/* Featured CTA Container */
+.featured-cta {
+  margin-top: 3rem;
+  text-align: center;
+}
+
+/* Primary Accent Button - Minimal Luxe Style */
+.btn.btn-primary-accent {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent !important;
+  color: #ffffff !important;
+  font-family: -apple-system, BlinkMacSystemFont, 'Inter', 'Neue Haas Grotesk', 'Montserrat', sans-serif;
+  font-size: var(--font-size-sm);
+  font-weight: 400;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  padding: 16px 40px !important;
+  border: 1px solid #ffffff;
+  text-decoration: none;
+  transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  box-shadow: none;
+}
+
+.btn.btn-primary-accent:hover {
+  background: rgba(139, 0, 0, 0.2) !important;
+  color: #ffffff !important;
+  border-color: #ffffff;
+  transform: none;
+  box-shadow: none;
+}
+
+.btn-primary-accent .btn-icon {
+  font-size: 14px;
+  margin-right: 10px;
+  font-weight: 300;
+  color: #ffffff;
+  transition: opacity 0.3s ease;
+}
+
+.btn-primary-accent:hover .btn-icon {
+  opacity: 0.9;
+}
+
 /* ===================================
    PHILOSOPHY QUOTE SECTION
    =================================== */
@@ -873,7 +920,7 @@ body {
 
 .philosophy-content {
   position: relative;
-  background-image: url('https://images.unsplash.com/photo-1544636331-e26879cd4d9b?w=2500&h=1400&fit=crop&q=80');
+  background-image: url('https://images.unsplash.com/photo-1603584173870-7f23fdae1b7a?w=2500&h=1400&fit=crop&q=80');
   -webkit-mask: linear-gradient(to bottom, transparent 0%, black 20%, black 80%, transparent 100%);
   mask: linear-gradient(to bottom, transparent 0%, black 20%, black 80%, transparent 100%);
   background-size: cover;
@@ -945,14 +992,7 @@ body {
 }
 
 .quote-bold::after {
-  content: '';
-  position: absolute;
-  bottom: -4px;
-  left: 0;
-  width: calc(100% + 10px);
-  height: 4px;
-  background: #971b1e;
-  opacity: 0.9;
+  display: none;
 }
 
 .quote-subtitle {
@@ -1553,12 +1593,13 @@ body {
   left: 0;
   width: 0;
   height: 1px;
-  background: #ffffff;
+  background: #971b1e;
   transition: width 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
 
 .btn.btn-cta-primary:hover::after {
   width: calc(100% - 18px);
+  background: #971b1e;
 }
 
 .btn.btn-cta-primary .btn-icon {
@@ -1617,12 +1658,13 @@ body {
   left: 0;
   width: 0;
   height: 1px;
-  background: #ffffff;
+  background: #971b1e;
   transition: width 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
 
 .btn.btn-cta-secondary:hover::after {
   width: calc(100% - 18px);
+  background: #971b1e;
 }
 
 .btn.btn-cta-secondary .btn-icon {
@@ -2292,7 +2334,7 @@ body {
 
 /* Footer Phone */
 .footer-phone {
-  margin-top: 3rem;
+  margin-top: 2rem;
   text-align: left;
 }
 
@@ -2313,7 +2355,7 @@ body {
 
 /* Footer Email */
 .footer-email {
-  margin-top: 1rem;
+  margin-top: 1.5rem;
   text-align: left;
 }
 
@@ -2350,7 +2392,7 @@ body {
 .footer-right-container > a.btn.btn-contact {
   align-self: flex-end;
   text-align: left;
-  margin-top: 1.5rem;
+  margin-top: 2rem;
   margin-bottom: 0;
   font-size: 0.75rem !important;
   line-height: 1 !important;
@@ -2362,7 +2404,7 @@ body {
 .footer-social {
   display: flex;
   gap: 1rem;
-  margin-top: 2rem;
+  margin-top: 1.5rem;
 }
 
 .social-link {
@@ -4140,12 +4182,13 @@ body {
   left: 0;
   width: 0;
   height: 1px;
-  background: #ffffff;
+  background: #971b1e;
   transition: width 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
 
 .btn-discover:hover::after {
   width: 100%;
+  background: #971b1e;
 }
 
 .btn-discover .btn-icon {
@@ -4181,7 +4224,7 @@ body {
   }
   
   .about-quote p {
-    font-size: clamp(20px, 5vw, 32px);
+    font-size: clamp(26px, 7vw, 36px);
   }
   
   .btn-discover {
@@ -4274,21 +4317,11 @@ body {
 
 /* Service Icon - Strong Red Design Element */
 .service-icon {
-  width: 80px;
-  height: 24px;
-  margin-bottom: 20px;
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
+  display: none;
 }
 
 .service-line {
-  width: 36px;
-  height: 3px;
-  background: #971b1e;
-  opacity: 0.8;
-  transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-  display: block;
+  display: none;
 }
 
 .service-card:hover .service-line {
@@ -4394,7 +4427,7 @@ body {
   left: 0;
   width: 0;
   height: 1px;
-  background: #ffffff;
+  background: #971b1e;
   transition: width 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
 
@@ -4404,6 +4437,7 @@ body {
 
 .btn-services:hover::after {
   width: 100%;
+  background: #971b1e;
 }
 
 .btn-services .btn-icon {
@@ -4604,7 +4638,7 @@ body {
   left: 0;
   width: 0;
   height: 1px;
-  background: #ffffff;
+  background: #971b1e;
   transition: width 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
 
@@ -4614,6 +4648,7 @@ body {
 
 .btn-contact:hover::after {
   width: 100%;
+  background: #971b1e;
 }
 
 .btn-contact .btn-icon {
