@@ -131,17 +131,29 @@
     width: 220px;
   }
 
-  /* Mobile container width */
+  /* Mobile container width - remove padding, content to edges */
   .container {
     width: 95%;
+    padding: 0;
   }
 
   .navbar .container {
     width: 95%;
+    padding: 0;
   }
 
   .brands-showcase .container {
     width: 95%;
+    padding: 0;
+  }
+
+  /* Add minimal padding only where text needs breathing room */
+  .section-header,
+  .intro-text,
+  .about-content,
+  .services-content {
+    padding-left: 1rem;
+    padding-right: 1rem;
   }
 }
 
@@ -1742,7 +1754,6 @@ body {
   align-items: center;
   justify-content: center;
   overflow: hidden;
-  background: #0f0f0f;  /* Matches rest of site */
   padding: 0 1rem;
   margin-bottom: 0;
 }
@@ -2304,6 +2315,7 @@ body {
   overflow: hidden;
   text-align: left;
 }
+
 
 .footer-box:hover {
   transform: translateY(-2px);
@@ -2909,14 +2921,14 @@ body {
   .hero {
     height: 90vh;
     min-height: unset;
-    padding: 20px 0 10px;
+    padding: 20px 0 0;
   }
   
   .hero-video-container {
     top: 20px;
     left: 0;
     right: 0;
-    bottom: 10px;
+    bottom: 0;
   }
   
   .hero-content {
