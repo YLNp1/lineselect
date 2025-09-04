@@ -130,6 +130,19 @@
   .loading-logo {
     width: 220px;
   }
+
+  /* Mobile container width */
+  .container {
+    width: 95%;
+  }
+
+  .navbar .container {
+    width: 95%;
+  }
+
+  .brands-showcase .container {
+    width: 95%;
+  }
 }
 
 /* ===================================
