@@ -131,29 +131,19 @@
     width: 220px;
   }
 
-  /* Mobile container width - remove padding, content to edges */
-  .container {
-    width: 95%;
-    padding: 0;
-  }
+  /* Mobile container width - handled by main container definition */
 
-  .navbar .container {
-    width: 95%;
-    padding: 0;
-  }
+  /* Navbar container inherits from main container definition */
 
-  .brands-showcase .container {
-    width: 95%;
-    padding: 0;
-  }
+  /* Brands showcase container inherits from main container definition */
 
   /* Add minimal padding only where text needs breathing room */
   .section-header,
   .intro-text,
   .about-content,
   .services-content {
-    padding-left: 1rem;
-    padding-right: 1rem;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
   }
 }
 
@@ -237,6 +227,9 @@
   --section-padding-medium: 80px;
   --section-padding-small: 60px;
   
+  /* Mobile Section Spacing */
+  --section-padding-mobile: 60px;
+  
   /* Effects & Depth */
   --border-radius: 4px;
   --transition-fast: 0.15s ease;
@@ -278,6 +271,7 @@ html {
   scroll-behavior: smooth;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
 }
 
 body {
@@ -298,13 +292,65 @@ body {
   width: 85%;
   max-width: 2000px;
   margin: 0 auto;
-  padding: 0 var(--container-padding);
+  padding: 0;
+  box-sizing: border-box;
 }
 
-/* Wider header container */
-.navbar .container {
-  width: 85%;
-  margin: 0 auto;
+/* Responsive container breakpoints */
+@media (max-width: 1600px) {
+  .container {
+    width: 85%;
+    max-width: 1400px;
+    margin: 0 auto;
+  }
+}
+
+@media (max-width: 1200px) {
+  .container {
+    width: 90%;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+}
+
+@media (max-width: 992px) {
+  .container {
+    width: 92%;
+    max-width: 100%;
+    margin: 0 auto;
+  }
+}
+
+@media (max-width: 768px) {
+  .container {
+    max-width: 100%;
+    width: 94%;
+    padding: 0;
+    margin: 0 auto;
+  }
+  
+  /* Prevent animation overflow on mobile */
+  .animate-slide-left,
+  .animate-slide-right,
+  .animate-on-scroll {
+    transform: translateX(0) !important;
+    opacity: 0;
+  }
+  
+  .animate-slide-left.animate-in,
+  .animate-slide-right.animate-in,
+  .animate-on-scroll.animate-in {
+    opacity: 1;
+  }
+  
+}
+
+@media (max-width: 480px) {
+  .container {
+    width: 92%;
+    padding: 0;
+    margin: 0 auto;
+  }
 }
 
 .grid {
@@ -514,13 +560,7 @@ body {
   overflow: hidden;
 }
 
-/* Custom container for brands section to align with header */
-.brands-showcase .container {
-  width: 85%;
-  max-width: 2000px;
-  margin: 0 auto;
-  padding: 0 var(--container-padding);
-}
+/* Brands showcase container inherits from main container definition */
 
 /* Main Swiper Container */
 .brands-slider {
@@ -800,7 +840,7 @@ body {
 
 @media (max-width: 768px) {
   .brands-showcase {
-    padding: 48px 0;
+    padding: var(--section-padding-mobile) 0 var(--section-padding-mobile);
   }
 
   .item-brand {
@@ -943,45 +983,44 @@ body {
   margin-bottom: var(--gap-large);
 }
 
+.philosophy-section {
+  padding: var(--section-padding) 0;
+}
+
 .philosophy-content {
   position: relative;
-  background-image: url('https://images.unsplash.com/photo-1603584173870-7f23fdae1b7a?w=2500&h=1400&fit=crop&q=80');
-  -webkit-mask: linear-gradient(to bottom, transparent 0%, black 20%, black 80%, transparent 100%);
-  mask: linear-gradient(to bottom, transparent 0%, black 20%, black 80%, transparent 100%);
-  background-size: cover;
-  background-position: center right;
-  background-repeat: no-repeat;
   min-height: 60vh;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  padding: calc(var(--section-padding) * 1.3) 0;
-  max-width: 1920px;
-  margin: 0 auto;
+  padding: 0;
 }
 
 .philosophy-content::before {
   content: '';
   position: absolute;
   top: 0;
-  left: 0;
+  left: 50%;
   right: 0;
   bottom: 0;
-  background-image: inherit;
-  background-size: inherit;
-  background-position: inherit;
-  background-repeat: inherit;
-  -webkit-mask: inherit;
-  mask: inherit;
-  filter: brightness(0.7) contrast(1.1) hue-rotate(10deg) sepia(0.15);
+  width: 100vw;
+  margin-left: -50vw;
+  background-image: url('https://images.unsplash.com/photo-1603584173870-7f23fdae1b7a?w=2500&h=1400&fit=crop&q=80');
+  -webkit-mask: linear-gradient(to bottom, transparent 0%, black 20%, black 80%, transparent 100%);
+  mask: linear-gradient(to bottom, transparent 0%, black 20%, black 80%, transparent 100%);
+  background-size: cover;
+  background-position: center right;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
   z-index: -1;
 }
+
 
 .quote-content-wrapper {
   position: relative;
   z-index: 2;
   max-width: 600px;
-  margin-left: 30px;
+  margin-left: 0;
   margin-top: 90px;
 }
 
@@ -1064,11 +1103,15 @@ body {
 
 /* Philosophy section mobile responsive */
 @media (max-width: 1024px) {
+  .philosophy-section {
+    padding: var(--section-padding-mobile) 0;
+  }
+  
   .philosophy-content {
     flex-direction: column;
     min-height: 50vh;
     background-position: center center;
-    padding: calc(var(--section-padding) * 0.8) var(--container-padding-mobile);
+    padding: 0;
   }
   
   .quote-content-wrapper {
@@ -1141,7 +1184,7 @@ body {
 
 .consignment-section {
   position: relative;
-  padding: 96px 0;
+  padding: var(--section-padding) 0;
   background: #0f0f0f;
   overflow: hidden;
 }
@@ -1325,7 +1368,7 @@ body {
 }
 @media (max-width: 768px) {
   .consignment-section {
-    padding: var(--section-padding) 0 0;
+    padding: var(--section-padding-mobile) 0 var(--section-padding-mobile);
   }
   
   .consignment-title {
@@ -1943,8 +1986,7 @@ body {
   
   .hero-content {
     bottom: 32px;
-    left: var(--container-padding-mobile);
-    max-width: calc(100% - calc(var(--container-padding-mobile) * 2));
+    max-width: 100%;
   }
   
   .hero-overlay {
@@ -2019,7 +2061,7 @@ body {
 }
 
 .philosophy-item {
-  padding: 32px 0;
+  padding: var(--gap-medium) 0;
   border-bottom: 1px solid var(--border-primary);
   position: relative;
 }
@@ -2139,7 +2181,7 @@ body {
 /* Page Layout */
 .page {
   position: relative;
-  padding: calc(var(--section-padding-y) + 64px) 0 var(--section-padding-y);
+  padding: calc(var(--section-padding) + 64px) 0 var(--section-padding);
   background: #0f0f0f;
   min-height: 100vh;
   overflow: hidden;
@@ -2255,7 +2297,7 @@ body {
   width: 85%;
   max-width: 2000px;
   margin: 0 auto;
-  padding: 0 var(--container-padding);
+  padding: 0;
 }
 
 .footer-left-container {
@@ -2659,7 +2701,7 @@ body {
     flex-direction: column;
     gap: 3rem;
     align-items: stretch;
-    width: 95%;
+    width: 94%;
     margin: 0 auto;
   }
   
@@ -2687,6 +2729,10 @@ body {
     gap: 1.5rem;
   }
   
+  .footer-box {
+    min-height: 0;
+  }
+  
   .footer-right-container > a.btn.btn-contact {
     align-self: flex-start;
     margin-top: 2rem;
@@ -2708,7 +2754,7 @@ body {
 
 @media (max-width: 768px) {
   .footer {
-    padding: 4rem 0 3rem;
+    padding: var(--section-padding-mobile) 0 var(--section-padding-mobile);
   }
   
   .footer-title {
@@ -2762,10 +2808,7 @@ body {
     --grid-gap: var(--grid-gap-mobile);
   }
   
-  /* Container width override for mobile */
-  .container {
-    width: 95% !important;
-  }
+  /* Container handled by main definition with responsive padding */
   
   /* Mobile Navigation */
   .mobile-menu-toggle {
@@ -2802,7 +2845,7 @@ body {
   /* Hero adjustments - handled by earlier media queries */
   
   .hero-content {
-    padding: 16px;
+    padding: 0;
   }
   
   .hero-title {
@@ -2850,10 +2893,7 @@ body {
     letter-spacing: 0.1em;
   }
   
-  /* Container adjustments */
-  .container {
-    padding: 0 16px;
-  }
+  /* Container padding handled by main definition */
   
   /* Intro section */
   .intro-text {
@@ -2871,7 +2911,17 @@ body {
   
   /* Brands showcase mobile adjustments */
   .brands-showcase {
-    padding: 48px 0;
+    padding: var(--section-padding-mobile) 0 var(--section-padding-mobile);
+  }
+  
+  /* Page layout mobile adjustments */
+  .page {
+    padding: calc(var(--section-padding-mobile) + 32px) 0 var(--section-padding-mobile);
+  }
+  
+  /* CTA banner mobile adjustments */
+  .cta-banner {
+    padding: var(--section-padding-mobile) 0 var(--section-padding-mobile);
   }
   
   .brands-slider .swiper-slide {
@@ -2912,9 +2962,9 @@ body {
 }
 
 @media (max-width: 480px) {
-  /* Container padding */
-  .container {
-    padding: 0 12px;
+  
+  .footer-content-wrapper {
+    width: 92%;
   }
   
   /* Hero adjustments for small screens */
@@ -2987,7 +3037,7 @@ body {
   
   /* Brands slider */
   .brands-showcase {
-    padding: 48px 0;
+    padding: var(--section-padding-mobile) 0;
   }
   
   .item-brand {
@@ -3016,7 +3066,7 @@ body {
   
   /* Footer adjustments */
   .footer {
-    padding: 32px 0;
+    padding: var(--section-padding-mobile) 0;
   }
   
   .footer-main {
@@ -3755,8 +3805,6 @@ body {
 }
 
 .news-highlights .container {
-  width: 85%;
-  margin: 0 auto;
   position: relative;
   z-index: 1;
 }
@@ -3823,7 +3871,7 @@ body {
   border-bottom: 1px solid var(--border-secondary);
   position: relative;
   overflow: hidden;
-  padding: 96px 0;
+  padding: var(--section-padding) 0;
 }
 
 .cta-banner::before {
@@ -4295,12 +4343,7 @@ body {
   position: relative;
 }
 
-.our-services .container {
-  width: 85%;
-  max-width: 2000px;
-  margin: 0 auto;
-  padding: 0 var(--container-padding);
-}
+/* Our services container inherits from main container definition */
 
 .our-services .section-header {
   margin-bottom: var(--gap-large);
@@ -4535,16 +4578,11 @@ body {
 
 .contact {
   background: #0f0f0f;
-  padding: 96px 0;
+  padding: var(--section-padding) 0;
   position: relative;
 }
 
-.contact .container {
-  width: 85%;
-  max-width: 2000px;
-  margin: 0 auto;
-  padding: 0 var(--container-padding);
-}
+/* Contact container inherits from main container definition */
 
 .contact .section-header {
   text-align: center;
@@ -4738,6 +4776,10 @@ body {
 
 /* Responsive Design */
 @media (max-width: 768px) {
+  .contact {
+    padding: var(--section-padding-mobile) 0 var(--section-padding-mobile);
+  }
+  
   .form-row {
     grid-template-columns: 1fr;
     gap: 0;
