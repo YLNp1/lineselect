@@ -343,6 +343,15 @@ body {
     opacity: 1;
   }
   
+  /* Allow philosophy section to break out of container */
+  .philosophy-section {
+    overflow: visible;
+  }
+  
+  .philosophy-section .container {
+    overflow: visible;
+  }
+  
 }
 
 @media (max-width: 480px) {
