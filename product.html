@@ -780,5 +780,121 @@
             }
         });
     </script>
+
+    <footer class="footer animate-fade">
+        <!-- Full width title container -->
+        <div class="container">
+            <h2 class="footer-cta animate-on-scroll">GET IN TOUCH</h2>
+        </div>
+        
+        <!-- Two column content containers -->
+        <div class="footer-content-wrapper">
+            <div class="footer-left-container">
+                <div class="footer-form-wrapper">
+                    <form class="footer-form">
+                        <div class="form-field">
+                            <h4 class="form-title">NAAM</h4>
+                            <input type="text" name="naam" required>
+                        </div>
+                        <div class="form-field">
+                            <h4 class="form-title">E-MAILADRES</h4>
+                            <input type="email" name="email" required>
+                        </div>
+                        <div class="form-field">
+                            <h4 class="form-title">BERICHT</h4>
+                            <textarea name="bericht" rows="2" required></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-contact">
+                            <span class="btn-icon">+</span>
+                            VERSTUUR
+                        </button>
+                    </form>
+                </div>
+            </div>
+            
+            <div class="footer-right-container">
+                <div class="footer-boxes animate-slide-right">
+                    <div class="footer-box">
+                        <h3 class="footer-box-title">ADRES</h3>
+                        <p class="footer-box-text">
+                            Straatweg 123<br>
+                            1234 AB Amsterdam<br>
+                            Nederland
+                        </p>
+                    </div>
+                    <div class="footer-box">
+                        <h3 class="footer-box-title">OPENINGSTIJDEN</h3>
+                        <p class="footer-box-text">
+                            Ma-Vr: 09:00 - 18:00<br>
+                            Za: 10:00 - 16:00<br>
+                            Zo: Op afspraak
+                        </p>
+                    </div>
+                </div>
+                
+                <div class="footer-phone animate-on-scroll">
+                    <a href="tel:+31612345678" class="footer-phone-link">+31 6 1234 5678</a>
+                </div>
+                
+                <div class="footer-email animate-on-scroll">
+                    <a href="mailto:info@lineselect.nl" class="footer-email-link">INFO@LINESELECT.NL</a>
+                </div>
+                
+                <div class="footer-social">
+                    <a href="#" class="social-link" aria-label="Instagram">
+                        <svg viewBox="0 0 24 24" fill="currentColor">
+                            <rect x="4" y="4" width="16" height="16" rx="2"></rect>
+                        </svg>
+                    </a>
+                    <a href="#" class="social-link" aria-label="Facebook">
+                        <svg viewBox="0 0 24 24" fill="currentColor">
+                            <rect x="4" y="4" width="16" height="16" rx="2"></rect>
+                        </svg>
+                    </a>
+                    <a href="#" class="social-link" aria-label="TikTok">
+                        <svg viewBox="0 0 24 24" fill="currentColor">
+                            <rect x="4" y="4" width="16" height="16" rx="2"></rect>
+                        </svg>
+                    </a>
+                    <a href="#" class="social-link" aria-label="YouTube">
+                        <svg viewBox="0 0 24 24" fill="currentColor">
+                            <rect x="4" y="4" width="16" height="16" rx="2"></rect>
+                        </svg>
+                    </a>
+                </div>
+                
+                <a href="#" class="btn btn-contact">
+                    <span class="btn-icon">+</span>
+                    TERUG NAAR BOVEN
+                </a>
+            </div>
+        </div>
+    </footer>
+    
+    <script>
+        // Scroll animations
+        function initScrollAnimations() {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('animate-in');
+                    }
+                });
+            }, {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            });
+
+            // Observe all elements with animation classes
+            document.querySelectorAll('.animate-on-scroll, .animate-fade, .animate-slide-left, .animate-slide-right, .animate-scale').forEach(el => {
+                observer.observe(el);
+            });
+        }
+
+        // Initialize animations when page loads - add to existing DOMContentLoaded
+        const existingDOMLoad = document.addEventListener('DOMContentLoaded', function() {
+            initScrollAnimations();
+        });
+    </script>
 </body>
 </html>

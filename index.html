@@ -38,7 +38,7 @@
     <nav class="navbar">
         <div class="container">
             <div class="nav-container">
-                <a href="index.html" class="logo">
+                <a href="#" class="logo" onclick="window.scrollTo({top: 0, behavior: 'smooth'}); return false;">
                     <svg class="logo-image" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 3000 1606.92">
                       <defs>
                         <style>
@@ -109,11 +109,18 @@
                 <p class="section-subtitle">HANDPICKED AUTOMOTIVE EXCELLENCE</p>
             </div>
             
-            <div class="brands-slider swiper">
+            <div class="car-tabs-wrapper">
+                <button class="car-tab active" data-tab="sale">TE KOOP</button>
+                <button class="car-tab" data-tab="rent">TE HUUR</button>
+            </div>
+            
+            <!-- SALE CARS SLIDER -->
+            <div class="brands-slider swiper" id="sale-slider">
                 <div class="swiper-wrapper">
                     <!-- Porsche 911 GT3 -->
                     <div class="swiper-slide">
                         <a href="inventory.html" class="item-brand">
+                            <span class="car-label-left">TE KOOP</span>
                             <div class="content">
                                 <h3>PORSCHE 911 GT3</h3>
                                 <p class="tagline">2023 • 8,500 KM</p>
@@ -131,6 +138,7 @@
                     <!-- McLaren 720S -->
                     <div class="swiper-slide">
                         <a href="inventory.html" class="item-brand">
+                            <span class="car-label-left">TE KOOP</span>
                             <div class="content">
                                 <h3>MCLAREN 720S</h3>
                                 <p class="tagline">2022 • 12,000 KM</p>
@@ -148,6 +156,7 @@
                     <!-- Lamborghini Huracán -->
                     <div class="swiper-slide">
                         <a href="inventory.html" class="item-brand">
+                            <span class="car-label-left">TE KOOP</span>
                             <div class="content">
                                 <h3>LAMBORGHINI HURACÁN</h3>
                                 <p class="tagline">2021 • 15,000 KM</p>
@@ -165,6 +174,7 @@
                     <!-- Ferrari 488 GTB -->
                     <div class="swiper-slide">
                         <a href="inventory.html" class="item-brand">
+                            <span class="car-label-left">TE KOOP</span>
                             <div class="content">
                                 <h3>FERRARI 488 GTB</h3>
                                 <p class="tagline">2020 • 18,500 KM</p>
@@ -182,6 +192,7 @@
                     <!-- Aston Martin DB11 -->
                     <div class="swiper-slide">
                         <a href="inventory.html" class="item-brand">
+                            <span class="car-label-left">TE KOOP</span>
                             <div class="content">
                                 <h3>ASTON MARTIN DB11</h3>
                                 <p class="tagline">2022 • 9,200 KM</p>
@@ -196,16 +207,122 @@
                         </a>
                     </div>
                 </div>
+                
+                <!-- Pagination for sale slider -->
+                <div class="wrapper-pagination">
+                    <div class="swiper-pagination"></div>
+                    <div class="autoplay-progress">
+                        <svg viewBox="0 0 24 24">
+                            <circle cx="12" cy="12" r="10"></circle>
+                        </svg>
+                        <span></span>
+                    </div>
+                </div>
             </div>
             
-            <!-- Add autoplay progress and pagination -->
-            <div class="wrapper-pagination">
-                <div class="swiper-pagination"></div>
-                <div class="autoplay-progress">
-                    <svg viewBox="0 0 24 24">
-                        <circle cx="12" cy="12" r="10"></circle>
-                    </svg>
-                    <span></span>
+            <!-- RENTAL CARS SLIDER -->
+            <div class="brands-slider swiper" id="rent-slider" style="display: none;">
+                <div class="swiper-wrapper">
+                    <!-- Ferrari F8 Tributo -->
+                    <div class="swiper-slide">
+                        <a href="inventory.html" class="item-brand">
+                            <span class="car-label-left">TE HUUR</span>
+                            <div class="content">
+                                <h3>FERRARI F8 TRIBUTO</h3>
+                                <p class="tagline">€1,950 PER DAG</p>
+                                <span class="btn btn-view-brand">
+                                    <span class="btn-icon">+</span>
+                                    VIEW DETAILS
+                                </span>
+                            </div>
+                            <div class="bg-container">
+                                <img src="https://images.unsplash.com/photo-1583121274602-3e2820c69888?w=1200&h=800&fit=crop&q=80" alt="Ferrari F8 Tributo">
+                            </div>
+                        </a>
+                    </div>
+                    
+                    <!-- Porsche 911 Turbo S -->
+                    <div class="swiper-slide">
+                        <a href="inventory.html" class="item-brand">
+                            <span class="car-label-left">TE HUUR</span>
+                            <div class="content">
+                                <h3>PORSCHE 911 TURBO S</h3>
+                                <p class="tagline">€1,250 PER DAG</p>
+                                <span class="btn btn-view-brand">
+                                    <span class="btn-icon">+</span>
+                                    VIEW DETAILS
+                                </span>
+                            </div>
+                            <div class="bg-container">
+                                <img src="https://images.unsplash.com/photo-1614162692292-7ac56d7f7f1e?w=1200&h=800&fit=crop&q=80" alt="Porsche 911 Turbo S">
+                            </div>
+                        </a>
+                    </div>
+                    
+                    <!-- Lamborghini Urus -->
+                    <div class="swiper-slide">
+                        <a href="inventory.html" class="item-brand">
+                            <span class="car-label-left">TE HUUR</span>
+                            <div class="content">
+                                <h3>LAMBORGHINI URUS</h3>
+                                <p class="tagline">€1,450 PER DAG</p>
+                                <span class="btn btn-view-brand">
+                                    <span class="btn-icon">+</span>
+                                    VIEW DETAILS
+                                </span>
+                            </div>
+                            <div class="bg-container">
+                                <img src="https://images.unsplash.com/photo-1621993202323-869e8c1c6394?w=1200&h=800&fit=crop&q=80" alt="Lamborghini Urus">
+                            </div>
+                        </a>
+                    </div>
+                    
+                    <!-- Mercedes-AMG GT 63 S -->
+                    <div class="swiper-slide">
+                        <a href="inventory.html" class="item-brand">
+                            <span class="car-label-left">TE HUUR</span>
+                            <div class="content">
+                                <h3>MERCEDES-AMG GT 63 S</h3>
+                                <p class="tagline">€950 PER DAG</p>
+                                <span class="btn btn-view-brand">
+                                    <span class="btn-icon">+</span>
+                                    VIEW DETAILS
+                                </span>
+                            </div>
+                            <div class="bg-container">
+                                <img src="https://images.unsplash.com/photo-1626668893632-6f3a4466d22f?w=1200&h=800&fit=crop&q=80" alt="Mercedes-AMG GT 63 S">
+                            </div>
+                        </a>
+                    </div>
+                    
+                    <!-- Bentley Continental GT -->
+                    <div class="swiper-slide">
+                        <a href="inventory.html" class="item-brand">
+                            <span class="car-label-left">TE HUUR</span>
+                            <div class="content">
+                                <h3>BENTLEY CONTINENTAL GT</h3>
+                                <p class="tagline">€1,150 PER DAG</p>
+                                <span class="btn btn-view-brand">
+                                    <span class="btn-icon">+</span>
+                                    VIEW DETAILS
+                                </span>
+                            </div>
+                            <div class="bg-container">
+                                <img src="https://images.unsplash.com/photo-1563720360172-67b8f3dce741?w=1200&h=800&fit=crop&q=80" alt="Bentley Continental GT">
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Pagination for rent slider -->
+                <div class="wrapper-pagination">
+                    <div class="swiper-pagination"></div>
+                    <div class="autoplay-progress">
+                        <svg viewBox="0 0 24 24">
+                            <circle cx="12" cy="12" r="10"></circle>
+                        </svg>
+                        <span></span>
+                    </div>
                 </div>
             </div>
             
@@ -289,6 +406,30 @@
                             <h3 class="service-title">CONSIGNATIE</h3>
                             <p class="service-usp">0% voorkosten, maximaal rendement</p>
                             <p class="service-description">Wij investeren in professionele presentatie en marketing. U betaalt alleen bij succesvolle verkoop.</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Verhuur Card -->
+                    <div class="service-card animate-on-scroll" data-animation-delay="0.6">
+                        <div class="service-icon">
+                            <div class="service-line"></div>
+                        </div>
+                        <div class="service-content">
+                            <h3 class="service-title">VERHUUR</h3>
+                            <p class="service-usp">Exclusieve auto's voor een dag of langer</p>
+                            <p class="service-description">Exclusieve auto's huren voor een dag, weekend of langer. Beleef ultieme rijervaringen in onze zorgvuldig geselecteerde high-performance en luxe auto's.</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Glascoating & PPF Card -->
+                    <div class="service-card animate-on-scroll" data-animation-delay="0.8">
+                        <div class="service-icon">
+                            <div class="service-line"></div>
+                        </div>
+                        <div class="service-content">
+                            <h3 class="service-title">GLASCOATING & PPF</h3>
+                            <p class="service-usp">Ultieme bescherming voor uw auto</p>
+                            <p class="service-description">Bescherm uw auto tegen krassen, steenslag en vuil met hoogwaardige glascoating en paint protection film. Perfecte afwerking voor langdurige glans en bescherming.</p>
                         </div>
                     </div>
                 </div>
@@ -542,9 +683,12 @@
         // SWIPER BRANDS SLIDER FUNCTIONALITY
         // =============================================
         
+        let saleSwiper = null;
+        let rentSwiper = null;
+        
         function initBrandsSwiper() {
-            // Initialize Swiper
-            const brandsSwiper = new Swiper('.brands-slider', {
+            // Initialize Sale Swiper
+            saleSwiper = new Swiper('#sale-slider', {
                 slidesPerView: 1.2,
                 spaceBetween: 40,
                 centeredSlides: true,
@@ -614,6 +758,175 @@
                         }
                     }
                 }
+            });
+            
+            // Initialize Rent Swiper
+            rentSwiper = new Swiper('#rent-slider', {
+                slidesPerView: 1.2,
+                spaceBetween: 40,
+                centeredSlides: true,
+                loop: true,
+                speed: 1000,
+                grabCursor: true,
+                
+                // Autoplay with progress
+                autoplay: {
+                    delay: 3000,
+                    disableOnInteraction: false,
+                },
+                
+                // Responsive breakpoints
+                breakpoints: {
+                    640: {
+                        slidesPerView: 1.4,
+                        spaceBetween: 30,
+                    },
+                    768: {
+                        slidesPerView: 1.8,
+                        spaceBetween: 40,
+                    },
+                    1024: {
+                        slidesPerView: 2.2,
+                        spaceBetween: 40,
+                    },
+                    1280: {
+                        slidesPerView: 2.6,
+                        spaceBetween: 50,
+                    },
+                },
+                
+                // Pagination
+                pagination: {
+                    el: '#rent-slider .swiper-pagination',
+                    clickable: true,
+                    dynamicBullets: false,
+                },
+                
+                // Navigation
+                navigation: {
+                    nextEl: '.swiper-button-next',
+                    prevEl: '.swiper-button-prev',
+                },
+                
+                // Effect
+                effect: 'coverflow',
+                coverflowEffect: {
+                    rotate: 0,
+                    stretch: 0,
+                    depth: 100,
+                    modifier: 1,
+                    slideShadows: false,
+                },
+                
+                // Events
+                on: {
+                    autoplayTimeLeft(s, time, progress) {
+                        const progressCircle = document.querySelector('#rent-slider .autoplay-progress svg circle');
+                        const progressContent = document.querySelector('#rent-slider .autoplay-progress span');
+                        if (progressCircle) {
+                            progressCircle.style.setProperty('--progress', 1 - progress);
+                        }
+                        if (progressContent) {
+                            progressContent.textContent = `${Math.ceil(time / 1000)}s`;
+                        }
+                    }
+                }
+            });
+            
+            // Initialize tab functionality
+            initCarTabs();
+        }
+        
+        // =============================================
+        // CAR TABS FUNCTIONALITY
+        // =============================================
+        
+        function initCarTabs() {
+            const tabs = document.querySelectorAll('.car-tab');
+            const saleSlider = document.querySelector('#sale-slider');
+            const rentSlider = document.querySelector('#rent-slider');
+            let isAnimating = false;
+            
+            tabs.forEach(tab => {
+                tab.addEventListener('click', function() {
+                    if (isAnimating) return;
+                    
+                    const targetCategory = this.getAttribute('data-tab');
+                    const currentActiveTab = document.querySelector('.car-tab.active');
+                    
+                    // Don't do anything if clicking the already active tab
+                    if (currentActiveTab === this) return;
+                    
+                    isAnimating = true;
+                    
+                    // Update active tab
+                    tabs.forEach(t => t.classList.remove('active'));
+                    this.classList.add('active');
+                    
+                    // Luxe slide transition
+                    if (targetCategory === 'sale') {
+                        // Stop rent slider autoplay and fade out
+                        if (rentSwiper && rentSwiper.autoplay) {
+                            rentSwiper.autoplay.stop();
+                        }
+                        rentSlider.classList.add('slider-fade-out');
+                        
+                        setTimeout(() => {
+                            rentSlider.style.display = 'none';
+                            rentSlider.classList.remove('slider-fade-out');
+                            
+                            // Show and fade in sale slider
+                            saleSlider.style.display = 'block';
+                            saleSlider.classList.add('slider-fade-out'); // Start hidden
+                            
+                            setTimeout(() => {
+                                saleSlider.classList.remove('slider-fade-out');
+                                saleSlider.classList.add('slider-fade-in');
+                                
+                                // Restart sale slider autoplay
+                                if (saleSwiper && saleSwiper.autoplay) {
+                                    saleSwiper.autoplay.start();
+                                }
+                                
+                                setTimeout(() => {
+                                    saleSlider.classList.remove('slider-fade-in');
+                                    isAnimating = false;
+                                }, 600);
+                            }, 50);
+                        }, 300);
+                        
+                    } else {
+                        // Stop sale slider autoplay and fade out
+                        if (saleSwiper && saleSwiper.autoplay) {
+                            saleSwiper.autoplay.stop();
+                        }
+                        saleSlider.classList.add('slider-fade-out');
+                        
+                        setTimeout(() => {
+                            saleSlider.style.display = 'none';
+                            saleSlider.classList.remove('slider-fade-out');
+                            
+                            // Show and fade in rent slider
+                            rentSlider.style.display = 'block';
+                            rentSlider.classList.add('slider-fade-out'); // Start hidden
+                            
+                            setTimeout(() => {
+                                rentSlider.classList.remove('slider-fade-out');
+                                rentSlider.classList.add('slider-fade-in');
+                                
+                                // Restart rent slider autoplay
+                                if (rentSwiper && rentSwiper.autoplay) {
+                                    rentSwiper.autoplay.start();
+                                }
+                                
+                                setTimeout(() => {
+                                    rentSlider.classList.remove('slider-fade-in');
+                                    isAnimating = false;
+                                }, 600);
+                            }, 50);
+                        }, 300);
+                    }
+                });
             });
         }
     </script>

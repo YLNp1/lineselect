@@ -615,6 +615,24 @@ body {
   box-shadow: 0 20px 60px rgba(0, 0, 0, 0.7);
 }
 
+.item-brand:hover .btn-view-brand::after {
+  width: 100%;
+  background: #971b1e;
+}
+
+/* Stabilize hover effects during swiper animations */
+.swiper-slide .item-brand {
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  transform: translateZ(0);
+  will-change: transform;
+}
+
+.swiper-slide .btn-view-brand::after {
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
 /* Background Container */
 .item-brand .bg-container {
   position: absolute;
@@ -697,7 +715,7 @@ body {
   text-transform: uppercase !important;
   padding: 0 !important;
   border: none;
-  transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  transition: all 0.3s ease;
   text-decoration: none !important;
   margin-top: 16px;
   min-width: auto !important;
@@ -705,6 +723,7 @@ body {
   opacity: 1;
   transform: translateY(0);
   outline: none;
+  pointer-events: auto;
 }
 
 /* Minimal underline effect */
@@ -716,7 +735,9 @@ body {
   width: 0;
   height: 1px;
   background: #971b1e;
-  transition: width 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  transition: width 0.3s ease;
+  transform: translateZ(0);
+  backface-visibility: hidden;
 }
 
 .btn-view-brand:hover::after {
@@ -935,6 +956,111 @@ body {
 .featured-cta {
   margin-top: 3rem;
   text-align: center;
+}
+
+/* Car Tabs Styling */
+.car-tabs-wrapper {
+  display: inline-flex;
+  gap: 0;
+  margin-bottom: 2rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Slider transition animations */
+.brands-slider {
+  transition: all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.slider-fade-out {
+  opacity: 0;
+  transform: translateY(20px);
+}
+
+.slider-fade-in {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.car-tab {
+  position: relative;
+  background: transparent;
+  border: none;
+  color: rgba(255, 255, 255, 0.5);
+  font-family: -apple-system, BlinkMacSystemFont, 'Inter', 'Neue Haas Grotesk', 'Montserrat', sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  padding: 12px 24px;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  outline: none;
+  text-align: center;
+}
+
+.car-tab:hover {
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.car-tab.active {
+  color: #ffffff;
+}
+
+.car-tab::after {
+  content: '';
+  position: absolute;
+  bottom: -1px;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: #971b1e;
+  transform: scaleX(0);
+  transition: transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.car-tab.active::after {
+  transform: scaleX(1);
+}
+
+/* Car Label Styling - Left positioned */
+.car-label-left {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  background: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(10px);
+  color: #ffffff;
+  font-family: -apple-system, BlinkMacSystemFont, 'Inter', 'Neue Haas Grotesk', 'Montserrat', sans-serif;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 6px 14px;
+  border-radius: 0;
+  z-index: 3;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+/* Responsive for tabs */
+@media (max-width: 768px) {
+  .car-tabs-wrapper {
+    display: inline-flex;
+    width: auto;
+    justify-content: flex-start;
+  }
+  
+  .car-tab {
+    padding: 10px 16px;
+    font-size: 11px;
+  }
+  
+  .car-label-left {
+    top: 12px;
+    left: 12px;
+    padding: 4px 10px;
+    font-size: 9px;
+  }
 }
 
 /* Primary Accent Button - Minimal Luxe Style */
