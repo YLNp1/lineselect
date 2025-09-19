@@ -336,10 +336,81 @@
         </div>
     </section>
 
-    <section class="section our-services animate-fade">
+    <section class="section main-services animate-fade">
         <div class="container">
             <div class="section-header">
-                <h2 class="heading-section">OUR SERVICES</h2>
+                <h2 class="heading-section">MAIN SERVICES</h2>
+                <p class="section-subtitle">VERKOOP & VERHUUR</p>
+            </div>
+        </div>
+        
+        <!-- Hero Carousel -->
+        <div class="container">
+            <div class="main-services-carousel swiper">
+                <div class="swiper-wrapper">
+                    <!-- VERHUUR Slide -->
+                    <div class="swiper-slide">
+                        <div class="service-hero-slide">
+                            <div class="service-split-grid">
+                                <!-- Left: Image -->
+                                <div class="service-image-column">
+                                    <div class="service-image-wrapper">
+                                        <img src="https://images.unsplash.com/photo-1503736334956-4c8f8e92946d?w=1200&h=800&fit=crop&q=80" alt="Luxury rental car">
+                                    </div>
+                                </div>
+                                
+                                <!-- Right: Content -->
+                                <div class="service-content-column">
+                                    <div class="service-content-wrapper">
+                                        <h2 class="service-slide-title">VERHUUR</h2>
+                                        <p class="service-slide-description">Ervaar de ultieme rijervaring met onze exclusieve huurauto's. Van een dag tot langere periodes: luxe en performance voor elke gelegenheid.</p>
+                                        <a href="inventory.html" class="btn btn-service-cta">
+                                            <span class="btn-icon">+</span>
+                                            <span>Ontdek verhuur</span>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- VERKOOP Slide -->
+                    <div class="swiper-slide">
+                        <div class="service-hero-slide">
+                            <div class="service-split-grid">
+                                <!-- Left: Image -->
+                                <div class="service-image-column">
+                                    <div class="service-image-wrapper">
+                                        <img src="https://images.unsplash.com/photo-1614200187524-dc4b892acf16?w=1200&h=800&fit=crop&q=80" alt="Luxury car showroom">
+                                    </div>
+                                </div>
+                                
+                                <!-- Right: Content -->
+                                <div class="service-content-column">
+                                    <div class="service-content-wrapper">
+                                        <h2 class="service-slide-title">VERKOOP</h2>
+                                        <p class="service-slide-description">Handpicked high-performance auto's, zorgvuldig geselecteerd en professioneel gepresenteerd.</p>
+                                        <a href="inventory.html" class="btn btn-service-cta">
+                                            <span class="btn-icon">+</span>
+                                            <span>Bekijk aanbod</span>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Navigation -->
+                <div class="swiper-pagination"></div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section extra-services animate-fade">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="heading-section">EXTRA SERVICES</h2>
                 <p class="section-subtitle">COMPREHENSIVE AUTOMOTIVE SOLUTIONS</p>
             </div>
             <div class="services-content">
@@ -356,20 +427,8 @@
                         </div>
                     </div>
                     
-                    <!-- Verkoop Card -->
-                    <div class="service-card animate-on-scroll" data-animation-delay="0.2">
-                        <div class="service-icon">
-                            <div class="service-line"></div>
-                        </div>
-                        <div class="service-content">
-                            <h3 class="service-title">VERKOOP</h3>
-                            <p class="service-usp">Wereldwijd netwerk van verzamelaars</p>
-                            <p class="service-description">Exclusieve marketing via ons internationale netwerk. Van eerste contact tot sleuteloverdracht - volledig verzorgd.</p>
-                        </div>
-                    </div>
-                    
                     <!-- Consignatie Card -->
-                    <div class="service-card animate-on-scroll" data-animation-delay="0.4">
+                    <div class="service-card animate-on-scroll" data-animation-delay="0.2">
                         <div class="service-icon">
                             <div class="service-line"></div>
                         </div>
@@ -380,20 +439,8 @@
                         </div>
                     </div>
                     
-                    <!-- Verhuur Card -->
-                    <div class="service-card animate-on-scroll" data-animation-delay="0.6">
-                        <div class="service-icon">
-                            <div class="service-line"></div>
-                        </div>
-                        <div class="service-content">
-                            <h3 class="service-title">VERHUUR</h3>
-                            <p class="service-usp">Exclusieve auto's voor een dag of langer</p>
-                            <p class="service-description">Exclusieve auto's huren voor een dag, weekend of langer. Beleef ultieme rijervaringen in onze zorgvuldig geselecteerde high-performance en luxe auto's.</p>
-                        </div>
-                    </div>
-                    
                     <!-- Glascoating & PPF Card -->
-                    <div class="service-card animate-on-scroll" data-animation-delay="0.8">
+                    <div class="service-card animate-on-scroll" data-animation-delay="0.4">
                         <div class="service-icon">
                             <div class="service-line"></div>
                         </div>
@@ -677,6 +724,9 @@
 
             // Initialize Swiper Brands Slider
             initBrandsSwiper();
+            
+            // Initialize Main Services Carousel
+            initMainServicesCarousel();
         });
 
         // =============================================
@@ -835,6 +885,55 @@
             
             // Initialize tab functionality
             initCarTabs();
+        }
+        
+        // =============================================
+        // MAIN SERVICES CAROUSEL
+        // =============================================
+        
+        function initMainServicesCarousel() {
+            const mainServicesSwiper = new Swiper('.main-services-carousel', {
+                slidesPerView: 1,
+                spaceBetween: 0,
+                loop: true,
+                speed: 1000,
+                effect: 'slide',
+                width: null,
+                
+                // Autoplay every 10 seconds
+                autoplay: {
+                    delay: 10000,
+                    disableOnInteraction: false,
+                },
+                
+                // No navigation arrows - clean minimal design
+                
+                // Pagination
+                pagination: {
+                    el: '.main-services-carousel .swiper-pagination',
+                    clickable: true,
+                },
+                
+                // Keyboard control
+                keyboard: {
+                    enabled: true,
+                    onlyInViewport: true,
+                },
+                
+                // Touch settings
+                touchRatio: 1,
+                grabCursor: true,
+                
+                // Force container width calculation
+                on: {
+                    init: function() {
+                        this.update();
+                    },
+                    resize: function() {
+                        this.update();
+                    }
+                }
+            });
         }
         
         // =============================================
