@@ -141,7 +141,10 @@
   .section-header,
   .intro-text,
   .about-content,
-  .services-content {
+  .services-content,
+  .service-slide-description,
+  .service-description,
+  .footer-box-text {
     padding-left: 0 !important;
     padding-right: 0 !important;
   }
@@ -2066,7 +2069,7 @@ body {
   color: #bbbbbb;
   text-transform: uppercase;
   margin-bottom: 32px;
-  max-width: 100%;
+  max-width: 600px;
   text-shadow: 
     0 1px 2px rgba(0, 0, 0, 0.8),
     0 2px 4px rgba(0, 0, 0, 0.6);
@@ -2092,7 +2095,10 @@ body {
   }
   
   .intro-text,
-  .about-intro-text {
+  .about-intro-text,
+  .service-slide-description,
+  .service-description,
+  .footer-box-text {
     font-size: 13px;
     line-height: 1.8em;
   }
@@ -3031,7 +3037,10 @@ body {
   /* Container padding handled by main definition */
   
   /* Intro section */
-  .intro-text {
+  .intro-text,
+  .service-slide-description,
+  .service-description,
+  .footer-box-text {
     font-size: var(--font-size-base);
     line-height: 1.7;
     padding: 0 8px;
@@ -3161,12 +3170,18 @@ body {
   
   /* Text sizing */
   .intro-text,
-  .about-intro-text {
+  .about-intro-text,
+  .service-slide-description,
+  .service-description,
+  .footer-box-text {
     font-size: 11px;
     line-height: 1.8em;
   }
   
-  .intro-text {
+  .intro-text,
+  .service-slide-description,
+  .service-description,
+  .footer-box-text {
     max-width: 100%;
   }
   
@@ -3719,7 +3734,10 @@ body {
     padding: 0 24px;
   }
   
-  .intro-text {
+  .intro-text,
+  .service-slide-description,
+  .service-description,
+  .footer-box-text {
     font-size: 0.9rem;
     line-height: 1.75;
     margin-bottom: 3rem;
@@ -3737,7 +3755,10 @@ body {
     padding: 0 16px;
   }
   
-  .intro-text {
+  .intro-text,
+  .service-slide-description,
+  .service-description,
+  .footer-box-text {
     font-size: 0.85rem;
     line-height: 1.7;
   }
@@ -4232,7 +4253,7 @@ body {
   font-size: var(--font-size-base);
   line-height: var(--line-height-relaxed);
   color: #cccccc;
-  max-width: 500px;
+  max-width: 450px;
   margin: 0;
   letter-spacing: 0.005em;
 }
@@ -4348,11 +4369,12 @@ body {
 
 .about-intro-text {
   font-family: -apple-system, BlinkMacSystemFont, 'Inter', 'Neue Haas Grotesk', 'Montserrat', sans-serif;
-  margin-bottom: 2rem;
   font-size: var(--font-size-base);
   line-height: var(--line-height-relaxed);
-  letter-spacing: 0.005em;
   color: #cccccc;
+  max-width: 450px;
+  margin: 0 0 2rem 0;
+  letter-spacing: 0.005em;
 }
 
 .about-intro-text:last-child {
@@ -4608,11 +4630,11 @@ body {
 .service-slide-description {
   font-family: -apple-system, BlinkMacSystemFont, 'Inter', 'Neue Haas Grotesk', 'Montserrat', sans-serif;
   font-size: var(--font-size-base);
-  line-height: 1.6;
+  line-height: var(--line-height-relaxed);
   color: #cccccc;
+  max-width: 450px;
   margin: 0 0 2rem 0;
-  letter-spacing: 0.01em;
-  max-width: 480px;
+  letter-spacing: 0.005em;
 }
 
 .service-content-animated {
@@ -4781,6 +4803,13 @@ body {
   color: #ffffff;
   border-color: #ffffff;
   box-shadow: 0 4px 12px rgba(255, 255, 255, 0.3);
+}
+
+@media (max-width: 768px) {
+  .featured-cta .btn-service-primary {
+    font-size: var(--font-size-xs);
+    padding: 14px 28px;
+  }
 }
 
 .btn-service-secondary {
@@ -5032,6 +5061,12 @@ body {
 /* Static Service Panels - Editorial Layout */
 .ls-service-panel {
   margin-bottom: 120px;
+  position: relative;
+}
+
+/* Container positioning for overlay */
+.container.container-large {
+  position: relative;
 }
 
 .ls-service-panel:last-child {
@@ -5043,7 +5078,7 @@ body {
   grid-template-columns: 60% 40%;
   gap: 0;
   min-height: 540px;
-  align-items: center;
+  align-items: stretch;
 }
 
 .ls-service-panel-reverse .ls-service-split {
@@ -5066,15 +5101,56 @@ body {
 
 .ls-service-content {
   display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 80px 60px;
+  align-items: flex-start;
+  justify-content: flex-start;
+  padding: 0;
   background: transparent;
+}
+
+/* VERHUUR panel (first panel) - content should align to right edge */
+.ls-service-panel:first-child .ls-service-content {
+  justify-content: flex-end;
+}
+
+.ls-service-panel:first-child .ls-service-content-wrapper {
+  text-align: left;
+  margin-left: auto;
+  max-width: none;
+  width: auto;
 }
 
 .ls-service-content-wrapper {
   max-width: 560px;
   width: 100%;
+}
+
+/* Bridge Quote Overlay */
+.ls-service-bridge-overlay {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  transform: translateY(-50%);
+  z-index: 10;
+  pointer-events: none;
+}
+
+.bridge-quote-text {
+  font-family: -apple-system, BlinkMacSystemFont, 'Inter', 'Neue Haas Grotesk', 'Montserrat', sans-serif;
+  font-size: clamp(32px, 5vw, 64px);
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  line-height: 0.95;
+  color: #ffffff;
+  text-transform: uppercase;
+  text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.7);
+  text-align: left;
+  margin: 0;
+  padding: 0;
+  border: none;
+  quotes: none;
+  background: none;
+  backdrop-filter: none;
 }
 
 /* Responsive Design for Static Panels */
@@ -5085,7 +5161,7 @@ body {
   }
   
   .ls-service-content {
-    padding: 60px 40px;
+    padding: 40px 0;
   }
   
   .ls-service-image {
@@ -5109,7 +5185,12 @@ body {
   }
   
   .ls-service-content {
-    padding: 50px 24px;
+    padding: 40px 0;
+    justify-content: flex-start;
+  }
+  
+  .ls-service-content-wrapper {
+    max-width: 100%;
   }
   
   .ls-service-image {
@@ -5119,6 +5200,7 @@ body {
   .ls-service-panel {
     margin-bottom: 80px;
   }
+  
 }
 
 /* Service Card - Premium Dark Design */
@@ -5205,7 +5287,7 @@ body {
   font-size: var(--font-size-base);
   line-height: var(--line-height-relaxed);
   color: #cccccc;
-  max-width: 500px;
+  max-width: 450px;
   margin: 0;
   letter-spacing: 0.005em;
 }
