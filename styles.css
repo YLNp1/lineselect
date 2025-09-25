@@ -2511,6 +2511,7 @@ body {
   font-size: var(--font-size-base);
   line-height: var(--line-height-relaxed);
   color: #cccccc;
+  max-width: 450px;
   margin: 0;
   letter-spacing: 0.005em;
 }
@@ -2849,7 +2850,8 @@ body {
   }
   
   .footer-box {
-    min-height: 0;
+    min-height: 0 !important;
+    padding: 16px 16px !important;
   }
   
   .footer-right-container > a.btn.btn-contact {
@@ -3008,7 +3010,7 @@ body {
   }
   
   .section-subtitle {
-    font-size: clamp(0.75rem, 2vw, 1rem);
+    font-size: clamp(0.35rem, 1vw, 0.6rem);
     letter-spacing: 0.1em;
   }
   
@@ -3139,7 +3141,7 @@ body {
   }
   
   .section-subtitle {
-    font-size: clamp(0.7rem, 3vw, 0.875rem);
+    font-size: clamp(0.7rem, 3vw, 0.875rem) !important;
     letter-spacing: 0.1em;
     margin-bottom: 2rem;
   }
@@ -3705,7 +3707,6 @@ body {
   .footer-box-text {
     font-size: 0.9rem;
     line-height: 1.75;
-    margin-bottom: 3rem;
   }
   
   .intro-values {
@@ -3724,7 +3725,7 @@ body {
   .service-slide-description,
   .service-description,
   .footer-box-text {
-    font-size: 0.85rem;
+    font-size: 0.9rem;
     line-height: 1.7;
   }
 }
@@ -5161,6 +5162,14 @@ body {
   
   .ls-service-panel {
     margin-bottom: 80px;
+  }
+  
+  /* Smaller text sizes for mobile readability */
+  .intro-text,
+  .service-slide-description,
+  .service-description,
+  .about-intro-text {
+    font-size: 0.9rem !important;
   }
   
 }
