@@ -308,7 +308,7 @@
   }
 
   .item-brand {
-    aspect-ratio: 603 / 1000;  /* Taller on mobile, same width */
+    aspect-ratio: 603 / 850;  /* Reduced height on mobile */
   }
 
   .item-brand .content {
@@ -336,7 +336,7 @@
 
 @media (max-width: 480px) {
   .item-brand {
-    aspect-ratio: 603 / 1500;  /* Much taller on small mobile, same width */
+    aspect-ratio: 603 / 900;  /* Reduced height on small mobile */
   }
 
   .item-brand .content {
