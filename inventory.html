@@ -338,76 +338,7 @@
             }
         });
         
-        // Use the animated filter function from script.js
-        function updateInventory() {
-            if (typeof window.filterInventory === 'function') {
-                console.log('🎬 Using animated filter function');
-                window.filterInventory();
-            } else {
-                console.log('⚠️ Animated filter function not available, falling back to simple filter');
-                // Simple fallback - just show/hide without animation
-                const cards = Array.from(document.querySelectorAll('.inventory-card'));
-                
-                // Get active tab type
-                const currentTab = document.querySelector('.car-tab.active');
-                const activeTabType = currentTab ? currentTab.getAttribute('data-tab') : 'sale';
-                
-                // Get active filters based on tab
-                const brandFilter = activeTabType === 'sale' ? 
-                    document.getElementById('brand-filter') : 
-                    document.getElementById('brand-filter-rent');
-                const priceFilter = activeTabType === 'sale' ? 
-                    document.getElementById('price-filter') : 
-                    document.getElementById('price-filter-rent');
-                
-                // Filter by tab type first
-                let visibleCards = cards.filter(card => 
-                    card.getAttribute('data-type') === activeTabType
-                );
-                
-                // Filter by brand
-                const selectedBrand = brandFilter.value;
-                if (selectedBrand) {
-                    visibleCards = visibleCards.filter(card => 
-                        card.getAttribute('data-brand') === selectedBrand
-                    );
-                }
-                
-                // Filter by price
-                const selectedPrice = priceFilter.value;
-                if (selectedPrice && activeTabType === 'sale') {
-                    visibleCards = visibleCards.filter(card => {
-                        const price = parseInt(card.getAttribute('data-price'));
-                        if (selectedPrice === '0-300000') return price <= 300000;
-                        if (selectedPrice === '300000-400000') return price > 300000 && price <= 400000;
-                        if (selectedPrice === '400000+') return price > 400000;
-                        return true;
-                    });
-                } else if (selectedPrice && activeTabType === 'rent') {
-                    visibleCards = visibleCards.filter(card => {
-                        const price = parseInt(card.getAttribute('data-price'));
-                        if (selectedPrice === '0-1000') return price <= 1000;
-                        if (selectedPrice === '1000-2000') return price > 1000 && price <= 2000;
-                        if (selectedPrice === '2000+') return price > 2000;
-                        return true;
-                    });
-                }
-                
-                // Update display
-                cards.forEach(card => {
-                    card.style.display = 'none';
-                });
-                
-                visibleCards.forEach(card => {
-                    card.style.display = 'block';
-                });
-                
-                // Update count
-                const count = visibleCards.length;
-                const typeText = activeTabType === 'sale' ? 'TE KOOP' : 'TE HUUR';
-                document.getElementById('inventory-count').textContent = `${count} AUTO${count !== 1 ? "'S" : ''} ${typeText}`;
-            }
-        }
+        // No longer needed - using only the animated filter function from script.js
 
         // Filter toggle functionality
         function toggleFilterDropdown() {
@@ -445,7 +376,7 @@
                 }, 100);
             }
             
-            // Event listeners are now handled by script.js initializeInventoryFilters()
+            // Event listeners are handled by script.js initializeInventoryFilters()
             console.log('🔗 Filter event listeners will be set up by script.js');
             
             // Filter toggle functionality

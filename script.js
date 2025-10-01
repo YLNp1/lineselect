@@ -467,8 +467,7 @@ function updateCarCards() {
             }
         }
         
-        // Re-initialize filter functionality
-        initializeInventoryFilters();
+        // Filter functionality already initialized - no need to re-initialize
         
         // Re-initialize immersive click handlers after inventory update
         if (typeof addImmersiveClickHandlers === 'function') {
@@ -534,14 +533,33 @@ function updateCarCards() {
 }
 
 // Initialize inventory filters
+let filtersInitialized = false;
 function initializeInventoryFilters() {
+    // Prevent duplicate initialization
+    if (filtersInitialized) {
+        console.log('🔄 Filters already initialized, skipping...');
+        return;
+    }
+    
     const brandFilter = document.getElementById('brand-filter');
     const priceFilter = document.getElementById('price-filter');
     const brandFilterRent = document.getElementById('brand-filter-rent');
     const priceFilterRent = document.getElementById('price-filter-rent');
 
+    let filterTimeout = null;
     function filterInventory() {
         console.log('🔍 Filter inventory called');
+        
+        // Debounce rapid successive calls
+        if (filterTimeout) {
+            clearTimeout(filterTimeout);
+        }
+        
+        filterTimeout = setTimeout(doFilter, 50);
+    }
+    
+    function doFilter() {
+        console.log('🎯 Executing filter operation');
         
         // Get active tab type
         const currentTab = document.querySelector('.car-tab.active');
@@ -658,6 +676,10 @@ function initializeInventoryFilters() {
     if (priceFilter) priceFilter.addEventListener('change', filterInventory);
     if (brandFilterRent) brandFilterRent.addEventListener('change', filterInventory);
     if (priceFilterRent) priceFilterRent.addEventListener('change', filterInventory);
+    
+    // Mark as initialized
+    filtersInitialized = true;
+    console.log('✅ Filter event listeners initialized');
 }
 
 // Update inventory count based on visible cards
