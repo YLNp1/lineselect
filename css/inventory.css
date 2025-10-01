@@ -81,7 +81,78 @@
   flex-direction: column;
   align-items: flex-end;
   gap: 16px;
+  position: relative;
 }
+
+/* Filter Toggle Button */
+.filter-toggle-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: #ffffff;
+  font-family: -apple-system, BlinkMacSystemFont, 'Inter', 'Neue Haas Grotesk', 'Montserrat', sans-serif;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 10px 16px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border-radius: 0;
+}
+
+.filter-toggle-btn:hover {
+  border-color: rgba(255, 255, 255, 0.2);
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.filter-toggle-btn .filter-icon {
+  width: 16px;
+  height: 16px;
+  stroke: #ffffff;
+  transition: transform 0.3s ease;
+}
+
+.filter-toggle-btn.active {
+  border-bottom-color: #0f0f0f;
+  background: #0f0f0f;
+  border-left-color: rgba(255, 255, 255, 0.1);
+  border-right-color: rgba(255, 255, 255, 0.1);
+  border-top-color: rgba(255, 255, 255, 0.1);
+}
+
+.filter-toggle-btn.active .filter-icon {
+  transform: rotate(180deg);
+}
+
+/* Filter Dropdown Container */
+.filter-dropdown-container {
+  position: absolute;
+  top: 38px;
+  right: 0;
+  background: #0f0f0f;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 20px;
+  min-width: 280px;
+  z-index: 100;
+  opacity: 0;
+  visibility: hidden;
+  transform: scaleY(0);
+  transform-origin: top right;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(10px);
+}
+
+.filter-dropdown-container.active {
+  opacity: 1;
+  visibility: visible;
+  transform: scaleY(1);
+}
+
+/* Remove arrow since dropdown is connected */
 
 .inventory-count {
   font-size: 12px;
@@ -95,18 +166,12 @@
 
 .filter-controls {
   display: flex;
-  gap: 24px;
-  align-items: center;
+  flex-direction: column;
+  gap: 16px;
 }
 
-.filter-controls::before {
-  content: "SORTEER OP:";
-  font-size: 11px;
-  font-weight: 600;
-  letter-spacing: 0.1em;
-  color: #666;
-  text-transform: uppercase;
-  white-space: nowrap;
+.filter-dropdown-container .filter-controls {
+  gap: 16px;
 }
 
 .filter-group {
@@ -403,24 +468,31 @@
   }
   
   .inventory-header-bottom {
-    flex-direction: column;
-    align-items: flex-start;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
     gap: 16px;
   }
-  
   
   .filter-controls-wrapper {
-    align-self: stretch;
-    justify-content: flex-start;
-    align-items: flex-start;
+    align-items: flex-end;
   }
   
-  .filter-controls {
-    gap: 16px;
+  .filter-toggle-btn {
+    font-size: 10px;
+    padding: 8px 12px;
+  }
+  
+  .filter-dropdown-container {
+    top: 34px;
+    right: 0;
+    left: auto;
+    min-width: 250px;
+    padding: 16px;
   }
   
   .filter-dropdown {
-    min-width: 100px;
+    min-width: 100%;
     font-size: 10px;
     padding: 8px 12px;
   }
