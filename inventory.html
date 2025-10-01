@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>LINE SELECT - Inventory</title>
     <link rel="icon" type="image/png" href="assets/favicon-lineselect.png">
-    <link rel="stylesheet" href="css/main.css?v=17">
+    <link rel="stylesheet" href="css/main.css?v=19">
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -330,171 +330,83 @@
             }, 800);
         }
 
-        // Override the functions to make them work
-        window.showSaleInventory = function() {
-            console.log('Showing sale inventory');
-            // Hide rent, show sale
-            document.querySelectorAll('[data-type="rent"]').forEach(el => el.style.display = 'none');
-            document.querySelectorAll('[data-type="sale"]').forEach(el => el.style.display = 'block');
-            
-            // Update tabs
-            document.querySelectorAll('.car-tab').forEach(tab => tab.classList.remove('active'));
-            document.querySelector('[data-tab="sale"]').classList.add('active');
-            
-            // Update filters
-            const saleFilters = document.querySelector('.sale-filters');
-            const rentFilters = document.querySelector('.rent-filters');
-            if (saleFilters) saleFilters.style.display = 'flex';
-            if (rentFilters) rentFilters.style.display = 'none';
-            
-            // Update count
-            const count = document.querySelectorAll('[data-type="sale"]').length;
-            document.getElementById('inventory-count').textContent = count + ' AUTO\'S OP VOORRAAD';
-        };
-        
-        window.showRentInventory = function() {
-            console.log('Showing rent inventory');
-            // First, add the rental cars if they don't exist
+        // Store sale inventory HTML for switching back
+        window.addEventListener('load', function() {
             const inventoryGrid = document.querySelector('.inventory-grid');
-            if (!document.querySelector('[data-type="rent"]')) {
-                // Add McLaren 720S
-                const mclaren = document.createElement('div');
-                mclaren.className = 'inventory-card';
-                mclaren.setAttribute('data-brand', 'mclaren');
-                mclaren.setAttribute('data-price', '1500');
-                mclaren.setAttribute('data-year', '2022');
-                mclaren.setAttribute('data-type', 'rent');
-                mclaren.innerHTML = `
-                    <div class="car-image-container">
-                        <img src="https://images.unsplash.com/photo-1544636331-e26879cd4d9b?w=800&h=600&fit=crop&q=80" alt="McLaren 720S" class="car-image">
-                    </div>
-                    <div class="car-details">
-                        <div class="car-title">
-                            <h3 class="car-name">MCLAREN 720S</h3>
-                            <p class="car-variant">Coupe • Carbon Fiber Package</p>
-                        </div>
-                        <div class="car-specs">
-                            <div class="spec-item"><span class="spec-label">2022</span></div>
-                            <div class="spec-item"><span class="spec-label">MIN. 3 DAGEN</span></div>
-                            <div class="spec-item"><span class="spec-label">720 PK</span></div>
-                            <div class="spec-item"><span class="spec-label">341 KM/H</span></div>
-                        </div>
-                        <p class="car-price">€1.500/dag</p>
-                        <button class="btn-details" onclick="transitionToProduct('mclaren-720s-rent')">BEKIJK DETAILS</button>
-                    </div>
-                `;
-                inventoryGrid.appendChild(mclaren);
-                
-                // Add Lamborghini Huracán
-                const lambo = document.createElement('div');
-                lambo.className = 'inventory-card';
-                lambo.setAttribute('data-brand', 'lamborghini');
-                lambo.setAttribute('data-price', '1800');
-                lambo.setAttribute('data-year', '2023');
-                lambo.setAttribute('data-type', 'rent');
-                lambo.innerHTML = `
-                    <div class="car-image-container">
-                        <img src="https://images.unsplash.com/photo-1621135802920-133df287f89c?w=800&h=600&fit=crop&q=80" alt="Lamborghini Huracán EVO" class="car-image">
-                    </div>
-                    <div class="car-details">
-                        <div class="car-title">
-                            <h3 class="car-name">LAMBORGHINI HURACÁN EVO</h3>
-                            <p class="car-variant">Spyder • Performance Package</p>
-                        </div>
-                        <div class="car-specs">
-                            <div class="spec-item"><span class="spec-label">2023</span></div>
-                            <div class="spec-item"><span class="spec-label">MIN. 2 DAGEN</span></div>
-                            <div class="spec-item"><span class="spec-label">640 PK</span></div>
-                            <div class="spec-item"><span class="spec-label">325 KM/H</span></div>
-                        </div>
-                        <p class="car-price">€1.800/dag</p>
-                        <button class="btn-details" onclick="transitionToProduct('lamborghini-huracan-rent')">BEKIJK DETAILS</button>
-                    </div>
-                `;
-                inventoryGrid.appendChild(lambo);
+            if (inventoryGrid) {
+                window.saleInventoryHTML = inventoryGrid.innerHTML;
             }
-            
-            // Hide sale, show rent
-            document.querySelectorAll('[data-type="sale"]').forEach(el => el.style.display = 'none');
-            document.querySelectorAll('[data-type="rent"]').forEach(el => el.style.display = 'block');
-            
-            // Update tabs
-            document.querySelectorAll('.car-tab').forEach(tab => tab.classList.remove('active'));
-            document.querySelector('[data-tab="rent"]').classList.add('active');
-            
-            // Update filters
-            const saleFilters = document.querySelector('.sale-filters');
-            const rentFilters = document.querySelector('.rent-filters');
-            if (saleFilters) saleFilters.style.display = 'none';
-            if (rentFilters) rentFilters.style.display = 'flex';
-            
-            // Update count
-            const count = document.querySelectorAll('[data-type="rent"]').length;
-            document.getElementById('inventory-count').textContent = count + ' AUTO\'S TE HUUR';
-        };
+        });
         
-        // Filter functionality
+        // Use the animated filter function from script.js
         function updateInventory() {
-            const cards = Array.from(document.querySelectorAll('.inventory-card'));
-            
-            // Get active tab type
-            const currentTab = document.querySelector('.car-tab.active');
-            const activeTabType = currentTab ? currentTab.getAttribute('data-tab') : 'sale';
-            
-            // Get active filters based on tab
-            const brandFilter = activeTabType === 'sale' ? 
-                document.getElementById('brand-filter') : 
-                document.getElementById('brand-filter-rent');
-            const priceFilter = activeTabType === 'sale' ? 
-                document.getElementById('price-filter') : 
-                document.getElementById('price-filter-rent');
-            
-            // Filter by tab type first
-            let visibleCards = cards.filter(card => 
-                card.getAttribute('data-type') === activeTabType
-            );
-            
-            // Filter by brand
-            const selectedBrand = brandFilter.value;
-            if (selectedBrand) {
-                visibleCards = visibleCards.filter(card => 
-                    card.getAttribute('data-brand') === selectedBrand
+            if (typeof window.filterInventory === 'function') {
+                console.log('🎬 Using animated filter function');
+                window.filterInventory();
+            } else {
+                console.log('⚠️ Animated filter function not available, falling back to simple filter');
+                // Simple fallback - just show/hide without animation
+                const cards = Array.from(document.querySelectorAll('.inventory-card'));
+                
+                // Get active tab type
+                const currentTab = document.querySelector('.car-tab.active');
+                const activeTabType = currentTab ? currentTab.getAttribute('data-tab') : 'sale';
+                
+                // Get active filters based on tab
+                const brandFilter = activeTabType === 'sale' ? 
+                    document.getElementById('brand-filter') : 
+                    document.getElementById('brand-filter-rent');
+                const priceFilter = activeTabType === 'sale' ? 
+                    document.getElementById('price-filter') : 
+                    document.getElementById('price-filter-rent');
+                
+                // Filter by tab type first
+                let visibleCards = cards.filter(card => 
+                    card.getAttribute('data-type') === activeTabType
                 );
-            }
-            
-            // Filter by price
-            const selectedPrice = priceFilter.value;
-            if (selectedPrice && activeTabType === 'sale') {
-                visibleCards = visibleCards.filter(card => {
-                    const price = parseInt(card.getAttribute('data-price'));
-                    if (selectedPrice === '0-300000') return price <= 300000;
-                    if (selectedPrice === '300000-400000') return price > 300000 && price <= 400000;
-                    if (selectedPrice === '400000+') return price > 400000;
-                    return true;
+                
+                // Filter by brand
+                const selectedBrand = brandFilter.value;
+                if (selectedBrand) {
+                    visibleCards = visibleCards.filter(card => 
+                        card.getAttribute('data-brand') === selectedBrand
+                    );
+                }
+                
+                // Filter by price
+                const selectedPrice = priceFilter.value;
+                if (selectedPrice && activeTabType === 'sale') {
+                    visibleCards = visibleCards.filter(card => {
+                        const price = parseInt(card.getAttribute('data-price'));
+                        if (selectedPrice === '0-300000') return price <= 300000;
+                        if (selectedPrice === '300000-400000') return price > 300000 && price <= 400000;
+                        if (selectedPrice === '400000+') return price > 400000;
+                        return true;
+                    });
+                } else if (selectedPrice && activeTabType === 'rent') {
+                    visibleCards = visibleCards.filter(card => {
+                        const price = parseInt(card.getAttribute('data-price'));
+                        if (selectedPrice === '0-1000') return price <= 1000;
+                        if (selectedPrice === '1000-2000') return price > 1000 && price <= 2000;
+                        if (selectedPrice === '2000+') return price > 2000;
+                        return true;
+                    });
+                }
+                
+                // Update display
+                cards.forEach(card => {
+                    card.style.display = 'none';
                 });
-            } else if (selectedPrice && activeTabType === 'rent') {
-                visibleCards = visibleCards.filter(card => {
-                    const price = parseInt(card.getAttribute('data-price'));
-                    if (selectedPrice === '0-1000') return price <= 1000;
-                    if (selectedPrice === '1000-2000') return price > 1000 && price <= 2000;
-                    if (selectedPrice === '2000+') return price > 2000;
-                    return true;
+                
+                visibleCards.forEach(card => {
+                    card.style.display = 'block';
                 });
+                
+                // Update count
+                const count = visibleCards.length;
+                const typeText = activeTabType === 'sale' ? 'TE KOOP' : 'TE HUUR';
+                document.getElementById('inventory-count').textContent = `${count} AUTO${count !== 1 ? "'S" : ''} ${typeText}`;
             }
-            
-            // Update display
-            cards.forEach(card => {
-                card.style.display = 'none';
-            });
-            
-            visibleCards.forEach(card => {
-                card.style.display = 'block';
-            });
-            
-            // Update count
-            const count = visibleCards.length;
-            const typeText = activeTabType === 'sale' ? 'TE KOOP' : 'TE HUUR';
-            document.getElementById('inventory-count').textContent = `${count} AUTO${count !== 1 ? "'S" : ''} ${typeText}`;
         }
 
         // Filter toggle functionality
@@ -519,18 +431,22 @@
 
         // Initialize with sale inventory
         document.addEventListener('DOMContentLoaded', function() {
-            window.showSaleInventory();
+            // Ensure the inventory grid starts with the active class
+            const inventoryGrid = document.querySelector('.inventory-grid');
+            if (inventoryGrid) {
+                inventoryGrid.classList.add('active');
+            }
             
-            // Add event listeners for filters
-            const brandFilter = document.getElementById('brand-filter');
-            const priceFilter = document.getElementById('price-filter');
-            const brandFilterRent = document.getElementById('brand-filter-rent');
-            const priceFilterRent = document.getElementById('price-filter-rent');
+            // Initialize with sale inventory if function exists
+            if (typeof window.showSaleInventory === 'function') {
+                // Small delay to ensure script.js is fully loaded
+                setTimeout(() => {
+                    window.showSaleInventory(true); // Skip transition on initial load
+                }, 100);
+            }
             
-            if (brandFilter) brandFilter.addEventListener('change', updateInventory);
-            if (priceFilter) priceFilter.addEventListener('change', updateInventory);
-            if (brandFilterRent) brandFilterRent.addEventListener('change', updateInventory);
-            if (priceFilterRent) priceFilterRent.addEventListener('change', updateInventory);
+            // Event listeners are now handled by script.js initializeInventoryFilters()
+            console.log('🔗 Filter event listeners will be set up by script.js');
             
             // Filter toggle functionality
             const filterToggle = document.getElementById('filter-toggle');

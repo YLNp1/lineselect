@@ -140,14 +140,24 @@ document.addEventListener('DOMContentLoaded', async function() {
     
     // Initialize inventory page if we're on it
     if (window.location.pathname.includes('inventory.html')) {
-        console.log('Initializing inventory page...');
+        console.log('🚗 Initializing inventory page...');
         // Save the original sale inventory HTML
         const inventoryGrid = document.querySelector('.inventory-grid');
         if (inventoryGrid) {
             saleInventoryHTML = inventoryGrid.innerHTML;
         }
+        
+        // Initialize filter functionality
+        initializeInventoryFilters();
+        console.log('🔧 Filter functionality initialized');
+        
         // Make sure rent cars are hidden on page load
         setTimeout(() => {
+            // Set initial state for inventory grid
+            const inventoryGrid = document.querySelector('.inventory-grid');
+            if (inventoryGrid) {
+                inventoryGrid.classList.add('active');
+            }
             showSaleInventory();
         }, 100);
     }
@@ -527,58 +537,140 @@ function updateCarCards() {
 function initializeInventoryFilters() {
     const brandFilter = document.getElementById('brand-filter');
     const priceFilter = document.getElementById('price-filter');
-    const inventoryItems = document.querySelectorAll('.inventory-item');
+    const brandFilterRent = document.getElementById('brand-filter-rent');
+    const priceFilterRent = document.getElementById('price-filter-rent');
 
     function filterInventory() {
-        const selectedBrand = brandFilter?.value || 'all';
-        const selectedPrice = priceFilter?.value || 'all';
-
-        inventoryItems.forEach(item => {
-            const itemBrand = item.getAttribute('data-brand');
-            const itemPrice = parseInt(item.getAttribute('data-price'));
-            
-            let showItem = true;
-
-            // Brand filter
-            if (selectedBrand !== 'all' && itemBrand !== selectedBrand) {
-                showItem = false;
-            }
-
-            // Price filter
-            if (selectedPrice !== 'all') {
-                switch (selectedPrice) {
-                    case 'under-200':
-                        if (itemPrice >= 200000) showItem = false;
-                        break;
-                    case '200-300':
-                        if (itemPrice < 200000 || itemPrice >= 300000) showItem = false;
-                        break;
-                    case '300-500':
-                        if (itemPrice < 300000 || itemPrice >= 500000) showItem = false;
-                        break;
-                    case 'over-500':
-                        if (itemPrice < 500000) showItem = false;
-                        break;
-                }
-            }
-
-            // Show/hide item with smooth transition
-            if (showItem) {
-                item.style.display = 'block';
+        console.log('🔍 Filter inventory called');
+        
+        // Get active tab type
+        const currentTab = document.querySelector('.car-tab.active');
+        const activeTabType = currentTab ? currentTab.getAttribute('data-tab') : 'sale';
+        console.log('📋 Active tab type:', activeTabType);
+        
+        // Get active filters based on tab
+        const activeBrandFilter = activeTabType === 'sale' ? brandFilter : brandFilterRent;
+        const activePriceFilter = activeTabType === 'sale' ? priceFilter : priceFilterRent;
+        
+        const selectedBrand = activeBrandFilter?.value || '';
+        const selectedPrice = activePriceFilter?.value || '';
+        
+        console.log('🏷️ Selected brand:', selectedBrand);
+        console.log('💰 Selected price:', selectedPrice);
+        
+        const inventoryCards = document.querySelectorAll('.inventory-card');
+        console.log('🚗 Found cards:', inventoryCards.length);
+        
+        // First, add filtering-out class to all visible cards
+        inventoryCards.forEach((card, index) => {
+            if (!card.classList.contains('filtered-hidden')) {
+                console.log(`⏳ Adding filtering-out to card ${index}`);
                 setTimeout(() => {
-                    item.style.opacity = '1';
-                }, 10);
-            } else {
-                item.style.opacity = '0';
-                setTimeout(() => {
-                    item.style.display = 'none';
-                }, 300);
+                    card.classList.add('filtering-out');
+                }, index * 30); // Staggered animation
             }
         });
+        
+        // Then apply filters after animation
+        setTimeout(() => {
+            inventoryCards.forEach((card, index) => {
+                const cardType = card.getAttribute('data-type');
+                const itemBrand = card.getAttribute('data-brand');
+                const itemPrice = parseInt(card.getAttribute('data-price'));
+                
+                console.log(`🔍 Checking card ${index}: type=${cardType}, brand=${itemBrand}, price=${itemPrice}`);
+                
+                let showItem = true;
+
+                // Filter by tab type first
+                if (cardType !== activeTabType) {
+                    showItem = false;
+                    console.log(`❌ Card ${index} hidden due to tab type`);
+                }
+
+                // Brand filter
+                if (showItem && selectedBrand && selectedBrand !== '' && itemBrand !== selectedBrand) {
+                    showItem = false;
+                    console.log(`❌ Card ${index} hidden due to brand filter`);
+                }
+
+                // Price filter
+                if (showItem && selectedPrice && selectedPrice !== '') {
+                    switch (selectedPrice) {
+                        case '0-300000':
+                            if (itemPrice >= 300000) showItem = false;
+                            break;
+                        case '300000-400000':
+                            if (itemPrice < 300000 || itemPrice > 400000) showItem = false;
+                            break;
+                        case '400000+':
+                            if (itemPrice < 400000) showItem = false;
+                            break;
+                        // Rent price filters
+                        case '0-1000':
+                            if (itemPrice >= 1000) showItem = false;
+                            break;
+                        case '1000-2000':
+                            if (itemPrice < 1000 || itemPrice > 2000) showItem = false;
+                            break;
+                        case '2000+':
+                            if (itemPrice < 2000) showItem = false;
+                            break;
+                    }
+                    if (!showItem) {
+                        console.log(`❌ Card ${index} hidden due to price filter`);
+                    }
+                }
+
+                // Remove all animation classes first
+                card.classList.remove('filtering-out', 'filtering-in');
+                
+                // Apply visibility with animation
+                if (showItem) {
+                    console.log(`✅ Card ${index} will be shown`);
+                    card.classList.remove('filtered-hidden');
+                    // Add filtering-in class with delay for staggered effect
+                    setTimeout(() => {
+                        card.classList.add('filtering-in');
+                        setTimeout(() => {
+                            card.classList.remove('filtering-in');
+                        }, 300);
+                    }, index * 50);
+                } else {
+                    console.log(`🚫 Card ${index} will be hidden`);
+                    setTimeout(() => {
+                        card.classList.add('filtered-hidden');
+                    }, 400);
+                }
+            });
+            
+            // Update inventory count
+            setTimeout(() => {
+                updateInventoryCount();
+            }, 500);
+        }, 400);
     }
+
+    // Make filterInventory available globally for inventory.html
+    window.filterInventory = filterInventory;
 
     if (brandFilter) brandFilter.addEventListener('change', filterInventory);
     if (priceFilter) priceFilter.addEventListener('change', filterInventory);
+    if (brandFilterRent) brandFilterRent.addEventListener('change', filterInventory);
+    if (priceFilterRent) priceFilterRent.addEventListener('change', filterInventory);
+}
+
+// Update inventory count based on visible cards
+function updateInventoryCount() {
+    const visibleCards = document.querySelectorAll('.inventory-card:not(.filtered-hidden)');
+    const inventoryCount = document.getElementById('inventory-count');
+    const activeTab = document.querySelector('.car-tab.active');
+    
+    if (inventoryCount && activeTab) {
+        const tabType = activeTab.getAttribute('data-tab');
+        const suffix = tabType === 'rent' ? ' AUTO\'S TE HUUR' : ' AUTO\'S OP VOORRAAD';
+        inventoryCount.textContent = visibleCards.length + suffix;
+    }
 }
 
 // Video fallback functionality
@@ -605,32 +697,86 @@ function initializeVideoFallback() {
 // Sale cars data (backup for switching back from rent)
 let saleInventoryHTML = '';
 
+// Store the original sale inventory HTML when the page loads
+document.addEventListener('DOMContentLoaded', function() {
+    setTimeout(() => {
+        const inventoryGrid = document.querySelector('.inventory-grid');
+        if (inventoryGrid && !saleInventoryHTML) {
+            saleInventoryHTML = inventoryGrid.innerHTML;
+        }
+    }, 200);
+});
+
 // Inventory tab functionality
-window.showSaleInventory = function() {
+window.showSaleInventory = function(skipTransition = false) {
     const tabs = document.querySelectorAll('.car-tab');
     const inventoryCount = document.getElementById('inventory-count');
     const saleFilters = document.querySelector('.sale-filters');
     const rentFilters = document.querySelector('.rent-filters');
     const inventoryGrid = document.querySelector('.inventory-grid');
     
-    // Update active tab
-    tabs.forEach(tab => tab.classList.remove('active'));
-    document.querySelector('[data-tab="sale"]').classList.add('active');
-    
-    // Show/hide appropriate filters
-    if (saleFilters) saleFilters.style.display = 'flex';
-    if (rentFilters) rentFilters.style.display = 'none';
-    
-    // Restore sale inventory
-    if (saleInventoryHTML) {
-        inventoryGrid.innerHTML = saleInventoryHTML;
+    if (!inventoryGrid) {
+        console.error('Inventory grid not found');
+        return;
     }
     
-    // Update count
-    const saleCars = document.querySelectorAll('[data-type="sale"]');
-    if (inventoryCount) {
-        inventoryCount.textContent = saleCars.length + ' AUTO\'S OP VOORRAAD';
+    // Skip transition on initial load
+    if (skipTransition) {
+        // Update active tab
+        tabs.forEach(tab => tab.classList.remove('active'));
+        document.querySelector('[data-tab="sale"]').classList.add('active');
+        
+        // Show/hide appropriate filters
+        if (saleFilters) saleFilters.style.display = 'flex';
+        if (rentFilters) rentFilters.style.display = 'none';
+        
+        // Update count
+        const saleCars = document.querySelectorAll('[data-type="sale"]');
+        if (inventoryCount) {
+            inventoryCount.textContent = saleCars.length + ' AUTO\'S OP VOORRAAD';
+        }
+        
+        // Ensure grid is active
+        inventoryGrid.classList.add('active');
+        return;
     }
+    
+    // Remove any existing transition classes first
+    inventoryGrid.classList.remove('active', 'transitioning-in');
+    
+    // Add transition effect
+    inventoryGrid.classList.add('transitioning-out');
+    
+    setTimeout(() => {
+        // Update active tab
+        tabs.forEach(tab => tab.classList.remove('active'));
+        document.querySelector('[data-tab="sale"]').classList.add('active');
+        
+        // Show/hide appropriate filters
+        if (saleFilters) saleFilters.style.display = 'flex';
+        if (rentFilters) rentFilters.style.display = 'none';
+        
+        // Restore sale inventory
+        if (saleInventoryHTML) {
+            inventoryGrid.innerHTML = saleInventoryHTML;
+        }
+        
+        // Update count
+        const saleCars = document.querySelectorAll('[data-type="sale"]');
+        if (inventoryCount) {
+            inventoryCount.textContent = saleCars.length + ' AUTO\'S OP VOORRAAD';
+        }
+        
+        // Prepare for fade in
+        inventoryGrid.classList.remove('transitioning-out');
+        inventoryGrid.classList.add('transitioning-in');
+        
+        // Trigger fade in
+        setTimeout(() => {
+            inventoryGrid.classList.remove('transitioning-in');
+            inventoryGrid.classList.add('active');
+        }, 50);
+    }, 400);
 }
 
 // Rental cars data
@@ -666,19 +812,30 @@ window.showRentInventory = function() {
     const rentFilters = document.querySelector('.rent-filters');
     const inventoryGrid = document.querySelector('.inventory-grid');
     
-    console.log('Found filters:', {saleFilters, rentFilters});
     
-    // Update active tab
-    tabs.forEach(tab => tab.classList.remove('active'));
-    document.querySelector('[data-tab="rent"]').classList.add('active');
+    if (!inventoryGrid) {
+        console.error('Inventory grid not found');
+        return;
+    }
     
-    // Show/hide appropriate filters
-    if (saleFilters) saleFilters.style.display = 'none';
-    if (rentFilters) rentFilters.style.display = 'flex';
+    // Remove any existing transition classes first
+    inventoryGrid.classList.remove('active', 'transitioning-in');
     
-    // Clear inventory and add rental cars
-    if (inventoryGrid) {
-        inventoryGrid.innerHTML = '';
+    // Add transition effect
+    inventoryGrid.classList.add('transitioning-out');
+    
+    setTimeout(() => {
+        // Update active tab
+        tabs.forEach(tab => tab.classList.remove('active'));
+        document.querySelector('[data-tab="rent"]').classList.add('active');
+        
+        // Show/hide appropriate filters
+        if (saleFilters) saleFilters.style.display = 'none';
+        if (rentFilters) rentFilters.style.display = 'flex';
+        
+        // Clear inventory and add rental cars
+        if (inventoryGrid) {
+            inventoryGrid.innerHTML = '';
         
         rentalCars.forEach(car => {
             const carCard = document.createElement('div');
@@ -711,11 +868,22 @@ window.showRentInventory = function() {
             
             inventoryGrid.appendChild(carCard);
         });
-    }
-    
-    // Update count
-    if (inventoryCount) {
-        inventoryCount.textContent = rentalCars.length + ' AUTO\'S TE HUUR';
-    }
+        }
+        
+        // Update count
+        if (inventoryCount) {
+            inventoryCount.textContent = rentalCars.length + ' AUTO\'S TE HUUR';
+        }
+        
+        // Prepare for fade in
+        inventoryGrid.classList.remove('transitioning-out');
+        inventoryGrid.classList.add('transitioning-in');
+        
+        // Trigger fade in
+        setTimeout(() => {
+            inventoryGrid.classList.remove('transitioning-in');
+            inventoryGrid.classList.add('active');
+        }, 50);
+    }, 400);
 }
 

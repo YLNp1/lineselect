@@ -254,7 +254,26 @@
   grid-template-columns: repeat(4, 1fr);
   gap: 32px;
   margin-top: 48px;
-  transition: opacity 0.3s ease;
+  transition: opacity 0.4s ease, transform 0.4s ease;
+  opacity: 0;
+  transform: translateY(0);
+}
+
+/* Transition states for inventory switching */
+.inventory-grid.transitioning-out {
+  opacity: 0;
+  transform: translateY(20px);
+  pointer-events: none;
+}
+
+.inventory-grid.transitioning-in {
+  opacity: 0;
+  transform: translateY(-20px);
+}
+
+.inventory-grid.active {
+  opacity: 1;
+  transform: translateY(0);
 }
 
 .inventory-card {
@@ -262,13 +281,37 @@
   background: #0f0f0f;
   border: 1px solid rgba(255, 255, 255, 0.06);
   overflow: hidden;
-  transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
   display: flex;
+  transition: opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+              transform 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+              border-color 0.4s ease;
+  opacity: 1;
+  transform: scale(1) translateY(0);
   flex-direction: column;
 }
 
+/* Filter animation states */
+.inventory-card.filtering-out {
+  opacity: 0;
+  transform: scale(0.95) translateY(20px);
+  pointer-events: none;
+  transition: opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+              transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.inventory-card.filtering-in {
+  opacity: 0;
+  transform: scale(1.05) translateY(-20px);
+  transition: opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+              transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.inventory-card.filtered-hidden {
+  display: none !important;
+}
+
 .inventory-card:hover {
-  transform: translateY(-2px);
+  transform: scale(1) translateY(-2px);
   border-color: rgba(255, 255, 255, 0.1);
   background: #0a0a0a;
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
