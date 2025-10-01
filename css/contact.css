@@ -1,0 +1,235 @@
+/* ===================================
+   CONTACT SECTION - PREMIUM DESIGN
+   =================================== */
+
+.contact {
+  background: #0f0f0f;
+  padding: var(--section-padding) 0;
+  position: relative;
+}
+
+/* Contact container inherits from main container definition */
+
+.contact .section-header {
+  text-align: center;
+  margin-bottom: var(--gap-large);
+}
+
+.contact .section-subtitle {
+  font-style: italic;
+  opacity: 0.8;
+}
+
+/* Contact Form Wrapper - Full Width Clean Layout */
+.contact-form-wrapper {
+  max-width: 800px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-large);
+}
+
+.contact-form {
+  width: 100%;
+}
+
+/* Form Row for Name and Email */
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+}
+
+/* Form Fields - Minimal Luxury Style */
+.form-field {
+  position: relative;
+  margin-bottom: 2.5rem;
+}
+
+.form-field input,
+.form-field textarea {
+  width: 100%;
+  padding: 16px 0;
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+  color: #ffffff;
+  font-family: -apple-system, BlinkMacSystemFont, 'Inter', 'Neue Haas Grotesk', 'Montserrat', sans-serif;
+  font-size: 16px;
+  font-weight: 300;
+  transition: all 0.3s ease;
+  outline: none;
+}
+
+.form-field input:focus,
+.form-field textarea:focus {
+  border-bottom-color: rgba(255, 255, 255, 0.4);
+}
+
+.form-field label {
+  position: absolute;
+  left: 0;
+  top: 16px;
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  transition: all 0.3s ease;
+  pointer-events: none;
+}
+
+.form-field input:focus + label,
+.form-field input:not(:placeholder-shown) + label,
+.form-field textarea:focus + label,
+.form-field textarea:not(:placeholder-shown) + label {
+  top: -8px;
+  font-size: 11px;
+  color: #bbbbbb;
+}
+
+.form-field textarea {
+  resize: vertical;
+  min-height: 120px;
+  max-height: 300px;
+}
+
+/* Contact Button - Consistent with Site Style */
+.btn-contact {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: flex-start !important;
+  background: transparent;
+  color: #ffffff;
+  font-family: -apple-system, BlinkMacSystemFont, 'Inter', 'Neue Haas Grotesk', 'Montserrat', sans-serif !important;
+  font-size: 0.75rem !important;
+  font-weight: 600 !important;
+  letter-spacing: 0.1em !important;
+  text-transform: uppercase !important;
+  padding: 0 !important;
+  border: none;
+  transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  text-decoration: none !important;
+  min-width: auto !important;
+  visibility: visible;
+  opacity: 1;
+  transform: translateY(0);
+  outline: none;
+  margin-top: 2rem;
+  cursor: pointer;
+}
+
+.btn-contact::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  width: 0;
+  height: 1px;
+  background: #971b1e;
+  transition: width 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.btn-contact:hover {
+  color: #ffffff;
+}
+
+.btn-contact:hover::after {
+  width: 100%;
+  background: #971b1e;
+}
+
+.btn-contact .btn-icon {
+  font-size: 12px;
+  margin-right: 6px;
+  line-height: 1;
+  font-weight: 300;
+  transition: transform 0.3s ease;
+}
+
+.btn-contact:hover .btn-icon {
+  transform: translateX(2px);
+}
+
+/* Contact Details - Centered and Spaced */
+.contact-details {
+  display: flex;
+  align-items: center;
+  gap: 2.5rem;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.contact-detail-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+.contact-icon {
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.contact-text {
+  font-family: -apple-system, BlinkMacSystemFont, 'Inter', 'Neue Haas Grotesk', 'Montserrat', sans-serif;
+  font-size: 13px;
+  font-weight: 300;
+  color: rgba(255, 255, 255, 0.6);
+  transition: color 0.3s ease;
+}
+
+.contact-detail-item:hover .contact-text {
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.contact-detail-item:hover .contact-icon {
+  color: rgba(255, 255, 255, 0.9);
+}
+
+/* Back to Top - Footer Style */
+/* Removed duplicate back-to-top styles - now using btn-contact */
+
+/* Contact Info Section */
+.contact-info {
+  display: flex;
+  justify-content: center;
+  margin-top: 2rem;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .contact {
+    padding: var(--section-padding-mobile) 0 var(--section-padding-mobile);
+  }
+  
+  .form-row {
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+  
+  .contact-form-wrapper {
+    gap: 3rem;
+  }
+  
+  .contact-details {
+    flex-direction: column;
+    gap: 1.5rem;
+    align-items: center;
+  }
+  
+  .contact .section-header {
+    margin-bottom: 3rem;
+  }
+}
+
+@media (max-width: 480px) {
+  
+  .form-field {
+    margin-bottom: 32px;
+  }
+}
+

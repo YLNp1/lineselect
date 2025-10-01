@@ -1,0 +1,537 @@
+/* ===================================
+   BRANDS SHOWCASE - SWIPER SLIDER
+   =================================== */
+
+/* Brands Showcase Container */
+.brands-showcase {
+  background: #0f0f0f;
+  padding: var(--section-padding) 0 var(--section-padding);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Brands showcase container inherits from main container definition */
+
+/* Main Swiper Container */
+.brands-slider {
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+}
+
+.brands-slider .swiper-wrapper {
+  align-items: stretch;
+}
+
+/* Swiper Slide Styling */
+.brands-slider .swiper-slide {
+  height: auto;
+  opacity: 0.5;
+  transform: scale(0.9);
+  transition: all 0.3s ease;
+}
+
+.brands-slider .swiper-slide-active {
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* Brand Item Card */
+.item-brand {
+  display: block;
+  position: relative;
+  width: 100%;
+  aspect-ratio: 603 / 814;  /* Perfect proportions: 0.741 ratio */
+  overflow: hidden;
+  border-radius: 0;  /* Completely square edges */
+  text-decoration: none;
+  background: var(--bg-surface);
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+  transition: all 0.3s ease;
+}
+
+.item-brand:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.7);
+}
+
+.item-brand:hover .btn-view-brand::after {
+  width: 100%;
+  background: #971b1e;
+}
+
+/* Stabilize hover effects during swiper animations */
+.swiper-slide .item-brand {
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  transform: translateZ(0);
+  will-change: transform;
+}
+
+.swiper-slide .btn-view-brand::after {
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
+/* Background Container */
+.item-brand .bg-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+}
+
+.item-brand .bg-container img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  transition: transform 0.5s ease;
+}
+
+.item-brand:hover .bg-container img {
+  transform: scale(1.05);
+}
+
+/* Content Overlay */
+.item-brand .content {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: var(--gap-medium) var(--gap-medium);
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.9) 0%, rgba(0, 0, 0, 0.7) 50%, transparent 100%);
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  text-align: left;
+  transform: translateY(20px);
+  transition: transform 0.3s ease;
+}
+
+.item-brand:hover .content {
+  transform: translateY(0);
+}
+
+/* Brand Title */
+.item-brand h3 {
+  font-family: -apple-system, BlinkMacSystemFont, 'Inter', 'Neue Haas Grotesk', 'Montserrat', sans-serif;
+  font-size: clamp(1.5rem, 3vw, 2.25rem);
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #ffffff;
+  margin-bottom: 8px;
+  line-height: 1;
+}
+
+/* Brand Tagline */
+.item-brand .tagline {
+  font-family: -apple-system, BlinkMacSystemFont, 'Inter', 'Neue Haas Grotesk', 'Montserrat', sans-serif;
+  font-size: var(--font-size-sm);
+  font-weight: 400;
+  letter-spacing: 0.2em;
+  line-height: var(--line-height-normal);
+  color: #bbbbbb;
+  text-transform: uppercase;
+  margin-bottom: 2rem;
+}
+
+/* View Brand Button - Sport/Minimal Style */
+.btn-view-brand {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: flex-start !important;
+  background: transparent;
+  color: #ffffff;
+  font-family: -apple-system, BlinkMacSystemFont, 'Inter', 'Neue Haas Grotesk', 'Montserrat', sans-serif !important;
+  font-size: var(--font-size-xs) !important;
+  font-weight: 600 !important;
+  letter-spacing: 0.1em !important;
+  text-transform: uppercase !important;
+  padding: 0 !important;
+  border: none;
+  transition: all 0.3s ease;
+  text-decoration: none !important;
+  margin-top: 16px;
+  min-width: auto !important;
+  visibility: visible;
+  opacity: 1;
+  transform: translateY(0);
+  outline: none;
+  pointer-events: auto;
+}
+
+/* Minimal underline effect */
+.btn-view-brand::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  width: 0;
+  height: 1px;
+  background: #971b1e;
+  transition: width 0.3s ease;
+  transform: translateZ(0);
+  backface-visibility: hidden;
+}
+
+.btn-view-brand:hover::after {
+  width: 100%;
+  background: #971b1e;
+}
+
+
+/* Sport-like icon styling */
+.btn-view-brand .btn-icon {
+  font-size: 12px;
+  margin-right: 6px;
+  line-height: 1;
+  font-weight: 300;
+  transition: transform 0.3s ease;
+}
+
+.btn-view-brand:hover .btn-icon {
+  transform: translateX(2px);
+}
+
+/* Pagination & Controls */
+.wrapper-pagination {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  margin: 0;
+  margin-top: 32px;
+  padding: 0;
+  gap: var(--gap-small);
+  position: relative;
+}
+
+/* Autoplay Progress */
+.autoplay-progress {
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  color: var(--text-secondary);
+  position: relative;
+}
+
+.autoplay-progress svg {
+  --progress: 0;
+  position: absolute;
+  left: 0;
+  top: 0;
+  z-index: 10;
+  width: 100%;
+  height: 100%;
+  stroke-width: 2px;
+  stroke: var(--text-secondary);
+  fill: none;
+  stroke-dashoffset: calc(125.6 * (1 - var(--progress)));
+  stroke-dasharray: 125.6;
+  transform: rotate(-90deg);
+}
+
+.autoplay-progress span {
+  display: none;  /* Hide seconds counter */
+}
+
+/* Swiper Pagination */
+.swiper-pagination {
+  position: relative !important;
+  bottom: auto !important;
+  display: flex !important;
+  gap: 8px;
+  justify-content: flex-start;
+  align-items: center;
+  margin-left: 0;
+  padding-left: 0;
+}
+
+.swiper-pagination-bullet {
+  width: 8px !important;
+  height: 8px !important;
+  border-radius: 0 !important;  /* Square dots */
+  background: rgba(255, 255, 255, 0.4) !important;
+  opacity: 1 !important;
+  transition: all 0.3s ease;
+  margin: 0 !important;
+}
+
+.swiper-pagination-bullet-active {
+  width: 8px !important;
+  height: 8px !important;
+  border-radius: 0 !important;  /* Square active dot */
+  background: #ffffff !important;
+  transform: scale(1.3);
+}
+
+/* Swiper Navigation Buttons (optional) */
+.swiper-button-next,
+.swiper-button-prev {
+  color: #ffffff;
+  opacity: 0.5;
+  transition: opacity 0.3s ease;
+}
+
+.swiper-button-next:hover,
+.swiper-button-prev:hover {
+  opacity: 1;
+}
+
+/* ===================================
+   RESPONSIVE DESIGN
+   =================================== */
+
+@media (max-width: 1024px) {
+  .item-brand h3 {
+    font-size: clamp(1.25rem, 2.8vw, 2rem);
+  }
+
+  .item-brand .tagline {
+    font-size: var(--font-size-xs);
+    letter-spacing: 0.15em;
+  }
+}
+
+@media (max-width: 768px) {
+  .brands-showcase {
+    padding: var(--section-padding-mobile) 0 var(--section-padding-mobile);
+  }
+
+  .item-brand {
+    aspect-ratio: 603 / 1000;  /* Taller on mobile, same width */
+  }
+
+  .item-brand .content {
+    padding: var(--gap-medium) var(--gap-small) calc(var(--gap-medium) + 20px) var(--gap-small);
+  }
+
+  .item-brand h3 {
+    font-size: clamp(1.2rem, 2.5vw, 1.75rem);
+  }
+
+  .btn-view-brand {
+    font-size: 10px;
+    letter-spacing: 0.08em;
+  }
+  
+  .btn-view-brand .btn-icon {
+    font-size: 10px;
+    margin-right: 4px;
+  }
+
+  .wrapper-pagination {
+    margin-top: 24px;
+  }
+}
+
+@media (max-width: 480px) {
+  .item-brand {
+    aspect-ratio: 603 / 1500;  /* Much taller on small mobile, same width */
+  }
+
+  .item-brand .content {
+    padding: var(--gap-small) var(--gap-small) calc(var(--gap-small) + 20px) var(--gap-small);
+  }
+
+  .item-brand h3 {
+    font-size: clamp(1rem, 2vw, 1.5rem);
+    margin-bottom: 4px;
+  }
+
+  .item-brand .tagline {
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    margin-bottom: 16px;
+  }
+
+  .autoplay-progress {
+    width: 40px;
+    height: 40px;
+  }
+
+  .swiper-pagination-bullet {
+    width: 6px !important;
+    height: 6px !important;
+    border-radius: 0 !important;
+    background: rgba(255, 255, 255, 0.4) !important;
+    }
+
+  .swiper-pagination-bullet-active {
+    width: 6px !important;
+    height: 6px !important;
+    border-radius: 0 !important;
+    background: #ffffff !important;
+    }
+}
+
+/* Brand/Logo Typography */
+.brand-title {
+  font-family: -apple-system, BlinkMacSystemFont, 'Inter', 'Neue Haas Grotesk', 'Montserrat', sans-serif;
+  font-size: clamp(16px, 2vw, 24px);
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  color: #ffffff;
+  text-transform: uppercase;
+}
+
+/* Featured CTA Container */
+.featured-cta {
+  margin-top: 3rem;
+  text-align: center;
+}
+
+/* Car Tabs Styling */
+.car-tabs-wrapper {
+  display: inline-flex;
+  gap: 0;
+  margin-bottom: 2rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Slider transition animations */
+.brands-slider {
+  transition: all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.slider-fade-out {
+  opacity: 0;
+  transform: translateY(20px);
+}
+
+.slider-fade-in {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.car-tab {
+  position: relative;
+  background: transparent;
+  border: none;
+  color: rgba(255, 255, 255, 0.5);
+  font-family: -apple-system, BlinkMacSystemFont, 'Inter', 'Neue Haas Grotesk', 'Montserrat', sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  padding: 12px 24px;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  outline: none;
+  text-align: center;
+}
+
+.car-tab:hover {
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.car-tab.active {
+  color: #ffffff;
+}
+
+.car-tab::after {
+  content: '';
+  position: absolute;
+  bottom: -1px;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: #971b1e;
+  transform: scaleX(0);
+  transition: transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.car-tab.active::after {
+  transform: scaleX(1);
+}
+
+/* Car Label Styling - Left positioned */
+.car-label-left {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  background: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(10px);
+  color: #ffffff;
+  font-family: -apple-system, BlinkMacSystemFont, 'Inter', 'Neue Haas Grotesk', 'Montserrat', sans-serif;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 6px 14px;
+  border-radius: 0;
+  z-index: 3;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+/* Responsive for tabs */
+@media (max-width: 768px) {
+  .car-tabs-wrapper {
+    display: inline-flex;
+    width: auto;
+    justify-content: flex-start;
+  }
+  
+  .car-tab {
+    padding: 10px 16px;
+    font-size: 11px;
+  }
+  
+  .car-label-left {
+    top: 12px;
+    left: 12px;
+    padding: 4px 10px;
+    font-size: 9px;
+  }
+}
+
+/* Primary Accent Button - Minimal Luxe Style */
+.btn.btn-primary-accent {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent !important;
+  color: #ffffff !important;
+  font-family: -apple-system, BlinkMacSystemFont, 'Inter', 'Neue Haas Grotesk', 'Montserrat', sans-serif;
+  font-size: var(--font-size-sm);
+  font-weight: 400;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  padding: 16px 40px !important;
+  border: 1px solid #ffffff;
+  text-decoration: none;
+  transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  box-shadow: none;
+}
+
+.btn.btn-primary-accent:hover {
+  background: rgba(139, 0, 0, 0.2) !important;
+  color: #ffffff !important;
+  border-color: #ffffff;
+  transform: none;
+  box-shadow: none;
+}
+
+.btn-primary-accent .btn-icon {
+  font-size: 14px;
+  margin-right: 10px;
+  font-weight: 300;
+  color: #ffffff;
+  transition: opacity 0.3s ease;
+}
+
+.btn-primary-accent:hover .btn-icon {
+  opacity: 0.9;
+}
+

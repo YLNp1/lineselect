@@ -1,0 +1,96 @@
+/* ===================================
+   BUTTON STYLES
+   =================================== */
+
+/* Contact Button - Consistent with Site Style */
+.btn-contact {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: flex-start !important;
+  background: transparent;
+  color: #ffffff;
+  font-family: -apple-system, BlinkMacSystemFont, 'Inter', 'Neue Haas Grotesk', 'Montserrat', sans-serif !important;
+  font-size: 0.75rem !important;
+  font-weight: 600 !important;
+  letter-spacing: 0.1em !important;
+  text-transform: uppercase !important;
+  padding: 0 !important;
+  border: none;
+  transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  text-decoration: none !important;
+  min-width: auto !important;
+  visibility: visible;
+  opacity: 1;
+  transform: translateY(0);
+  outline: none;
+  margin-top: 2rem;
+  cursor: pointer;
+}
+
+.btn-contact::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  width: 0;
+  height: 1px;
+  transition: width 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.btn-contact:hover {
+  color: #ffffff;
+}
+
+.btn-contact:hover::after {
+  width: 100%;
+}
+
+.btn-contact .btn-icon {
+  font-size: 12px;
+  margin-right: 6px;
+  line-height: 1;
+  font-weight: 300;
+  transition: transform 0.3s ease;
+}
+
+.btn-contact:hover .btn-icon {
+  transform: translateX(2px);
+}
+
+/* Footer specific button styles */
+.footer-right-container > a.btn.btn-contact {
+  align-self: flex-end;
+  text-align: left;
+  margin-top: 2rem;
+  margin-bottom: 0;
+  font-size: 0.75rem !important;
+  line-height: 1 !important;
+}
+
+.footer-form .btn-contact {
+  align-self: flex-start;
+  margin-top: 1.5rem;
+  margin-bottom: 0;
+  font-size: 0.75rem !important;
+  line-height: 1 !important;
+}
+
+.footer .btn-contact {
+  padding: 0;
+  margin-top: 1.5rem;
+  width: auto;
+  align-self: flex-start;
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+  .footer-right-container > a.btn.btn-contact {
+    align-self: flex-start;
+    margin-top: 2rem;
+  }
+  
+  .footer-form .btn-contact {
+    margin-top: 0;
+  }
+}

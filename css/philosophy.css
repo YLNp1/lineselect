@@ -1,0 +1,210 @@
+/* ===================================
+   PHILOSOPHY QUOTE SECTION
+   =================================== */
+
+.line-quote-section {
+  background: #0f0f0f;
+  padding: var(--section-padding) 0 var(--section-padding);
+  position: relative;
+}
+
+.line-quote-section .section-header {
+  text-align: left;
+  margin-bottom: var(--gap-large);
+}
+
+.philosophy-section {
+  padding: var(--section-padding) 0;
+}
+
+.philosophy-content {
+  position: relative;
+  min-height: 60vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 0;
+}
+
+.philosophy-content::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 50%;
+  right: 0;
+  bottom: 0;
+  width: 100vw;
+  margin-left: -50vw;
+  background-image: url('https://images.unsplash.com/photo-1603584173870-7f23fdae1b7a?w=2500&h=1400&fit=crop&q=80');
+  -webkit-mask: linear-gradient(to bottom, transparent 0%, black 20%, black 80%, transparent 100%);
+  mask: linear-gradient(to bottom, transparent 0%, black 20%, black 80%, transparent 100%);
+  background-size: cover;
+  background-position: center right;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  z-index: -1;
+}
+
+
+.quote-content-wrapper {
+  position: relative;
+  z-index: 2;
+  max-width: 600px;
+  margin-left: 0;
+  margin-top: 90px;
+}
+
+
+
+.main-quote {
+  position: relative;
+  z-index: 2;
+  margin: 0 0 2rem 0;
+  padding: 0;
+  max-width: 600px;
+}
+
+.quote-main-text {
+  margin-bottom: 2rem;
+}
+
+.quote-bold-line {
+  margin-bottom: 0.8rem;
+}
+
+.quote-bold {
+  position: relative;
+  font-family: -apple-system, BlinkMacSystemFont, 'Inter', 'Neue Haas Grotesk', 'Montserrat', sans-serif;
+  font-size: clamp(3rem, 6vw, 5rem);
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  line-height: 0.95;
+  color: #ffffff;
+  text-transform: uppercase;
+  display: inline-block;
+  text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.7);
+}
+
+.quote-bold::after {
+  display: none;
+}
+
+.quote-subtitle {
+  margin-top: 0;
+  margin-bottom: 2.5rem;
+}
+
+.quote-regular {
+  font-family: -apple-system, BlinkMacSystemFont, 'Inter', 'Neue Haas Grotesk', 'Montserrat', sans-serif;
+  font-size: clamp(1.1rem, 2.8vw, 1.6rem);
+  font-weight: 300;
+  letter-spacing: 0.01em;
+  line-height: 1.4;
+  color: #ffffff;
+  opacity: 0.9;
+  display: block;
+  text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.6);
+}
+
+
+@keyframes fadeInScale {
+  from {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.quote-attribution {
+  display: block;
+  font-family: 'Inter', 'Source Sans Pro', 'Open Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: var(--font-size-xs);
+  font-weight: 400;
+  letter-spacing: 0.3em;
+  color: #A9B0B6;
+  text-transform: uppercase;
+  margin-top: 2rem;
+  font-style: normal;
+  text-align: left;
+}
+
+/* Philosophy section mobile responsive */
+@media (max-width: 1024px) {
+  .philosophy-section {
+    padding: var(--section-padding-mobile) 0;
+  }
+  
+  .philosophy-content {
+    flex-direction: column;
+    min-height: 50vh;
+    background-position: center center;
+    padding: 0;
+  }
+  
+  .quote-content-wrapper {
+    margin-left: 0;
+    margin-top: 0;
+    order: 2;
+  }
+  
+  .main-quote {
+    max-width: 100%;
+  }
+  
+  .quote-bold {
+    font-size: clamp(2.5rem, 8vw, 3.5rem);
+  }
+  
+  .quote-regular {
+    font-size: clamp(1rem, 4vw, 1.3rem);
+  }
+}
+
+/* Right-aligned attribution */
+.quote-content-right .quote-attribution {
+  text-align: right;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+
+/* Responsive */
+@media (max-width: 768px) {
+  .line-quote-section {
+    padding: 0 0 60px;
+  }
+}
+
+@media (max-width: 480px) {
+  .line-quote-section {
+    padding: 0 0 48px;
+  }
+  
+  
+  .main-quote p {
+    font-size: clamp(20px, 5vw, 28px);
+    letter-spacing: 0.06em;
+  }
+  
+  .about-quote p {
+    font-size: clamp(20px, 5vw, 28px);
+  }
+  
+  .quote-attribution {
+    font-size: var(--font-size-xs);
+    margin-top: 24px;
+  }
+}
+

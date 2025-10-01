@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Test Tabs</title>
+    <style>
+        .car-tab {
+            padding: 10px 20px;
+            margin: 5px;
+            background: #333;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        .car-tab.active {
+            background: #971b1e;
+        }
+        .inventory-card {
+            padding: 20px;
+            margin: 10px;
+            border: 1px solid #ccc;
+            display: none;
+        }
+        .inventory-card[data-type="sale"] {
+            background: #ffe6e6;
+        }
+        .inventory-card[data-type="rent"] {
+            background: #e6f3ff;
+        }
+    </style>
+</head>
+<body>
+    <h1>Test Tabs</h1>
+    
+    <button class="car-tab active" onclick="showSale()">TE KOOP</button>
+    <button class="car-tab" onclick="showRent()">TE HUUR</button>
+    
+    <p id="count">Count</p>
+    
+    <div class="inventory-card" data-type="sale">
+        <h3>Porsche 911 GT3 (SALE)</h3>
+    </div>
+    
+    <div class="inventory-card" data-type="rent">
+        <h3>McLaren 720S (RENT)</h3>
+    </div>
+    
+    <div class="inventory-card" data-type="sale">
+        <h3>Ferrari F8 (SALE)</h3>
+    </div>
+    
+    <div class="inventory-card" data-type="rent">
+        <h3>Lamborghini (RENT)</h3>
+    </div>
+
+    <script>
+        function showSale() {
+            console.log('showSale called');
+            
+            // Update tabs
+            document.querySelectorAll('.car-tab').forEach(tab => tab.classList.remove('active'));
+            event.target.classList.add('active');
+            
+            // Show/hide cards
+            const cards = document.querySelectorAll('.inventory-card');
+            let count = 0;
+            cards.forEach(card => {
+                if (card.getAttribute('data-type') === 'sale') {
+                    card.style.display = 'block';
+                    count++;
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+            
+            document.getElementById('count').textContent = count + ' AUTO\'S TE KOOP';
+        }
+        
+        function showRent() {
+            console.log('showRent called');
+            
+            // Update tabs
+            document.querySelectorAll('.car-tab').forEach(tab => tab.classList.remove('active'));
+            event.target.classList.add('active');
+            
+            // Show/hide cards
+            const cards = document.querySelectorAll('.inventory-card');
+            let count = 0;
+            cards.forEach(card => {
+                if (card.getAttribute('data-type') === 'rent') {
+                    card.style.display = 'block';
+                    count++;
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+            
+            document.getElementById('count').textContent = count + ' AUTO\'S TE HUUR';
+        }
+        
+        // Initialize
+        showSale();
+    </script>
+</body>
+</html>

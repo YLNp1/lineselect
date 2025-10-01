@@ -1,0 +1,410 @@
+/* ===================================
+   LINE SELECT - FOUNDATION RESET
+   =================================== */
+
+/* Design Foundation */
+:root {
+  /* Core Colors - Refined Dark Showroom Aesthetic */
+  --bg-primary: #080808;           /* Much darker black for main background */
+  --bg-secondary: #101010;         /* Much darker charcoal for sections */
+  --bg-tertiary: #1a1a1a;          /* Dark gray for cards */
+  --bg-surface: #222222;           /* Elevated surface color */
+  --bg-elevated: #2a2a2a;          /* Highest elevation (modals, dropdowns) */
+  
+  /* Header & Footer specific */
+  --bg-header: #0a0a0a;            /* Softer black header */
+  --bg-footer: #0a0a0a;            /* Softer black footer */
+  --bg-nav-hover: rgba(34, 34, 34, 0.8);  /* Subtle nav hover */
+  
+  /* Text Colors with Enhanced Contrast */
+  --text-primary: #f5f5f5;         /* High contrast primary text */
+  --text-secondary: #d4d4d4;       /* Secondary text with good contrast */
+  --text-muted: #a3a3a3;           /* Muted but still readable */
+  --text-accent: #ffffff;          /* Pure white for emphasis */
+  --text-dim: #737373;             /* Very subtle text */
+  
+  /* Border Colors with Better Definition */
+  --border-primary: rgba(255, 255, 255, 0.08);    /* Subtle borders */
+  --border-secondary: rgba(255, 255, 255, 0.12);  /* More visible borders */
+  --border-accent: rgba(255, 255, 255, 0.20);     /* Prominent borders */
+  --border-highlight: rgba(255, 255, 255, 0.30);  /* High contrast borders */
+  
+  /* Subtle Accent Colors for Depth */
+  --accent-blue: rgba(59, 130, 246, 0.15);        /* Subtle blue glow */
+  --accent-silver: rgba(192, 192, 192, 0.1);      /* Chrome-like accent */
+  --accent-gold: rgba(251, 191, 36, 0.08);        /* Luxury gold hint */
+  
+  /* Typography Foundation */
+  --font-family: 'Arial', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --font-size-xs: 0.75rem;   /* 12px */
+  --font-size-sm: 0.875rem;  /* 14px */
+  --font-size-base: 1rem;    /* 16px */
+  --font-size-lg: 1.125rem;  /* 18px */
+  --font-size-xl: 1.25rem;   /* 20px */
+  --font-size-2xl: 1.5rem;   /* 24px */
+  --font-size-3xl: 2rem;     /* 32px */
+  --font-size-4xl: 2.5rem;   /* 40px */
+  
+  --font-weight-light: 300;
+  --font-weight-normal: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  
+  --letter-spacing-tight: -0.025em;
+  --letter-spacing-normal: 0;
+  --letter-spacing-wide: 0.025em;
+  --letter-spacing-wider: 0.05em;
+  --letter-spacing-widest: 0.1em;
+  
+  --line-height-tight: 1.25;
+  --line-height-normal: 1.5;
+  --line-height-relaxed: 1.75;
+  
+  /* Unified Grid System */
+  --container-max-width: 1280px;
+  --container-padding: 2rem;
+  --container-padding-mobile: 1rem;
+  
+  --grid-gap: 2rem;
+  --grid-gap-mobile: 1rem;
+  
+  /* Simple Spacing */
+  --gap-small: 24px;
+  --gap-medium: 48px;
+  --gap-large: 80px;
+  
+  /* Section Spacing - Simple & Scaleable */
+  --section-padding: 120px;
+  --section-padding-medium: 80px;
+  --section-padding-small: 60px;
+  
+  /* Mobile Section Spacing */
+  --section-padding-mobile: 60px;
+  
+  /* Effects & Depth */
+  --border-radius: 4px;
+  --transition-fast: 0.15s ease;
+  --transition-normal: 0.3s ease;
+  --transition-slow: 0.5s ease;
+  
+  /* Enhanced Shadows for Dark Theme */
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.5), 0 0 4px rgba(255, 255, 255, 0.02);
+  --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.6), 0 0 8px rgba(255, 255, 255, 0.03);
+  --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.7), 0 0 12px rgba(255, 255, 255, 0.04);
+  --shadow-glow: 0 0 20px rgba(255, 255, 255, 0.05), 0 4px 12px rgba(0, 0, 0, 0.8);
+  
+  /* Backdrop Effects */
+  --backdrop-blur: blur(12px);
+  --backdrop-dark: rgba(0, 0, 0, 0.95);
+  --backdrop-elevated: rgba(10, 10, 10, 0.98);
+  
+  /* Gradient Overlays for Depth */
+  --gradient-subtle: linear-gradient(180deg, rgba(255, 255, 255, 0.02) 0%, transparent 100%);
+  --gradient-surface: linear-gradient(180deg, rgba(28, 28, 28, 1) 0%, rgba(20, 20, 20, 1) 100%);
+  --gradient-elevation: linear-gradient(135deg, rgba(36, 36, 36, 1) 0%, rgba(28, 28, 28, 1) 100%);
+}
+
+/* Global Reset */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 16px;
+  line-height: 1.5;
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+
+body {
+  font-family: 'Inter', 'Source Sans Pro', 'Open Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: var(--font-size-base);
+  font-weight: 400;
+  line-height: var(--line-height-normal);
+  color: var(--text-primary);
+  background-color: #0f0f0f;
+  overflow-x: hidden;
+  letter-spacing: 0.005em;
+  padding: 0;
+  margin: 0;
+}
+
+/* Unified Grid System */
+.container {
+  width: 85%;
+  max-width: 2000px;
+  margin: 0 auto;
+  padding: 0;
+}
+
+
+/* Responsive container breakpoints */
+@media (max-width: 1600px) {
+  .container {
+    width: 85%;
+    max-width: 1400px;
+    margin: 0 auto;
+  }
+}
+
+@media (max-width: 1200px) {
+  .container {
+    width: 90%;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+}
+
+@media (max-width: 992px) {
+  .container {
+    width: 92%;
+    max-width: 100%;
+    margin: 0 auto;
+  }
+}
+
+@media (max-width: 768px) {
+  .container {
+    max-width: 100%;
+    width: 94%;
+    padding: 0;
+    margin: 0 auto;
+  }
+  
+  /* Prevent animation overflow on mobile */
+  .animate-slide-left,
+  .animate-slide-right,
+  .animate-on-scroll {
+    transform: translateX(0) !important;
+    opacity: 0;
+  }
+  
+  .animate-slide-left.animate-in,
+  .animate-slide-right.animate-in,
+  .animate-on-scroll.animate-in {
+    opacity: 1;
+  }
+  
+  /* Allow philosophy section to break out of container */
+  .philosophy-section {
+    overflow: visible;
+  }
+  
+  .philosophy-section .container {
+    overflow: visible;
+  }
+  
+}
+
+@media (max-width: 480px) {
+  .container {
+    width: 92%;
+    padding: 0;
+    margin: 0 auto;
+  }
+}
+
+.grid {
+  display: grid;
+  gap: var(--grid-gap);
+}
+
+.grid-cols-1 { grid-template-columns: 1fr; }
+.grid-cols-2 { grid-template-columns: repeat(2, 1fr); }
+.grid-cols-3 { grid-template-columns: repeat(3, 1fr); }
+.grid-cols-4 { grid-template-columns: repeat(4, 1fr); }
+.grid-cols-auto { grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); }
+
+.flex {
+  display: flex;
+}
+
+.flex-col {
+  flex-direction: column;
+}
+
+.items-center {
+  align-items: center;
+}
+
+.justify-between {
+  justify-content: space-between;
+}
+
+.justify-center {
+  justify-content: center;
+}
+
+.text-center {
+  text-align: center;
+}
+
+/* Section Foundation */
+.section {
+  position: relative;
+}
+
+/* Utility Classes */
+.mt-12 {
+  margin-top: 48px;
+}
+
+.mb-16 {
+  margin-bottom: 3rem;
+}
+
+/* LINE SELECT Typography System */
+.heading-hero {
+  font-family: -apple-system, BlinkMacSystemFont, 'Inter', 'Neue Haas Grotesk', 'Montserrat', sans-serif;
+  font-size: clamp(34px, 6vw, 66px);
+  font-weight: 800;
+  font-style: italic;
+  letter-spacing: 0.06em;
+  line-height: var(--line-height-tight);
+  color: var(--text-accent);
+  text-transform: uppercase;
+  margin-bottom: 32px;
+  transform: skewX(-12deg);
+  display: inline-block;
+}
+
+/* Section Headers - Modern & Sporty */
+.heading-section {
+  font-family: -apple-system, BlinkMacSystemFont, 'Inter', 'Neue Haas Grotesk', 'Montserrat', sans-serif;
+  font-size: clamp(28px, 5vw, 52px);
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  line-height: var(--line-height-tight);
+  color: #ffffff;
+  text-transform: uppercase;
+  text-align: left;
+  margin-bottom: 16px;
+}
+
+
+/* Section Subheaders */
+.section-subtitle {
+  font-family: -apple-system, BlinkMacSystemFont, 'Inter', 'Neue Haas Grotesk', 'Montserrat', sans-serif;
+  font-size: clamp(14px, 2.5vw, 18px);
+  font-weight: 400;
+  letter-spacing: 0.2em;
+  line-height: var(--line-height-normal);
+  color: #bbbbbb;
+  text-transform: uppercase;
+  text-align: left;
+  max-width: 720px;
+  margin: 0 0 48px 0;
+}
+
+/* Card Headers */
+.heading-card {
+  font-family: -apple-system, BlinkMacSystemFont, 'Inter', 'Neue Haas Grotesk', 'Montserrat', sans-serif;
+  font-size: var(--font-size-lg);
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  line-height: var(--line-height-normal);
+  color: #ffffff;
+  text-transform: uppercase;
+  margin-bottom: 12px;
+}
+
+/* Footer Headers */
+.footer-heading {
+  font-family: -apple-system, BlinkMacSystemFont, 'Inter', 'Neue Haas Grotesk', 'Montserrat', sans-serif;
+  font-size: var(--font-size-sm);
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: #cccccc;
+  text-transform: uppercase;
+  margin-bottom: 16px;
+}
+
+/* Body Text */
+.text-body {
+  font-family: 'Inter', 'Source Sans Pro', 'Open Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: var(--font-size-base);
+  font-weight: 400;
+  line-height: var(--line-height-relaxed);
+  color: #cccccc;
+  margin-bottom: 2rem;
+  letter-spacing: 0.005em;
+}
+
+/* Lead Text for Emphasis */
+.text-lead {
+  font-family: -apple-system, BlinkMacSystemFont, 'Inter', 'Neue Haas Grotesk', 'Montserrat', sans-serif;
+  font-size: clamp(18px, 3vw, 24px);
+  font-weight: 300;
+  letter-spacing: 0.02em;
+  line-height: var(--line-height-relaxed);
+  color: rgba(255, 255, 255, 0.9);
+  text-align: center;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.text-small {
+  font-family: 'Inter', 'Source Sans Pro', 'Open Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: var(--font-size-sm);
+  font-weight: 400;
+  letter-spacing: 0.01em;
+  color: #bbbbbb;
+}
+
+/* Section Header Container */
+.section-header {
+  text-align: left;
+  margin-bottom: 2rem;
+}
+
+/* About USPs - Minimal styling */
+.about-usps {
+  display: flex;
+  gap: var(--gap-small);
+  margin: 24px 0;
+  align-items: center;
+}
+
+.about-usp-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.about-usp-icon {
+  width: 24px;
+  height: 24px;
+  transition: filter 0.3s ease, transform 0.3s ease;
+}
+
+.about-usp-item:hover .about-usp-icon {
+  filter: brightness(1.15);
+  transform: translateX(2px);
+}
+
+.about-usp-item span {
+  font-family: -apple-system, BlinkMacSystemFont, 'Inter', 'Neue Haas Grotesk', 'Montserrat', sans-serif;
+  font-size: var(--font-size-xs);
+  font-weight: 800;
+  font-style: italic;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #cccccc;
+  transform: skewX(-12deg);
+  display: inline-block;
+  transition: color 0.3s ease;
+}
+
+.about-usp-item:hover span {
+  color: rgba(255, 255, 255, 1);
+}
+

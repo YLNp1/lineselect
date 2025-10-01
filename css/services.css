@@ -1,0 +1,929 @@
+/* ===================================
+   MAIN SERVICES SECTION
+   =================================== */
+
+.main-services {
+  background: #0f0f0f;
+  padding: var(--section-padding) 0 var(--section-padding);
+  position: relative;
+}
+
+/* Main services container inherits from main container definition */
+
+.main-services .section-header {
+  margin-bottom: var(--gap-large);
+  text-align: center;
+}
+
+/* ===================================
+   EXTRA SERVICES SECTION
+   =================================== */
+
+.extra-services {
+  background: #0f0f0f;
+  padding: var(--section-padding) 0 var(--section-padding);
+  position: relative;
+}
+
+/* Extra services container inherits from main container definition */
+
+.extra-services .section-header {
+  margin-bottom: var(--gap-large);
+  text-align: center;
+}
+
+.services-content {
+  position: relative;
+}
+
+/* Services Grid - Balanced Space */
+.services-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--gap-medium);
+  margin-bottom: 2rem;
+}
+
+/* Main Services Hero Carousel - Premium Split Layout */
+.main-services-carousel {
+  width: 100%;
+  position: relative;
+  margin-top: var(--gap-large);
+  overflow: hidden;
+  cursor: default;
+}
+
+
+.service-hero-slide {
+  width: 100%;
+  position: relative;
+  cursor: default;
+}
+
+/* Split Grid - 50/50 Layout */
+.service-split-grid {
+  display: grid;
+  grid-template-columns: 50% 50%;
+  gap: 0;
+  min-height: 500px;
+  width: 100%;
+  cursor: default;
+}
+
+/* Left Column - Image */
+.service-image-column {
+  position: relative;
+  overflow: hidden;
+}
+
+.service-image-wrapper {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  min-height: 500px;
+}
+
+.service-image-wrapper img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+.service-image-label {
+  position: absolute;
+  bottom: 40px;
+  left: 40px;
+  z-index: 2;
+}
+
+.service-image-label span {
+  font-family: -apple-system, BlinkMacSystemFont, 'Inter', 'Neue Haas Grotesk', 'Montserrat', sans-serif;
+  font-size: var(--font-size-xs);
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  color: #ffffff;
+  background: rgba(0, 0, 0, 0.6);
+  padding: 8px 16px;
+  text-transform: uppercase;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Right Column - Content */
+.service-content-column {
+  position: relative;
+  display: flex;
+  align-items: center;
+  background: transparent;
+  padding: 80px 60px;
+}
+
+.service-content-wrapper {
+  max-width: 560px;
+  width: 100%;
+}
+
+.service-slide-title {
+  font-family: -apple-system, BlinkMacSystemFont, 'Inter', 'Neue Haas Grotesk', 'Montserrat', sans-serif;
+  font-size: clamp(2.2rem, 3.5vw, 3rem);
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  color: #ffffff;
+  margin: 0 0 1.5rem 0;
+  text-transform: uppercase;
+  line-height: 1.1;
+}
+
+.service-slide-description {
+  font-family: -apple-system, BlinkMacSystemFont, 'Inter', 'Neue Haas Grotesk', 'Montserrat', sans-serif;
+  font-size: var(--font-size-base);
+  line-height: var(--line-height-relaxed);
+  color: #cccccc;
+  max-width: 450px;
+  margin: 0 0 2rem 0;
+  letter-spacing: 0.005em;
+}
+
+.service-content-animated {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.swiper-slide-active .service-content-animated {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.service-subheader {
+  font-family: -apple-system, BlinkMacSystemFont, 'Inter', 'Neue Haas Grotesk', 'Montserrat', sans-serif;
+  font-size: var(--font-size-xs);
+  font-weight: 500;
+  letter-spacing: 0.15em;
+  color: #A9B0B6;
+  text-transform: uppercase;
+  margin: 0 0 0.8rem 0;
+  opacity: 0.8;
+}
+
+/* Service Highlights */
+.service-highlights {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 0 0 1.5rem 0;
+  padding: 0 0 1.5rem 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.service-usps {
+  display: flex;
+  gap: 1rem;
+}
+
+.service-usps span {
+  font-family: -apple-system, BlinkMacSystemFont, 'Inter', 'Neue Haas Grotesk', 'Montserrat', sans-serif;
+  font-size: var(--font-size-xs);
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  color: #ffffff;
+  text-transform: uppercase;
+  position: relative;
+}
+
+.service-usps span:not(:last-child)::after {
+  content: '•';
+  position: absolute;
+  right: -0.6rem;
+  color: #971b1e;
+}
+
+.service-pricing {
+  font-family: -apple-system, BlinkMacSystemFont, 'Inter', 'Neue Haas Grotesk', 'Montserrat', sans-serif;
+  font-size: var(--font-size-sm);
+  font-weight: 600;
+  color: #ffffff;
+  letter-spacing: 0.02em;
+}
+
+/* Service Specs */
+.service-specs {
+  display: flex;
+  gap: 1.5rem;
+  margin: 0 0 2.5rem 0;
+}
+
+.service-specs span {
+  font-family: -apple-system, BlinkMacSystemFont, 'Inter', 'Neue Haas Grotesk', 'Montserrat', sans-serif;
+  font-size: var(--font-size-xs);
+  font-weight: 400;
+  color: #A9B0B6;
+  letter-spacing: 0.05em;
+  position: relative;
+}
+
+.service-specs span:not(:last-child)::after {
+  content: '|';
+  position: absolute;
+  right: -0.8rem;
+  color: rgba(255, 255, 255, 0.2);
+}
+
+/* Service Badge */
+.service-badge {
+  position: absolute;
+  top: 30px;
+  right: 30px;
+  z-index: 2;
+  opacity: 0;
+  transform: translateY(-10px);
+  transition: all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.3s;
+}
+
+.swiper-slide-active .service-badge {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.service-badge span {
+  font-family: -apple-system, BlinkMacSystemFont, 'Inter', 'Neue Haas Grotesk', 'Montserrat', sans-serif;
+  font-size: var(--font-size-xs);
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  color: #ffffff;
+  background: rgba(0, 0, 0, 0.7);
+  padding: 8px 16px;
+  text-transform: uppercase;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 0;
+}
+
+/* Service CTA Group */
+.service-cta-group {
+  display: flex;
+  gap: 1.5rem;
+  align-items: center;
+  margin-top: auto;
+}
+
+/* Service CTA Buttons - Primary & Secondary */
+.btn-service-primary {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: #ffffff;
+  color: #000000;
+  font-family: -apple-system, BlinkMacSystemFont, 'Inter', 'Neue Haas Grotesk', 'Montserrat', sans-serif;
+  font-size: var(--font-size-xs);
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 14px 28px;
+  border: 1px solid #ffffff;
+  transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  text-decoration: none;
+  cursor: pointer;
+  border-radius: 0;
+}
+
+.btn-service-primary:hover {
+  background: transparent;
+  color: #ffffff;
+  border-color: #ffffff;
+  transform: translateY(-1px);
+}
+
+/* Larger size for featured CTA button */
+.featured-cta .btn-service-primary {
+  font-size: var(--font-size-base);
+  padding: 18px 36px;
+  background: #ffffff;
+  color: #000000;
+  border: 1px solid #ffffff;
+}
+
+.featured-cta .btn-service-primary:hover {
+  background: transparent;
+  color: #ffffff;
+  border-color: #ffffff;
+}
+
+@media (max-width: 768px) {
+  .featured-cta .btn-service-primary {
+    font-size: var(--font-size-xs);
+    padding: 14px 28px;
+  }
+}
+
+.btn-service-secondary {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: flex-start;
+  background: transparent;
+  color: #ffffff;
+  font-family: -apple-system, BlinkMacSystemFont, 'Inter', 'Neue Haas Grotesk', 'Montserrat', sans-serif;
+  font-size: var(--font-size-xs);
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 0;
+  border: none;
+  transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.btn-service-secondary::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  width: 0;
+  height: 1px;
+  background: #971b1e;
+  transition: width 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.btn-service-secondary:hover {
+  color: #ffffff;
+}
+
+.btn-service-secondary:hover::after {
+  width: 100%;
+}
+
+.btn-service-secondary .btn-icon {
+  font-size: 12px;
+  margin-right: 6px;
+  line-height: 1;
+  font-weight: 300;
+  transition: transform 0.3s ease;
+}
+
+.btn-service-secondary:hover .btn-icon {
+  transform: translateX(2px);
+}
+
+/* Legacy CTA Button - Same styling as other buttons */
+.btn-service-cta {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: flex-start !important;
+  background: transparent;
+  color: #ffffff;
+  font-family: -apple-system, BlinkMacSystemFont, 'Inter', 'Neue Haas Grotesk', 'Montserrat', sans-serif !important;
+  font-size: var(--font-size-xs) !important;
+  font-weight: 600 !important;
+  letter-spacing: 0.1em !important;
+  text-transform: uppercase !important;
+  padding: 0 !important;
+  border: none;
+  transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  text-decoration: none !important;
+  min-width: auto !important;
+  visibility: visible;
+  opacity: 1;
+  transform: translateY(0);
+  outline: none;
+  cursor: pointer;
+}
+
+.btn-service-cta::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  width: 0;
+  height: 1px;
+  background: #971b1e;
+  transition: width 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.btn-service-cta:hover {
+  color: #ffffff;
+}
+
+.btn-service-cta:hover::after {
+  width: 100%;
+  background: #971b1e;
+}
+
+.btn-service-cta .btn-icon {
+  font-size: 12px;
+  margin-right: 6px;
+  line-height: 1;
+  font-weight: 300;
+  transition: transform 0.3s ease;
+}
+
+.btn-service-cta:hover .btn-icon {
+  transform: translateX(2px);
+}
+
+.btn-service-cta:focus {
+  outline: 2px solid rgba(255, 255, 255, 0.4);
+  outline-offset: 2px;
+}
+
+.btn-service-cta:active {
+  transform: translateY(0px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* Swiper Navigation - Clean & Minimal */
+.main-services-carousel .swiper-pagination {
+  position: relative;
+  bottom: auto;
+  left: auto;
+  right: auto;
+  text-align: center;
+  margin-top: 60px;
+  width: auto;
+}
+
+.main-services-carousel .swiper-pagination-bullet {
+  width: 8px !important;
+  height: 8px !important;
+  border-radius: 0 !important;
+  background: rgba(255, 255, 255, 0.4) !important;
+  opacity: 1 !important;
+  margin: 0 !important;
+  transition: all 0.3s ease;
+}
+
+.main-services-carousel .swiper-pagination-bullet-active {
+  width: 8px !important;
+  height: 8px !important;
+  border-radius: 0 !important;
+  background: #ffffff !important;
+  transform: scale(1.3);
+}
+
+/* Responsive */
+@media (max-width: 1200px) {
+  
+  .service-content-column {
+    padding: 60px 40px;
+  }
+  
+  .service-image-label {
+    left: 30px;
+    bottom: 30px;
+  }
+}
+
+@media (max-width: 1024px) {
+  .service-split-grid {
+    grid-template-columns: 1fr;
+    min-height: auto;
+  }
+  
+  .service-image-wrapper {
+    min-height: 400px;
+  }
+  
+  .service-content-column {
+    padding: 50px 30px;
+  }
+  
+  .service-content-wrapper {
+    max-width: 100%;
+  }
+}
+
+@media (max-width: 768px) {
+  
+  .service-image-wrapper {
+    min-height: 300px;
+  }
+  
+  .service-content-column {
+    padding: 40px 24px;
+    min-height: 280px;
+  }
+  
+  .service-content-wrapper {
+    max-width: 100%;
+    display: flex;
+    flex-direction: column;
+    min-height: 200px;
+  }
+  
+  .btn-service-cta {
+    margin-top: auto;
+    align-self: flex-start;
+    width: auto;
+  }
+  
+  .service-cta-group {
+    flex-direction: column;
+    gap: 2.5rem;
+    align-items: flex-start;
+  }
+  
+  .btn-service-primary {
+    align-self: flex-start;
+    width: auto;
+  }
+  
+  .service-highlights {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+  
+  .service-specs {
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+  
+  .service-image-label {
+    left: 20px;
+    bottom: 20px;
+  }
+  
+  .service-slide-title {
+    font-size: clamp(1.8rem, 5vw, 2.2rem);
+    margin-bottom: 1rem;
+  }
+  
+  .service-slide-description {
+    font-size: var(--font-size-base);
+    margin-bottom: 2rem;
+  }
+  
+  .main-services-carousel .swiper-pagination {
+    margin-top: 40px;
+  }
+}
+
+/* Static Service Panels - Editorial Layout */
+.ls-service-panel {
+  margin-bottom: 120px;
+  position: relative;
+}
+
+/* Container positioning for overlay */
+.container.container-large {
+  position: relative;
+}
+
+.ls-service-panel:last-child {
+  margin-bottom: 0;
+}
+
+.ls-service-split {
+  display: grid;
+  grid-template-columns: 60% 40%;
+  gap: 0;
+  min-height: 540px;
+  align-items: stretch;
+}
+
+.ls-service-panel-reverse .ls-service-split {
+  grid-template-columns: 40% 60%;
+}
+
+.ls-service-image {
+  position: relative;
+  height: 100%;
+  min-height: 540px;
+  overflow: hidden;
+}
+
+.ls-service-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.ls-service-content {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  padding: 0;
+  background: transparent;
+}
+
+/* VERHUUR panel (first panel) - content should align to right edge */
+.ls-service-panel:first-child .ls-service-content {
+  justify-content: flex-end;
+}
+
+.ls-service-panel:first-child .ls-service-content-wrapper {
+  text-align: left;
+  margin-left: auto;
+  max-width: none;
+  width: auto;
+}
+
+.ls-service-content-wrapper {
+  max-width: 560px;
+  width: 100%;
+}
+
+/* Bridge Quote Overlay */
+.ls-service-bridge-overlay {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  transform: translateY(-50%);
+  z-index: 10;
+  pointer-events: none;
+}
+
+.bridge-quote-text {
+  font-family: -apple-system, BlinkMacSystemFont, 'Inter', 'Neue Haas Grotesk', 'Montserrat', sans-serif;
+  font-size: clamp(32px, 5vw, 64px);
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  line-height: 0.95;
+  color: #ffffff;
+  text-transform: uppercase;
+  text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.7);
+  text-align: left;
+  margin: 0;
+  padding: 0;
+  border: none;
+  quotes: none;
+  background: none;
+  backdrop-filter: none;
+}
+
+/* Responsive Design for Static Panels */
+@media (max-width: 1024px) {
+  .ls-service-split,
+  .ls-service-panel-reverse .ls-service-split {
+    grid-template-columns: 50% 50%;
+  }
+  
+  .ls-service-content {
+    padding: 40px 0;
+  }
+  
+  .ls-service-image {
+    min-height: 480px;
+  }
+}
+
+@media (max-width: 768px) {
+  .ls-service-split,
+  .ls-service-panel-reverse .ls-service-split {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto auto;
+  }
+  
+  .ls-service-panel-reverse .ls-service-content {
+    order: 2;
+  }
+  
+  .ls-service-panel-reverse .ls-service-image {
+    order: 1;
+  }
+  
+  .ls-service-content {
+    padding: 40px 0;
+    justify-content: flex-start;
+  }
+  
+  .ls-service-content-wrapper {
+    max-width: 100%;
+  }
+  
+  .ls-service-image {
+    min-height: 320px;
+  }
+  
+  .ls-service-panel {
+    margin-bottom: 80px;
+  }
+  
+  /* Smaller text sizes for mobile readability */
+  .intro-text,
+  .service-slide-description,
+  .service-description,
+  .about-intro-text {
+    font-size: 0.9rem !important;
+  }
+  
+}
+
+/* Service Card - Premium Dark Design */
+.service-card {
+  position: relative;
+  background: #0f0f0f;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  padding: 40px 32px;
+  height: 100%;
+  min-height: 240px;
+  display: flex;
+  flex-direction: column;
+  transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  overflow: hidden;
+}
+
+.service-card:hover {
+  transform: translateY(-2px);
+  border-color: rgba(255, 255, 255, 0.1);
+  background: #0a0a0a;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+}
+
+/* Service Icon - Strong Red Design Element */
+.service-icon {
+  display: none;
+}
+
+.service-line {
+  display: none;
+}
+
+.service-card:hover .service-line {
+  width: 70px;
+  background: #971b1e;
+  opacity: 1;
+}
+
+/* Service Content */
+.service-content {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Service Title - Bold Typography */
+.service-title {
+  font-family: -apple-system, BlinkMacSystemFont, 'Inter', 'Neue Haas Grotesk', 'Montserrat', sans-serif;
+  font-size: clamp(20px, 2vw, 28px);
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #ffffff;
+  margin-bottom: 2rem;
+  line-height: 1.1;
+}
+
+/* Service Accent Line - Removed */
+.service-accent-line {
+  display: none;
+}
+
+/* Service USP - Small Uppercase Subtitle */
+.service-usp {
+  font-family: -apple-system, BlinkMacSystemFont, 'Inter', 'Neue Haas Grotesk', 'Montserrat', sans-serif;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  line-height: 1.4;
+  color: #9da0a3;
+  text-transform: uppercase;
+  margin-bottom: 2rem;
+  transition: color 0.3s ease;
+}
+
+.service-card:hover .service-usp {
+  color: rgba(255, 255, 255, 0.9);
+}
+
+/* Service Description - Readable Body Text */
+.service-description {
+  font-family: -apple-system, BlinkMacSystemFont, 'Inter', 'Neue Haas Grotesk', 'Montserrat', sans-serif;
+  font-size: var(--font-size-base);
+  line-height: var(--line-height-relaxed);
+  color: #cccccc;
+  max-width: 450px;
+  margin: 0;
+  letter-spacing: 0.005em;
+}
+
+/* Highlight Spans - Premium Red Accent */
+.service-description .highlight {
+  color: #971b1e;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+}
+
+/* Services CTA - Left Aligned Button */
+.services-cta {
+  text-align: left;
+  margin-top: 48px;
+}
+
+/* Service Button - Clean CTA */
+.btn-services {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: flex-start !important;
+  background: transparent;
+  color: #ffffff;
+  font-family: -apple-system, BlinkMacSystemFont, 'Inter', 'Neue Haas Grotesk', 'Montserrat', sans-serif !important;
+  font-size: var(--font-size-xs) !important;
+  font-weight: 600 !important;
+  letter-spacing: 0.1em !important;
+  text-transform: uppercase !important;
+  padding: 0 !important;
+  border: none;
+  transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  text-decoration: none !important;
+  min-width: auto !important;
+  visibility: visible;
+  opacity: 1;
+  transform: translateY(0);
+  outline: none;
+}
+
+.btn-services::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  width: 0;
+  height: 1px;
+  background: #971b1e;
+  transition: width 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.btn-services:hover {
+  color: #ffffff;
+}
+
+.btn-services:hover::after {
+  width: 100%;
+  background: #971b1e;
+}
+
+.btn-services .btn-icon {
+  font-size: 12px;
+  margin-right: 6px;
+  line-height: 1;
+  font-weight: 300;
+  transition: transform 0.3s ease;
+}
+
+.btn-services:hover .btn-icon {
+  transform: translateX(2px);
+}
+
+.btn-services:focus {
+  outline: 2px solid rgba(255, 255, 255, 0.4);
+  outline-offset: 2px;
+}
+
+.btn-services:active {
+  transform: translateY(0px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* Responsive Services */
+@media (max-width: 1024px) {
+  .services-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 60px;
+  }
+  
+  
+  .service-card {
+    padding: 32px 28px;
+    min-height: 220px;
+  }
+}
+
+@media (max-width: 680px) {
+  .services-grid {
+    grid-template-columns: 1fr;
+    gap: var(--gap-medium);
+  }
+  
+  
+  .service-card {
+    padding: 24px;
+    min-height: 200px;
+  }
+  
+  .service-line {
+    width: 40px;
+  }
+  
+  .service-card:hover .service-line {
+    width: 75px;
+  }
+  
+  .service-title {
+    font-size: clamp(18px, 4vw, 22px);
+  }
+  
+  
+  .services-cta {
+    text-align: left;
+  }
+}
+

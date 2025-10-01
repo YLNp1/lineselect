@@ -1,0 +1,248 @@
+/* ===================================
+   RESPONSIVE DESIGN
+   =================================== */
+
+@media (max-width: 1024px) {
+  .item-brand h3 {
+    font-size: clamp(1.25rem, 2.8vw, 2rem);
+  }
+
+  .item-brand .tagline {
+    font-size: var(--font-size-xs);
+    letter-spacing: 0.15em;
+  }
+}
+
+@media (max-width: 768px) {
+  .brands-showcase {
+    padding: var(--section-padding-mobile) 0 var(--section-padding-mobile);
+  }
+
+  .item-brand {
+    aspect-ratio: 603 / 1000;  /* Taller on mobile, same width */
+  }
+
+  .item-brand .content {
+    padding: var(--gap-medium) var(--gap-small) calc(var(--gap-medium) + 20px) var(--gap-small);
+  }
+
+  .item-brand h3 {
+    font-size: clamp(1.2rem, 2.5vw, 1.75rem);
+  }
+
+  .btn-view-brand {
+    font-size: 10px;
+    letter-spacing: 0.08em;
+  }
+  
+  .btn-view-brand .btn-icon {
+    font-size: 10px;
+    margin-right: 4px;
+  }
+
+  .wrapper-pagination {
+    margin-top: 24px;
+  }
+}
+
+@media (max-width: 480px) {
+  .item-brand {
+    aspect-ratio: 603 / 1500;  /* Much taller on small mobile, same width */
+  }
+
+  .item-brand .content {
+    padding: var(--gap-small) var(--gap-small) calc(var(--gap-small) + 20px) var(--gap-small);
+  }
+
+  .item-brand h3 {
+    font-size: clamp(1rem, 2vw, 1.5rem);
+    margin-bottom: 4px;
+  }
+
+  .item-brand .tagline {
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    margin-bottom: 16px;
+  }
+
+  .autoplay-progress {
+    width: 40px;
+    height: 40px;
+  }
+
+  .swiper-pagination-bullet {
+    width: 6px !important;
+    height: 6px !important;
+    border-radius: 0 !important;
+    background: rgba(255, 255, 255, 0.4) !important;
+    }
+
+  .swiper-pagination-bullet-active {
+    width: 6px !important;
+    height: 6px !important;
+    border-radius: 0 !important;
+    background: #ffffff !important;
+    }
+}
+
+/* Brand/Logo Typography */
+.brand-title {
+  font-family: -apple-system, BlinkMacSystemFont, 'Inter', 'Neue Haas Grotesk', 'Montserrat', sans-serif;
+  font-size: clamp(16px, 2vw, 24px);
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  color: #ffffff;
+  text-transform: uppercase;
+}
+
+/* Featured CTA Container */
+.featured-cta {
+  margin-top: 3rem;
+  text-align: center;
+}
+
+/* Car Tabs Styling */
+.car-tabs-wrapper {
+  display: inline-flex;
+  gap: 0;
+  margin-bottom: 2rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Slider transition animations */
+.brands-slider {
+  transition: all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.slider-fade-out {
+  opacity: 0;
+  transform: translateY(20px);
+}
+
+.slider-fade-in {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.car-tab {
+  position: relative;
+  background: transparent;
+  border: none;
+  color: rgba(255, 255, 255, 0.5);
+  font-family: -apple-system, BlinkMacSystemFont, 'Inter', 'Neue Haas Grotesk', 'Montserrat', sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  padding: 12px 24px;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  outline: none;
+  text-align: center;
+}
+
+.car-tab:hover {
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.car-tab.active {
+  color: #ffffff;
+}
+
+.car-tab::after {
+  content: '';
+  position: absolute;
+  bottom: -1px;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: #971b1e;
+  transform: scaleX(0);
+  transition: transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.car-tab.active::after {
+  transform: scaleX(1);
+}
+
+/* Car Label Styling - Left positioned */
+.car-label-left {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  background: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(10px);
+  color: #ffffff;
+  font-family: -apple-system, BlinkMacSystemFont, 'Inter', 'Neue Haas Grotesk', 'Montserrat', sans-serif;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 6px 14px;
+  border-radius: 0;
+  z-index: 3;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+/* Responsive for tabs */
+@media (max-width: 768px) {
+  .car-tabs-wrapper {
+    display: inline-flex;
+    width: auto;
+    justify-content: flex-start;
+  }
+  
+  .car-tab {
+    padding: 10px 16px;
+    font-size: 11px;
+  }
+  
+  .car-label-left {
+    top: 12px;
+    left: 12px;
+    padding: 4px 10px;
+    font-size: 9px;
+  }
+}
+
+/* Primary Accent Button - Minimal Luxe Style */
+.btn.btn-primary-accent {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent !important;
+  color: #ffffff !important;
+  font-family: -apple-system, BlinkMacSystemFont, 'Inter', 'Neue Haas Grotesk', 'Montserrat', sans-serif;
+  font-size: var(--font-size-sm);
+  font-weight: 400;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  padding: 16px 40px !important;
+  border: 1px solid #ffffff;
+  text-decoration: none;
+  transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  box-shadow: none;
+}
+
+.btn.btn-primary-accent:hover {
+  background: rgba(139, 0, 0, 0.2) !important;
+  color: #ffffff !important;
+  border-color: #ffffff;
+  transform: none;
+  box-shadow: none;
+}
+
+.btn-primary-accent .btn-icon {
+  font-size: 14px;
+  margin-right: 10px;
+  font-weight: 300;
+  color: #ffffff;
+  transition: opacity 0.3s ease;
+}
+
+.btn-primary-accent:hover .btn-icon {
+  opacity: 0.9;
+}
+

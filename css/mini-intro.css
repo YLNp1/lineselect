@@ -1,0 +1,18 @@
+/* ===================================
+   MINI INTRO SECTION
+   =================================== */
+
+.mini-intro {
+  background: #0f0f0f;
+  padding: var(--section-padding) 0 0;
+}
+
+.intro-text {
+  font-family: -apple-system, BlinkMacSystemFont, 'Inter', 'Neue Haas Grotesk', 'Montserrat', sans-serif;
+  font-size: var(--font-size-base);
+  line-height: var(--line-height-relaxed);
+  color: #cccccc;
+  max-width: 450px;
+  margin: 0;
+  letter-spacing: 0.005em;
+}

@@ -1,5 +1,16 @@
 // Mobile Menu Toggle
 document.addEventListener('DOMContentLoaded', function() {
+    // Set active navigation link based on current page
+    const currentPage = window.location.pathname.split('/').pop() || 'index.html';
+    const navLinkElements = document.querySelectorAll('.nav-link');
+    
+    navLinkElements.forEach(link => {
+        const linkPage = link.getAttribute('href');
+        if (linkPage === currentPage || (currentPage === 'index.html' && linkPage === '#')) {
+            link.classList.add('active');
+        }
+    });
+
     const mobileMenuToggle = document.querySelector('.mobile-menu-toggle');
     const navLinks = document.querySelector('.nav-links');
     const body = document.body;
@@ -119,7 +130,7 @@ document.addEventListener('DOMContentLoaded', async function() {
     console.log('🌐 Current page:', window.location.pathname);
     
     // Load vehicles from CMS first
-    await loadVehicles();
+    const cmsLoaded = await loadVehicles();
     
     // Then initialize page functionality
     initializeProductPage();
@@ -127,8 +138,27 @@ document.addEventListener('DOMContentLoaded', async function() {
     initializeSmoothScrolling();
     initializeVideoFallback();
     
-    // If on homepage or inventory, update car cards
-    updateCarCards();
+    // Initialize inventory page if we're on it
+    if (window.location.pathname.includes('inventory.html')) {
+        console.log('Initializing inventory page...');
+        // Save the original sale inventory HTML
+        const inventoryGrid = document.querySelector('.inventory-grid');
+        if (inventoryGrid) {
+            saleInventoryHTML = inventoryGrid.innerHTML;
+        }
+        // Make sure rent cars are hidden on page load
+        setTimeout(() => {
+            showSaleInventory();
+        }, 100);
+    }
+    
+    // Only update car cards if we successfully loaded from CMS
+    // Otherwise keep the static HTML content
+    if (cmsLoaded) {
+        updateCarCards();
+    } else {
+        console.log('📌 Keeping static HTML content since CMS is unavailable');
+    }
 });
 
 // Product page functionality
@@ -354,6 +384,11 @@ function updateCarCards() {
     const inventoryGrid = document.querySelector('.inventory-grid');
     if (inventoryGrid) {
         console.log('📋 Found inventory grid, updating...');
+        // Only clear if we have data to replace it with
+        if (Object.keys(carData).length === 0) {
+            console.log('⚠️ No car data available, keeping existing content');
+            return;
+        }
         // Clear existing items
         inventoryGrid.innerHTML = '';
         
@@ -566,3 +601,121 @@ function initializeVideoFallback() {
         }, 3000);
     }
 }
+
+// Sale cars data (backup for switching back from rent)
+let saleInventoryHTML = '';
+
+// Inventory tab functionality
+window.showSaleInventory = function() {
+    const tabs = document.querySelectorAll('.car-tab');
+    const inventoryCount = document.getElementById('inventory-count');
+    const saleFilters = document.querySelector('.sale-filters');
+    const rentFilters = document.querySelector('.rent-filters');
+    const inventoryGrid = document.querySelector('.inventory-grid');
+    
+    // Update active tab
+    tabs.forEach(tab => tab.classList.remove('active'));
+    document.querySelector('[data-tab="sale"]').classList.add('active');
+    
+    // Show/hide appropriate filters
+    if (saleFilters) saleFilters.style.display = 'flex';
+    if (rentFilters) rentFilters.style.display = 'none';
+    
+    // Restore sale inventory
+    if (saleInventoryHTML) {
+        inventoryGrid.innerHTML = saleInventoryHTML;
+    }
+    
+    // Update count
+    const saleCars = document.querySelectorAll('[data-type="sale"]');
+    if (inventoryCount) {
+        inventoryCount.textContent = saleCars.length + ' AUTO\'S OP VOORRAAD';
+    }
+}
+
+// Rental cars data
+const rentalCars = [
+    {
+        brand: 'mclaren',
+        price: 1500,
+        year: 2022,
+        name: 'MCLAREN 720S',
+        variant: 'Coupe • Carbon Fiber Package',
+        specs: ['2022', 'MIN. 3 DAGEN', '720 PK', '341 KM/H'],
+        displayPrice: '€1.500/dag',
+        image: 'https://images.unsplash.com/photo-1544636331-e26879cd4d9b?w=800&h=600&fit=crop&q=80',
+        id: 'mclaren-720s-rent'
+    },
+    {
+        brand: 'lamborghini',
+        price: 1800,
+        year: 2023,
+        name: 'LAMBORGHINI HURACÁN EVO',
+        variant: 'Spyder • Performance Package',
+        specs: ['2023', 'MIN. 2 DAGEN', '640 PK', '325 KM/H'],
+        displayPrice: '€1.800/dag',
+        image: 'https://images.unsplash.com/photo-1621135802920-133df287f89c?w=800&h=600&fit=crop&q=80',
+        id: 'lamborghini-huracan-rent'
+    }
+];
+
+window.showRentInventory = function() {
+    const tabs = document.querySelectorAll('.car-tab');
+    const inventoryCount = document.getElementById('inventory-count');
+    const saleFilters = document.querySelector('.sale-filters');
+    const rentFilters = document.querySelector('.rent-filters');
+    const inventoryGrid = document.querySelector('.inventory-grid');
+    
+    console.log('Found filters:', {saleFilters, rentFilters});
+    
+    // Update active tab
+    tabs.forEach(tab => tab.classList.remove('active'));
+    document.querySelector('[data-tab="rent"]').classList.add('active');
+    
+    // Show/hide appropriate filters
+    if (saleFilters) saleFilters.style.display = 'none';
+    if (rentFilters) rentFilters.style.display = 'flex';
+    
+    // Clear inventory and add rental cars
+    if (inventoryGrid) {
+        inventoryGrid.innerHTML = '';
+        
+        rentalCars.forEach(car => {
+            const carCard = document.createElement('div');
+            carCard.className = 'inventory-card';
+            carCard.setAttribute('data-brand', car.brand);
+            carCard.setAttribute('data-price', car.price);
+            carCard.setAttribute('data-year', car.year);
+            carCard.setAttribute('data-type', 'rent');
+            
+            carCard.innerHTML = `
+                <div class="car-image-container">
+                    <img src="${car.image}" alt="${car.name}" class="car-image">
+                </div>
+                <div class="car-details">
+                    <div class="car-title">
+                        <h3 class="car-name">${car.name}</h3>
+                        <p class="car-variant">${car.variant}</p>
+                    </div>
+                    <div class="car-specs">
+                        ${car.specs.map(spec => `
+                            <div class="spec-item">
+                                <span class="spec-label">${spec}</span>
+                            </div>
+                        `).join('')}
+                    </div>
+                    <p class="car-price">${car.displayPrice}</p>
+                    <button class="btn-details" onclick="transitionToProduct('${car.id}')">BEKIJK DETAILS</button>
+                </div>
+            `;
+            
+            inventoryGrid.appendChild(carCard);
+        });
+    }
+    
+    // Update count
+    if (inventoryCount) {
+        inventoryCount.textContent = rentalCars.length + ' AUTO\'S TE HUUR';
+    }
+}
+

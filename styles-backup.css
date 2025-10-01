@@ -1439,7 +1439,6 @@ body {
   color: #000000;
   border-color: #ffffff;
   transform: translateY(-2px);
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
 }
 
 .btn-consignment:hover .btn-icon {
@@ -4751,7 +4750,6 @@ body {
   color: #ffffff;
   border-color: #ffffff;
   transform: translateY(-1px);
-  box-shadow: 0 4px 12px rgba(255, 255, 255, 0.3);
 }
 
 /* Larger size for featured CTA button */
@@ -4767,7 +4765,6 @@ body {
   background: transparent;
   color: #ffffff;
   border-color: #ffffff;
-  box-shadow: 0 4px 12px rgba(255, 255, 255, 0.3);
 }
 
 @media (max-width: 768px) {

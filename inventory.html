@@ -5,7 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>LINE SELECT - Inventory</title>
     <link rel="icon" type="image/png" href="assets/favicon-lineselect.png">
-    <link rel="stylesheet" href="styles.css?v=10">
+    <link rel="stylesheet" href="css/main.css?v=17">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@300;400;600&display=swap" rel="stylesheet">
 </head>
 <body>
     <nav class="navbar">
@@ -35,7 +39,7 @@
                     <span class="burger-line"></span>
                 </button>
                 <div class="nav-links">
-                    <a href="inventory.html" class="nav-link">INVENTORY</a>
+                    <a href="inventory.html" class="nav-link active">INVENTORY</a>
                     <a href="about.html" class="nav-link">ABOUT</a>
                     <a href="contact.html" class="nav-link">CONTACT</a>
                 </div>
@@ -43,45 +47,135 @@
         </div>
     </nav>
 
-    <main class="page">
+    <main class="inventory-main">
         <div class="container">
-            <h1 class="page-title heading-hero">CURRENT COLLECTION</h1>
+            <div class="section-header">
+                <h1 class="heading-section">ONZE COLLECTIE</h1>
+                <p class="section-subtitle inventory-subtitle">PREMIUM SUPERCARS & LUXURY VEHICLES</p>
+            </div>
             
-            <div class="inventory-filters">
-                <div class="filter-group">
-                    <select id="brand-filter" class="filter-select">
-                        <option value="all">ALL MARQUES</option>
-                        <!-- Brand options will be populated dynamically -->
-                    </select>
+            <div class="inventory-header-bottom">
+                <div class="car-tabs-wrapper" data-active-tab="0">
+                    <button class="car-tab active" data-tab="sale" onclick="window.showSaleInventory()">TE KOOP</button>
+                    <button class="car-tab" data-tab="rent" onclick="window.showRentInventory()">TE HUUR</button>
                 </div>
-                <div class="filter-group">
-                    <select id="price-filter" class="filter-select">
-                        <option value="all">ALL PRICE RANGES</option>
-                        <option value="under-100">< €100,000</option>
-                        <option value="100-200">€100,000 - €200,000</option>
-                        <option value="200-300">€200,000 - €300,000</option>
-                        <option value="over-300">> €300,000</option>
-                    </select>
+                <div class="filter-controls-wrapper">
+                    <!-- Sale filters -->
+                    <div class="filter-controls sale-filters">
+                    <div class="filter-group">
+                        <label class="filter-label">MERK</label>
+                        <select class="filter-dropdown" id="brand-filter">
+                            <option value="">MERK</option>
+                            <option value="ferrari">FERRARI</option>
+                            <option value="lamborghini">LAMBO</option>
+                            <option value="mclaren">MCLAREN</option>
+                            <option value="porsche">PORSCHE</option>
+                        </select>
+                    </div>
+                    <div class="filter-group">
+                        <label class="filter-label">PRIJS</label>
+                        <select class="filter-dropdown" id="price-filter">
+                            <option value="">PRIJS</option>
+                            <option value="0-300000">€0-300K</option>
+                            <option value="300000-400000">€300-400K</option>
+                            <option value="400000+">€400K+</option>
+                        </select>
+                    </div>
+                </div>
+                <!-- Rent filters -->
+                <div class="filter-controls rent-filters" style="display: none;">
+                    <div class="filter-group">
+                        <label class="filter-label">MERK</label>
+                        <select class="filter-dropdown" id="brand-filter-rent">
+                            <option value="">MERK</option>
+                            <option value="ferrari">FERRARI</option>
+                            <option value="lamborghini">LAMBO</option>
+                            <option value="mclaren">MCLAREN</option>
+                            <option value="porsche">PORSCHE</option>
+                        </select>
+                    </div>
+                    <div class="filter-group">
+                        <label class="filter-label">DAGPRIJS</label>
+                        <select class="filter-dropdown" id="price-filter-rent">
+                            <option value="">PRIJS</option>
+                            <option value="0-1000">€0-1K/dag</option>
+                            <option value="1000-2000">€1-2K/dag</option>
+                            <option value="2000+">€2K+/dag</option>
+                        </select>
+                    </div>
+                </div>
+                    <p class="inventory-count" id="inventory-count">2 AUTO'S OP VOORRAAD</p>
                 </div>
             </div>
+            
+            <!-- Inventory Grid -->
+            <div class="inventory-grid">
+                <!-- Car 1 - Porsche 911 GT3 -->
+                <div class="inventory-card" data-brand="porsche" data-price="289900" data-year="2023" data-mileage="8500" data-type="sale">
+                    <div class="car-image-container">
+                        <img src="https://images.unsplash.com/photo-1580274455191-1c62238fa333?w=800&h=600&fit=crop&q=80" alt="Porsche 911 GT3" class="car-image">
+                    </div>
+                    <div class="car-details">
+                        <div class="car-title">
+                            <h3 class="car-name">PORSCHE 911 GT3</h3>
+                            <p class="car-variant">PDK • Track Package</p>
+                        </div>
+                        <div class="car-specs">
+                            <div class="spec-item">
+                                <span class="spec-label">2023</span>
+                            </div>
+                            <div class="spec-item">
+                                <span class="spec-label">8.500 KM</span>
+                            </div>
+                            <div class="spec-item">
+                                <span class="spec-label">510 PK</span>
+                            </div>
+                            <div class="spec-item">
+                                <span class="spec-label">318 KM/H</span>
+                            </div>
+                        </div>
+                        <p class="car-price">€289.900</p>
+                        <button class="btn-details" onclick="transitionToProduct('porsche-911-gt3')">BEKIJK DETAILS</button>
+                    </div>
+                </div>
 
-            <div class="grid inventory-grid">
-                <!-- Inventory items will be loaded dynamically from CMS -->
+                <!-- Car 3 - Ferrari F8 Tributo -->
+                <div class="inventory-card" data-brand="ferrari" data-price="385000" data-year="2021" data-mileage="6800" data-type="sale">
+                    <div class="car-image-container">
+                        <img src="https://images.unsplash.com/photo-1583121274602-3e2820c69888?w=800&h=600&fit=crop&q=80" alt="Ferrari F8 Tributo" class="car-image">
+                    </div>
+                    <div class="car-details">
+                        <div class="car-title">
+                            <h3 class="car-name">FERRARI F8 TRIBUTO</h3>
+                            <p class="car-variant">Rosso Corsa • Full Carbon</p>
+                        </div>
+                        <div class="car-specs">
+                            <div class="spec-item">
+                                <span class="spec-label">2021</span>
+                            </div>
+                            <div class="spec-item">
+                                <span class="spec-label">6.800 KM</span>
+                            </div>
+                            <div class="spec-item">
+                                <span class="spec-label">720 PK</span>
+                            </div>
+                            <div class="spec-item">
+                                <span class="spec-label">340 KM/H</span>
+                            </div>
+                        </div>
+                        <p class="car-price">€385.000</p>
+                        <button class="btn-details" onclick="transitionToProduct('ferrari-f8-tributo')">BEKIJK DETAILS</button>
+                    </div>
+                </div>
             </div>
+            
         </div>
     </main>
 
-    <script src="script.js"></script>
-    <script src="simple-engine-sound.js"></script>
-    <script src="immersive-viewer.js"></script>
-    <script>
-        // Inventory filtering is now handled by script.js via initializeInventoryFilters()
-    </script>
-
-    <footer class="footer animate-fade">
+    <footer class="footer">
         <!-- Full width title container -->
         <div class="container">
-            <h2 class="footer-cta animate-on-scroll">GET IN TOUCH</h2>
+            <h2 class="footer-cta">GET IN TOUCH</h2>
         </div>
         
         <!-- Two column content containers -->
@@ -110,7 +204,7 @@
             </div>
             
             <div class="footer-right-container">
-                <div class="footer-boxes animate-slide-right">
+                <div class="footer-boxes">
                     <div class="footer-box">
                         <h3 class="footer-box-title">ADRES</h3>
                         <p class="footer-box-text">
@@ -129,11 +223,11 @@
                     </div>
                 </div>
                 
-                <div class="footer-phone animate-on-scroll">
+                <div class="footer-phone">
                     <a href="tel:+31612345678" class="footer-phone-link">+31 6 1234 5678</a>
                 </div>
                 
-                <div class="footer-email animate-on-scroll">
+                <div class="footer-email">
                     <a href="mailto:info@lineselect.nl" class="footer-email-link">INFO@LINESELECT.NL</a>
                 </div>
                 
@@ -167,30 +261,161 @@
             </div>
         </div>
     </footer>
-    
-    <script>
-        // Scroll animations
-        function initScrollAnimations() {
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('animate-in');
-                    }
-                });
-            }, {
-                threshold: 0.1,
-                rootMargin: '0px 0px -50px 0px'
-            });
 
-            // Observe all elements with animation classes
-            document.querySelectorAll('.animate-on-scroll, .animate-fade, .animate-slide-left, .animate-slide-right, .animate-scale').forEach(el => {
-                observer.observe(el);
-            });
+    <script src="script.js"></script>
+    <script>
+        // Smooth transition to product experience
+        function transitionToProduct(carId) {
+            // Add loading overlay
+            const overlay = document.createElement('div');
+            overlay.style.cssText = `
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: linear-gradient(45deg, #000, #111);
+                z-index: 9999;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                color: #fff;
+                opacity: 0;
+                transition: opacity 0.5s ease;
+            `;
+            
+            overlay.innerHTML = `
+                <div style="text-align: center;">
+                    <div style="width: 50px; height: 50px; border: 2px solid rgba(255,255,255,0.2); border-top: 2px solid #fff; border-radius: 50%; animation: spin 1s linear infinite; margin: 0 auto 20px;"></div>
+                    <div style="font-size: 14px; letter-spacing: 3px; opacity: 0.8;">LOADING EXPERIENCE</div>
+                </div>
+                <style>
+                    @keyframes spin {
+                        0% { transform: rotate(0deg); }
+                        100% { transform: rotate(360deg); }
+                    }
+                </style>
+            `;
+            
+            document.body.appendChild(overlay);
+            
+            // Trigger fade in
+            setTimeout(() => {
+                overlay.style.opacity = '1';
+            }, 10);
+            
+            // Navigate after transition
+            setTimeout(() => {
+                window.location.href = `product.html?id=${carId}`;
+            }, 800);
         }
 
-        // Initialize animations when page loads
+        // Override the functions to make them work
+        window.showSaleInventory = function() {
+            console.log('Showing sale inventory');
+            // Hide rent, show sale
+            document.querySelectorAll('[data-type="rent"]').forEach(el => el.style.display = 'none');
+            document.querySelectorAll('[data-type="sale"]').forEach(el => el.style.display = 'block');
+            
+            // Update tabs
+            document.querySelectorAll('.car-tab').forEach(tab => tab.classList.remove('active'));
+            document.querySelector('[data-tab="sale"]').classList.add('active');
+            
+            // Update filters
+            const saleFilters = document.querySelector('.sale-filters');
+            const rentFilters = document.querySelector('.rent-filters');
+            if (saleFilters) saleFilters.style.display = 'flex';
+            if (rentFilters) rentFilters.style.display = 'none';
+            
+            // Update count
+            const count = document.querySelectorAll('[data-type="sale"]').length;
+            document.getElementById('inventory-count').textContent = count + ' AUTO\'S OP VOORRAAD';
+        };
+        
+        window.showRentInventory = function() {
+            console.log('Showing rent inventory');
+            // First, add the rental cars if they don't exist
+            const inventoryGrid = document.querySelector('.inventory-grid');
+            if (!document.querySelector('[data-type="rent"]')) {
+                // Add McLaren 720S
+                const mclaren = document.createElement('div');
+                mclaren.className = 'inventory-card';
+                mclaren.setAttribute('data-brand', 'mclaren');
+                mclaren.setAttribute('data-price', '1500');
+                mclaren.setAttribute('data-year', '2022');
+                mclaren.setAttribute('data-type', 'rent');
+                mclaren.innerHTML = `
+                    <div class="car-image-container">
+                        <img src="https://images.unsplash.com/photo-1544636331-e26879cd4d9b?w=800&h=600&fit=crop&q=80" alt="McLaren 720S" class="car-image">
+                    </div>
+                    <div class="car-details">
+                        <div class="car-title">
+                            <h3 class="car-name">MCLAREN 720S</h3>
+                            <p class="car-variant">Coupe • Carbon Fiber Package</p>
+                        </div>
+                        <div class="car-specs">
+                            <div class="spec-item"><span class="spec-label">2022</span></div>
+                            <div class="spec-item"><span class="spec-label">MIN. 3 DAGEN</span></div>
+                            <div class="spec-item"><span class="spec-label">720 PK</span></div>
+                            <div class="spec-item"><span class="spec-label">341 KM/H</span></div>
+                        </div>
+                        <p class="car-price">€1.500/dag</p>
+                        <button class="btn-details" onclick="transitionToProduct('mclaren-720s-rent')">BEKIJK DETAILS</button>
+                    </div>
+                `;
+                inventoryGrid.appendChild(mclaren);
+                
+                // Add Lamborghini Huracán
+                const lambo = document.createElement('div');
+                lambo.className = 'inventory-card';
+                lambo.setAttribute('data-brand', 'lamborghini');
+                lambo.setAttribute('data-price', '1800');
+                lambo.setAttribute('data-year', '2023');
+                lambo.setAttribute('data-type', 'rent');
+                lambo.innerHTML = `
+                    <div class="car-image-container">
+                        <img src="https://images.unsplash.com/photo-1621135802920-133df287f89c?w=800&h=600&fit=crop&q=80" alt="Lamborghini Huracán EVO" class="car-image">
+                    </div>
+                    <div class="car-details">
+                        <div class="car-title">
+                            <h3 class="car-name">LAMBORGHINI HURACÁN EVO</h3>
+                            <p class="car-variant">Spyder • Performance Package</p>
+                        </div>
+                        <div class="car-specs">
+                            <div class="spec-item"><span class="spec-label">2023</span></div>
+                            <div class="spec-item"><span class="spec-label">MIN. 2 DAGEN</span></div>
+                            <div class="spec-item"><span class="spec-label">640 PK</span></div>
+                            <div class="spec-item"><span class="spec-label">325 KM/H</span></div>
+                        </div>
+                        <p class="car-price">€1.800/dag</p>
+                        <button class="btn-details" onclick="transitionToProduct('lamborghini-huracan-rent')">BEKIJK DETAILS</button>
+                    </div>
+                `;
+                inventoryGrid.appendChild(lambo);
+            }
+            
+            // Hide sale, show rent
+            document.querySelectorAll('[data-type="sale"]').forEach(el => el.style.display = 'none');
+            document.querySelectorAll('[data-type="rent"]').forEach(el => el.style.display = 'block');
+            
+            // Update tabs
+            document.querySelectorAll('.car-tab').forEach(tab => tab.classList.remove('active'));
+            document.querySelector('[data-tab="rent"]').classList.add('active');
+            
+            // Update filters
+            const saleFilters = document.querySelector('.sale-filters');
+            const rentFilters = document.querySelector('.rent-filters');
+            if (saleFilters) saleFilters.style.display = 'none';
+            if (rentFilters) rentFilters.style.display = 'flex';
+            
+            // Update count
+            const count = document.querySelectorAll('[data-type="rent"]').length;
+            document.getElementById('inventory-count').textContent = count + ' AUTO\'S TE HUUR';
+        };
+        
+        // Initialize with sale inventory
         document.addEventListener('DOMContentLoaded', function() {
-            initScrollAnimations();
+            window.showSaleInventory();
         });
     </script>
 </body>
