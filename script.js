@@ -579,87 +579,79 @@ function initializeInventoryFilters() {
         const inventoryCards = document.querySelectorAll('.inventory-card');
         console.log('🚗 Found cards:', inventoryCards.length);
         
-        // First, add filtering-out class to all visible cards
+        // Immediately determine which cards should be visible
+        const cardsToShow = [];
         inventoryCards.forEach((card, index) => {
-            if (!card.classList.contains('filtered-hidden')) {
-                console.log(`⏳ Adding filtering-out to card ${index}`);
-                setTimeout(() => {
-                    card.classList.add('filtering-out');
-                }, index * 30); // Staggered animation
+            const cardType = card.getAttribute('data-type');
+            const itemBrand = card.getAttribute('data-brand');
+            const itemPrice = parseInt(card.getAttribute('data-price'));
+            
+            let showItem = true;
+
+            // Filter by tab type first
+            if (cardType !== activeTabType) {
+                showItem = false;
+            }
+
+            // Brand filter
+            if (showItem && selectedBrand && selectedBrand !== '' && itemBrand !== selectedBrand) {
+                showItem = false;
+            }
+
+            // Price filter
+            if (showItem && selectedPrice && selectedPrice !== '') {
+                switch (selectedPrice) {
+                    case '0-300000':
+                        if (itemPrice >= 300000) showItem = false;
+                        break;
+                    case '300000-400000':
+                        if (itemPrice < 300000 || itemPrice > 400000) showItem = false;
+                        break;
+                    case '400000+':
+                        if (itemPrice < 400000) showItem = false;
+                        break;
+                    case '0-1000':
+                        if (itemPrice >= 1000) showItem = false;
+                        break;
+                    case '1000-2000':
+                        if (itemPrice < 1000 || itemPrice > 2000) showItem = false;
+                        break;
+                    case '2000+':
+                        if (itemPrice < 2000) showItem = false;
+                        break;
+                }
+            }
+
+            if (showItem) {
+                cardsToShow.push(card);
             }
         });
         
-        // Then apply filters after animation
+        // First, fade out all current visible cards
+        const currentlyVisible = Array.from(inventoryCards).filter(card => !card.classList.contains('filtered-hidden'));
+        currentlyVisible.forEach((card, index) => {
+            setTimeout(() => {
+                card.classList.add('filtering-out');
+            }, index * 30);
+        });
+        
+        // After fade out, hide all cards and show only the filtered ones
         setTimeout(() => {
-            inventoryCards.forEach((card, index) => {
-                const cardType = card.getAttribute('data-type');
-                const itemBrand = card.getAttribute('data-brand');
-                const itemPrice = parseInt(card.getAttribute('data-price'));
-                
-                console.log(`🔍 Checking card ${index}: type=${cardType}, brand=${itemBrand}, price=${itemPrice}`);
-                
-                let showItem = true;
-
-                // Filter by tab type first
-                if (cardType !== activeTabType) {
-                    showItem = false;
-                    console.log(`❌ Card ${index} hidden due to tab type`);
-                }
-
-                // Brand filter
-                if (showItem && selectedBrand && selectedBrand !== '' && itemBrand !== selectedBrand) {
-                    showItem = false;
-                    console.log(`❌ Card ${index} hidden due to brand filter`);
-                }
-
-                // Price filter
-                if (showItem && selectedPrice && selectedPrice !== '') {
-                    switch (selectedPrice) {
-                        case '0-300000':
-                            if (itemPrice >= 300000) showItem = false;
-                            break;
-                        case '300000-400000':
-                            if (itemPrice < 300000 || itemPrice > 400000) showItem = false;
-                            break;
-                        case '400000+':
-                            if (itemPrice < 400000) showItem = false;
-                            break;
-                        // Rent price filters
-                        case '0-1000':
-                            if (itemPrice >= 1000) showItem = false;
-                            break;
-                        case '1000-2000':
-                            if (itemPrice < 1000 || itemPrice > 2000) showItem = false;
-                            break;
-                        case '2000+':
-                            if (itemPrice < 2000) showItem = false;
-                            break;
-                    }
-                    if (!showItem) {
-                        console.log(`❌ Card ${index} hidden due to price filter`);
-                    }
-                }
-
-                // Remove all animation classes first
+            // First hide all cards
+            inventoryCards.forEach(card => {
                 card.classList.remove('filtering-out', 'filtering-in');
-                
-                // Apply visibility with animation
-                if (showItem) {
-                    console.log(`✅ Card ${index} will be shown`);
-                    card.classList.remove('filtered-hidden');
-                    // Add filtering-in class with delay for staggered effect
+                card.classList.add('filtered-hidden');
+            });
+            
+            // Then show only the cards that should be visible
+            cardsToShow.forEach((card, index) => {
+                card.classList.remove('filtered-hidden');
+                setTimeout(() => {
+                    card.classList.add('filtering-in');
                     setTimeout(() => {
-                        card.classList.add('filtering-in');
-                        setTimeout(() => {
-                            card.classList.remove('filtering-in');
-                        }, 300);
-                    }, index * 50);
-                } else {
-                    console.log(`🚫 Card ${index} will be hidden`);
-                    setTimeout(() => {
-                        card.classList.add('filtered-hidden');
-                    }, 400);
-                }
+                        card.classList.remove('filtering-in');
+                    }, 300);
+                }, index * 50);
             });
             
             // Update inventory count
