@@ -5616,6 +5616,16 @@ body {
   letter-spacing: 0.05em;
 }
 
+.spec-label::before {
+  content: '';
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  background-color: #971b1e;
+  margin-right: 8px;
+  vertical-align: middle;
+}
+
 .btn-details {
   width: 100%;
   background: #fff;
