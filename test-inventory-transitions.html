@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Inventory Transitions</title>
+    <style>
+        body {
+            background: #0f0f0f;
+            color: white;
+            font-family: Arial, sans-serif;
+            padding: 20px;
+        }
+        
+        .test-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .test-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+            margin-top: 20px;
+            transition: opacity 0.4s ease, transform 0.4s ease;
+            opacity: 0;
+            transform: translateY(0);
+            background: #1a1a1a;
+            padding: 20px;
+            min-height: 200px;
+        }
+        
+        .test-grid.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .test-grid.transitioning-out {
+            opacity: 0;
+            transform: translateY(20px);
+            pointer-events: none;
+        }
+        
+        .test-grid.transitioning-in {
+            opacity: 0;
+            transform: translateY(-20px);
+        }
+        
+        .test-item {
+            background: #2a2a2a;
+            padding: 20px;
+            text-align: center;
+        }
+        
+        .controls {
+            margin: 20px 0;
+        }
+        
+        button {
+            background: #971b1e;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            margin: 0 5px;
+            cursor: pointer;
+        }
+        
+        button:hover {
+            background: #b41f22;
+        }
+        
+        .status {
+            margin: 20px 0;
+            padding: 10px;
+            background: #1a1a1a;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+    <div class="test-container">
+        <h1>Inventory Transition Test</h1>
+        
+        <div class="controls">
+            <button onclick="showSale()">Show Sale</button>
+            <button onclick="showRent()">Show Rent</button>
+            <button onclick="checkClasses()">Check Classes</button>
+        </div>
+        
+        <div class="status" id="status">Ready to test</div>
+        
+        <div class="test-grid" id="testGrid">
+            <div class="test-item" id="content">
+                Initial Content
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        const grid = document.getElementById('testGrid');
+        const status = document.getElementById('status');
+        const content = document.getElementById('content');
+        
+        // Initial state
+        setTimeout(() => {
+            grid.classList.add('active');
+            updateStatus('Grid activated on load');
+        }, 100);
+        
+        function updateStatus(msg) {
+            status.textContent = msg + ' | Classes: ' + grid.className;
+            console.log(msg, grid.className);
+        }
+        
+        function showSale() {
+            updateStatus('Starting sale transition...');
+            
+            // Remove active and add transitioning-out
+            grid.classList.remove('active', 'transitioning-in');
+            grid.classList.add('transitioning-out');
+            updateStatus('Added transitioning-out');
+            
+            setTimeout(() => {
+                // Update content
+                content.innerHTML = '<h2>Sale Inventory</h2><p>Cars for sale</p>';
+                
+                // Remove transitioning-out and add transitioning-in
+                grid.classList.remove('transitioning-out');
+                grid.classList.add('transitioning-in');
+                updateStatus('Switched to transitioning-in');
+                
+                // Final transition to active
+                setTimeout(() => {
+                    grid.classList.remove('transitioning-in');
+                    grid.classList.add('active');
+                    updateStatus('Sale transition complete');
+                }, 50);
+            }, 400);
+        }
+        
+        function showRent() {
+            updateStatus('Starting rent transition...');
+            
+            // Remove active and add transitioning-out
+            grid.classList.remove('active', 'transitioning-in');
+            grid.classList.add('transitioning-out');
+            updateStatus('Added transitioning-out');
+            
+            setTimeout(() => {
+                // Update content
+                content.innerHTML = '<h2>Rental Inventory</h2><p>Cars for rent</p>';
+                
+                // Remove transitioning-out and add transitioning-in
+                grid.classList.remove('transitioning-out');
+                grid.classList.add('transitioning-in');
+                updateStatus('Switched to transitioning-in');
+                
+                // Final transition to active
+                setTimeout(() => {
+                    grid.classList.remove('transitioning-in');
+                    grid.classList.add('active');
+                    updateStatus('Rent transition complete');
+                }, 50);
+            }, 400);
+        }
+        
+        function checkClasses() {
+            updateStatus('Current classes');
+            alert('Current classes: ' + grid.className);
+        }
+    </script>
+</body>
+</html>

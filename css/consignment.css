@@ -926,7 +926,6 @@
 .car-details {
   display: flex;
   justify-content: space-between;
-  align-items: center;
   padding-top: 16px;
   border-top: 1px solid var(--border-primary);
 }
